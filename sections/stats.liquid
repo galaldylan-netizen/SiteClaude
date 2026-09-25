@@ -17,9 +17,9 @@
   "settings": [ { "type": "text", "id": "heading", "label": "Titre (lecteurs d'écran)", "default": "Chiffres clés" } ],
   "blocks": [
     { "type": "stat", "name": "Chiffre", "settings": [
-      { "type": "number", "id": "value", "label": "Valeur", "default": 8 },
-      { "type": "range", "id": "decimals", "label": "Décimales", "min": 0, "max": 2, "step": 1, "default": 0 },
-      { "type": "text", "id": "unit", "label": "Unité", "default": "" },
+      { "type": "text", "id": "value", "label": "Valeur (chiffres, point pour les décimales)", "default": "8" },
+      { "type": "select", "id": "decimals", "label": "Décimales", "default": "0", "options": [ { "value": "0", "label": "0" }, { "value": "1", "label": "1" }, { "value": "2", "label": "2" } ] },
+      { "type": "text", "id": "unit", "label": "Unité" },
       { "type": "text", "id": "text", "label": "Légende", "default": "Planètes" }
     ] }
   ],

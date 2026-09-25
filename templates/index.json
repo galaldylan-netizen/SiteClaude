@@ -41,8 +41,8 @@
         "s1": {
           "type": "stat",
           "settings": {
-            "value": 4.6,
-            "decimals": 1,
+            "value": "4.6",
+            "decimals": "1",
             "unit": "Md ans",
             "text": "Âge du Système solaire"
           }
@@ -50,8 +50,8 @@
         "s2": {
           "type": "stat",
           "settings": {
-            "value": 99.86,
-            "decimals": 2,
+            "value": "99.86",
+            "decimals": "2",
             "unit": "%",
             "text": "de toute la masse du Système solaire se trouve dans le Soleil"
           }
@@ -59,8 +59,8 @@
         "s3": {
           "type": "stat",
           "settings": {
-            "value": 8.3,
-            "decimals": 1,
+            "value": "8.3",
+            "decimals": "1",
             "unit": "min",
             "text": "pour que la lumière du Soleil atteigne la Terre"
           }
@@ -68,8 +68,8 @@
         "s4": {
           "type": "stat",
           "settings": {
-            "value": 1321,
-            "decimals": 0,
+            "value": "1321",
+            "decimals": "0",
             "unit": "Terres",
             "text": "tiendraient dans le volume de Jupiter"
           }
