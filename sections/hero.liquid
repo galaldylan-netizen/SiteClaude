@@ -1,0 +1,89 @@
+{%- liquid
+  assign hero_product = section.settings.product
+  if hero_product == blank
+    assign hero_product = collections.all.products.first
+  endif
+  assign visual = section.settings.image | default: hero_product.featured_media
+-%}
+<section class="hero" aria-labelledby="HeroTitle-{{ section.id }}">
+  {%- if section.settings.background != blank -%}
+    <div class="hero__media" data-parallax="0.15">
+      {{ section.settings.background | image_url: width: 2400 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '750, 1100, 1500, 2000, 2400', sizes: '100vw', alt: '' }}
+    </div>
+  {%- endif -%}
+  <div class="hero__mist" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="hero__grain" aria-hidden="true"></div>
+
+  <div class="container hero__inner">
+    <div class="hero__content">
+      {%- if section.settings.eyebrow != blank -%}
+        <p class="eyebrow" data-reveal="fade">{{ section.settings.eyebrow | escape }}</p>
+      {%- endif -%}
+      <h1 class="hero__title h1 split-words" id="HeroTitle-{{ section.id }}" data-split>{{ section.settings.heading }}</h1>
+      {%- if section.settings.text != blank -%}
+        <p class="hero__text" data-reveal style="--i: 3">{{ section.settings.text | escape }}</p>
+      {%- endif -%}
+      <div class="hero__actions" data-reveal style="--i: 4">
+        {%- if section.settings.button_label != blank -%}
+          <a class="button button--light" href="{{ section.settings.button_link | default: routes.all_products_collection_url }}" data-magnetic>
+            {{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow' %}
+          </a>
+        {%- endif -%}
+        {%- if section.settings.button2_label != blank -%}
+          <a class="button button--ghost" href="{{ section.settings.button2_link | default: '#' }}">{{ section.settings.button2_label | escape }}</a>
+        {%- endif -%}
+      </div>
+    </div>
+
+    {%- if visual != blank -%}
+      <div class="hero__visual" data-tilt>
+        <div class="hero__visual-frame" data-reveal="clip">
+          {%- assign visual_alt = visual.alt | default: hero_product.title | escape -%}
+          {{ visual | image_url: width: 1200 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500, 800, 1000, 1200', sizes: '(min-width: 990px) 40vw, 80vw', alt: visual_alt }}
+        </div>
+        <svg class="hero__ring" viewBox="0 0 200 200" aria-hidden="true">
+          <defs><path id="ring-{{ section.id }}" d="M100,100 m-78,0 a78,78 0 1,1 156,0 a78,78 0 1,1 -156,0"/></defs>
+          <text font-size="15" letter-spacing="5" fill="currentColor"><textPath href="#ring-{{ section.id }}">{{ section.settings.ring_text | escape | upcase }}</textPath></text>
+          <circle cx="100" cy="100" r="4" fill="currentColor"/>
+        </svg>
+        {%- if hero_product != blank -%}
+          <a class="hero__badge" href="{{ hero_product.url }}">
+            {%- if hero_product.featured_media -%}
+              {{ hero_product.featured_media | image_url: width: 120 | image_tag: loading: 'eager', alt: '' }}
+            {%- endif -%}
+            <div>
+              <strong>{{ hero_product.title | escape }}</strong>
+              <span>{{ hero_product.price | money }}</span>
+            </div>
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <a class="hero__scroll" href="#{{ section.settings.scroll_target | default: 'MainContent' }}" data-scroll-next>
+    <span>{{ 'sections.hero.scroll' | t }}</span><i aria-hidden="true"></i>
+  </a>
+</section>
+
+{% schema %}
+{
+  "name": "Hero animé",
+  "class": "section-hero",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Aromathérapie · Design" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Respirez. <em>Ralentissez.</em> Ressentez.", "info": "Mets un mot en italique pour le faire ressortir en doré." },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Des diffuseurs d'huiles essentielles qui transforment chaque pièce en un lieu de calme. Une brume légère, une lumière douce, un design qui se remarque." },
+    { "type": "text", "id": "button_label", "label": "Bouton principal", "default": "Découvrir la collection" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton principal" },
+    { "type": "text", "id": "button2_label", "label": "Bouton secondaire", "default": "Notre histoire" },
+    { "type": "url", "id": "button2_link", "label": "Lien du bouton secondaire" },
+    { "type": "product", "id": "product", "label": "Produit mis en avant", "info": "Par défaut : le premier produit de la boutique." },
+    { "type": "image_picker", "id": "image", "label": "Image principale (remplace l'image du produit)" },
+    { "type": "image_picker", "id": "background", "label": "Image de fond (facultatif)" },
+    { "type": "text", "id": "ring_text", "label": "Texte circulaire", "default": "Brume · Lumière · Sérénité · " },
+    { "type": "text", "id": "scroll_target", "label": "ID de la section suivante (ancre)", "default": "collection" }
+  ],
+  "presets": [{ "name": "Hero animé" }]
+}
+{% endschema %}

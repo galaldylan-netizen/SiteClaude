@@ -1,0 +1,154 @@
+{%- comment -%}
+  Fonction de rétractation électronique — art. 11bis directive 2011/83/UE (ajouté par la directive (UE) 2023/2673),
+  applicable depuis le 19 juin 2026 aux ventes en ligne à des consommateurs de l'UE.
+  Étape 1 : bouton « Se rétracter du contrat ici » (libellé imposé ou formulation équivalente sans ambiguïté).
+  Étape 2 : saisie (nom, identification de la commande, e-mail de confirmation).
+  Étape 3 : bouton « Confirmer la rétractation ».
+  Le vendeur doit ensuite envoyer sans délai un accusé de réception sur support durable (e-mail) avec date et heure.
+  Ce formulaire envoie la demande par e-mail au vendeur (formulaire de contact Shopify) : l'accusé de réception
+  au client doit être envoyé par le vendeur (ou via une application de retours / les retours en libre-service Shopify).
+{%- endcomment -%}
+<section class="section section--tight">
+  <div class="container narrow">
+    <p class="eyebrow">{{ 'withdrawal.eyebrow' | t }}</p>
+    <h1 class="split-words" data-split>{{ page.title | escape }}</h1>
+    {%- if page.content != blank -%}<div class="rte">{{ page.content }}</div>{%- endif -%}
+
+    <div class="card-box" style="margin-top: 2rem" data-withdrawal>
+      {%- form 'contact', id: 'WithdrawalForm', novalidate: 'novalidate' -%}
+        {%- if form.posted_successfully? -%}
+          <div class="form-message form-message--success" role="status" tabindex="-1" autofocus>
+            <p><strong>{{ 'withdrawal.received_title' | t }}</strong></p>
+            <p>{{ 'withdrawal.received_text' | t }}</p>
+            <p>{{ 'withdrawal.received_time' | t }} <time data-now></time></p>
+          </div>
+          <script>
+            document.querySelectorAll('[data-now]').forEach((el) => {
+              const d = new Date();
+              el.dateTime = d.toISOString();
+              el.textContent = d.toLocaleString('{{ request.locale.iso_code }}', { dateStyle: 'long', timeStyle: 'short' });
+            });
+          </script>
+        {%- else -%}
+          {%- if form.errors -%}
+            <div class="form-message form-message--error" role="alert" tabindex="-1" autofocus>{{ form.errors | default_errors }}</div>
+          {%- endif -%}
+
+          <input type="hidden" name="contact[subject]" value="{{ 'withdrawal.subject' | t }}">
+          <input type="hidden" name="contact[type]" value="Rétractation">
+
+          {%- comment -%} Étape 1 {%- endcomment -%}
+          <div data-step="1">
+            <p>{{ 'withdrawal.intro' | t }}</p>
+            <button type="button" class="button" data-withdrawal-start aria-controls="WithdrawalStep2" aria-expanded="false">{{ 'withdrawal.start_button' | t }}</button>
+          </div>
+
+          {%- comment -%} Étape 2 {%- endcomment -%}
+          <div data-step="2" id="WithdrawalStep2" hidden>
+            <h2 class="h3" tabindex="-1" data-step-title>{{ 'withdrawal.step2_title' | t }}</h2>
+            <p class="hint">{{ 'general.required_fields' | t }}</p>
+            <div class="field">
+              <label for="WName">{{ 'withdrawal.name' | t }} <span class="required" aria-hidden="true">*</span></label>
+              <input id="WName" name="contact[name]" autocomplete="name" required aria-required="true">
+            </div>
+            <div class="field">
+              <label for="WEmail">{{ 'withdrawal.email' | t }} <span class="required" aria-hidden="true">*</span></label>
+              <input id="WEmail" type="email" name="contact[email]" autocomplete="email" required aria-required="true" aria-describedby="WEmailHint">
+              <span class="hint" id="WEmailHint">{{ 'withdrawal.email_hint' | t }}</span>
+            </div>
+            <div class="field">
+              <label for="WOrder">{{ 'withdrawal.order' | t }} <span class="required" aria-hidden="true">*</span></label>
+              <input id="WOrder" name="contact[Numéro de commande]" required aria-required="true" aria-describedby="WOrderHint" placeholder="#1001">
+              <span class="hint" id="WOrderHint">{{ 'withdrawal.order_hint' | t }}</span>
+            </div>
+            <div class="field">
+              <label for="WItems">{{ 'withdrawal.items' | t }}</label>
+              <textarea id="WItems" name="contact[Articles concernés]" aria-describedby="WItemsHint"></textarea>
+              <span class="hint" id="WItemsHint">{{ 'withdrawal.items_hint' | t }}</span>
+            </div>
+            <p class="form-message form-message--error" role="alert" data-withdrawal-error hidden></p>
+            <button type="button" class="button" data-withdrawal-review>{{ 'withdrawal.continue' | t }}</button>
+          </div>
+
+          {%- comment -%} Étape 3 : confirmation {%- endcomment -%}
+          <div data-step="3" hidden>
+            <h2 class="h3" tabindex="-1" data-step-title>{{ 'withdrawal.step3_title' | t }}</h2>
+            <div class="withdrawal-summary">
+              <dl>
+                <dt>{{ 'withdrawal.name' | t }}</dt><dd data-summary="WName"></dd>
+                <dt>{{ 'withdrawal.email' | t }}</dt><dd data-summary="WEmail"></dd>
+                <dt>{{ 'withdrawal.order' | t }}</dt><dd data-summary="WOrder"></dd>
+                <dt>{{ 'withdrawal.items' | t }}</dt><dd data-summary="WItems"></dd>
+              </dl>
+            </div>
+            <textarea name="contact[body]" hidden data-withdrawal-body></textarea>
+            <div style="display:flex; flex-wrap:wrap; gap:.75rem">
+              <button type="submit" class="button">{{ 'withdrawal.confirm_button' | t }}</button>
+              <button type="button" class="button button--ghost" data-withdrawal-back>{{ 'withdrawal.edit' | t }}</button>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endform -%}
+    </div>
+
+    <details class="accordion" style="margin-top: 2rem">
+      <summary>{{ 'withdrawal.model_form_title' | t }}<span class="plus" aria-hidden="true"></span></summary>
+      <div class="accordion__content rte">
+        <p>{{ 'withdrawal.model_form_intro' | t }}</p>
+        <p>À l'attention de {{ shop.name }}{% if shop.address.street != blank %}, {{ shop.address.street }}, {{ shop.address.zip }} {{ shop.address.city }}, {{ shop.address.country }}{% endif %}, {{ shop.email }} :<br>
+        Je/Nous (*) vous notifie/notifions (*) par la présente ma/notre (*) rétractation du contrat portant sur la vente du bien (*) ci-dessous :<br>
+        Commandé le (*) / reçu le (*) :<br>
+        Nom du (des) consommateur(s) :<br>
+        Adresse du (des) consommateur(s) :<br>
+        Signature du (des) consommateur(s) (uniquement en cas de notification du présent formulaire sur papier) :<br>
+        Date :<br>
+        (*) Rayez la mention inutile.</p>
+      </div>
+    </details>
+  </div>
+</section>
+
+<script>
+  (() => {
+    const root = document.querySelector('[data-withdrawal]');
+    if (!root) return;
+    const steps = root.querySelectorAll('[data-step]');
+    const show = (n) => {
+      steps.forEach((s) => { s.hidden = s.dataset.step !== String(n); });
+      const title = root.querySelector(`[data-step="${n}"] [data-step-title]`);
+      if (title) title.focus();
+    };
+    const start = root.querySelector('[data-withdrawal-start]');
+    start?.addEventListener('click', () => { start.setAttribute('aria-expanded', 'true'); show(2); });
+    root.querySelector('[data-withdrawal-back]')?.addEventListener('click', () => show(2));
+    root.querySelector('[data-withdrawal-review]')?.addEventListener('click', () => {
+      const err = root.querySelector('[data-withdrawal-error]');
+      const fields = ['WName', 'WEmail', 'WOrder'].map((id) => document.getElementById(id));
+      const invalid = fields.filter((f) => !f.value.trim() || (f.type === 'email' && !f.checkValidity()));
+      fields.forEach((f) => f.setAttribute('aria-invalid', invalid.includes(f) ? 'true' : 'false'));
+      if (invalid.length) {
+        err.textContent = {{ 'withdrawal.error_required' | t | json }};
+        err.hidden = false;
+        invalid[0].focus();
+        return;
+      }
+      err.hidden = true;
+      ['WName', 'WEmail', 'WOrder', 'WItems'].forEach((id) => {
+        const v = document.getElementById(id).value.trim();
+        root.querySelector(`[data-summary="${id}"]`).textContent = v || '—';
+      });
+      root.querySelector('[data-withdrawal-body]').value =
+        'DÉCLARATION DE RÉTRACTATION\n' +
+        'Nom : ' + document.getElementById('WName').value + '\n' +
+        'E-mail : ' + document.getElementById('WEmail').value + '\n' +
+        'Commande : ' + document.getElementById('WOrder').value + '\n' +
+        'Articles : ' + (document.getElementById('WItems').value || 'Toute la commande') + '\n' +
+        'Envoyée le : ' + new Date().toISOString();
+      show(3);
+    });
+  })();
+</script>
+
+{% schema %}
+{ "name": "Rétractation", "settings": [] }
+{% endschema %}

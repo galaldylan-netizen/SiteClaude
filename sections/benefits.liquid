@@ -1,0 +1,50 @@
+<section class="section section--tight" aria-labelledby="Title-{{ section.id }}">
+  <div class="container">
+    <h2 id="Title-{{ section.id }}" class="{% if section.settings.hide_title %}visually-hidden{% else %}h2{% endif %}" style="margin-bottom: 2.5rem; text-align: center;">{{ section.settings.heading | escape }}</h2>
+    <ul class="benefits" role="list">
+      {%- for block in section.blocks -%}
+        <li class="benefit" data-reveal style="--i: {{ forloop.index0 }}" {{ block.shopify_attributes }}>
+          <span class="benefit__icon">{% render 'icon', name: block.settings.icon %}</span>
+          <h3>{{ block.settings.title | escape }}</h3>
+          <p>{{ block.settings.text | escape }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avantages",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Pourquoi nous choisir" },
+    { "type": "checkbox", "id": "hide_title", "label": "Masquer visuellement le titre (reste lu par les lecteurs d'écran)", "default": true }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Avantage",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icône", "default": "leaf", "options": [
+          { "value": "leaf", "label": "Feuille" }, { "value": "drop", "label": "Goutte" }, { "value": "moon", "label": "Lune" },
+          { "value": "truck", "label": "Livraison" }, { "value": "return", "label": "Retour" }, { "value": "lock", "label": "Cadenas" },
+          { "value": "shield", "label": "Bouclier" }, { "value": "sparkle", "label": "Étincelle" }, { "value": "heart", "label": "Cœur" }
+        ] },
+        { "type": "text", "id": "title", "label": "Titre", "default": "Titre" },
+        { "type": "text", "id": "text", "label": "Texte", "default": "Description courte." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Avantages",
+      "blocks": [
+        { "type": "benefit", "settings": { "icon": "drop", "title": "Brume fine", "text": "Une diffusion douce de vos huiles essentielles préférées." } },
+        { "type": "benefit", "settings": { "icon": "moon", "title": "Ambiance apaisante", "text": "Lumière tamisée pour vos soirées et vos nuits." } },
+        { "type": "benefit", "settings": { "icon": "return", "title": "14 jours pour changer d'avis", "text": "Rétractation simple, en ligne, sans justification." } },
+        { "type": "benefit", "settings": { "icon": "lock", "title": "Paiement sécurisé", "text": "Paiement chiffré via Shopify Payments." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

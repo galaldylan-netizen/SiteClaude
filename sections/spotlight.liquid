@@ -1,0 +1,68 @@
+{%- liquid
+  assign p = section.settings.product
+  if p == blank
+    assign p = collections.all.products[1] | default: collections.all.products.first
+  endif
+  assign media = section.settings.image | default: p.featured_media
+-%}
+{%- if p != blank -%}
+<section class="section{% if section.settings.alt %} section--alt{% endif %}" aria-labelledby="Title-{{ section.id }}">
+  <div class="container spotlight{% if section.settings.reverse %} spotlight--reverse{% endif %}">
+    <div class="spotlight__media" data-reveal="clip">
+      {%- if media != blank -%}
+        {%- assign media_alt = media.alt | default: p.title | escape -%}
+        <div class="spotlight__parallax" data-parallax="0.12">
+          {{ media | image_url: width: 1400 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1400', sizes: '(min-width: 990px) 50vw, 100vw', alt: media_alt }}
+        </div>
+      {%- endif -%}
+    </div>
+    <div class="spotlight__content">
+      {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal="fade">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+      <h2 id="Title-{{ section.id }}" class="split-words" data-split>{{ section.settings.heading | default: p.title }}</h2>
+      <div data-reveal style="--i: 2">
+        {% render 'price', product: p, show_note: true %}
+        {% render 'rating', product: p, show_count: true %}
+      </div>
+      <p data-reveal style="--i: 3">{{ section.settings.text | default: p.description | strip_html | truncatewords: 40 }}</p>
+      <ul class="spotlight__list" role="list">
+        {%- for block in section.blocks -%}
+          <li data-reveal style="--i: {{ forloop.index | plus: 3 }}" {{ block.shopify_attributes }}>{% render 'icon', name: 'check' %}<span>{{ block.settings.text | escape }}</span></li>
+        {%- endfor -%}
+      </ul>
+      <div data-reveal style="--i: 7">
+        <a class="button" href="{{ p.url }}" data-magnetic>{{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow' %}</a>
+      </div>
+    </div>
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Produit à la une",
+  "class": "section-spotlight",
+  "settings": [
+    { "type": "product", "id": "product", "label": "Produit" },
+    { "type": "image_picker", "id": "image", "label": "Image (facultatif)" },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Coup de cœur" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre (par défaut : nom du produit)" },
+    { "type": "textarea", "id": "text", "label": "Texte (par défaut : description du produit)" },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Voir le produit" },
+    { "type": "checkbox", "id": "reverse", "label": "Image à droite", "default": false },
+    { "type": "checkbox", "id": "alt", "label": "Fond secondaire", "default": false }
+  ],
+  "blocks": [
+    { "type": "point", "name": "Point fort", "settings": [ { "type": "text", "id": "text", "label": "Texte", "default": "Design épuré" } ] }
+  ],
+  "presets": [
+    {
+      "name": "Produit à la une",
+      "blocks": [
+        { "type": "point", "settings": { "text": "Design épuré, pensé comme un objet de décoration" } },
+        { "type": "point", "settings": { "text": "Brume fine pour diffuser vos huiles essentielles" } },
+        { "type": "point", "settings": { "text": "S'intègre dans toutes les pièces" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

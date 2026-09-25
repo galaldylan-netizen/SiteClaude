@@ -1,0 +1,34 @@
+{%- comment -%}
+  Déclaration d'accessibilité — informations exigées par l'Acte européen sur l'accessibilité
+  (directive (UE) 2019/882, annexe V) pour les services de commerce électronique.
+  Le contenu de la page (éditeur Shopify) remplace le texte par défaut ci-dessous.
+{%- endcomment -%}
+<section class="section section--tight">
+  <div class="container narrow">
+    <h1 class="split-words" data-split>{{ page.title | escape }}</h1>
+    <div class="rte">
+      {%- if page.content != blank -%}
+        {{ page.content }}
+      {%- else -%}
+        {{ section.settings.statement }}
+        <h2>Nous contacter</h2>
+        <p>Si vous rencontrez une difficulté pour accéder à un contenu ou à une fonctionnalité, écrivez-nous à <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>. Nous vous répondrons et vous proposerons une alternative accessible (commande par e-mail, informations produit en texte, etc.).</p>
+        {%- if section.settings.last_review != blank -%}<p><em>Dernière mise à jour : {{ section.settings.last_review | escape }}</em></p>{%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Déclaration d'accessibilité",
+  "settings": [
+    {
+      "type": "richtext",
+      "id": "statement",
+      "label": "Déclaration",
+      "default": "<p>Nous voulons que notre boutique soit utilisable par toutes et tous, y compris les personnes aveugles, malvoyantes, sourdes ou ayant un handicap moteur ou cognitif.</p><h2>Norme visée</h2><p>Ce site vise la conformité aux Règles pour l'accessibilité des contenus Web (WCAG) 2.1, niveau AA, et à la norme européenne EN 301 549.</p><h2>Ce que nous avons mis en place</h2><ul><li>Navigation complète au clavier, avec un focus toujours visible et un lien « Aller au contenu ».</li><li>Compatibilité avec les lecteurs d'écran (structure de titres, textes alternatifs, libellés de formulaires, annonces des mises à jour du panier).</li><li>Contrastes de couleurs d'au moins 4,5:1 pour le texte.</li><li>Animations désactivables (bouton dans le pied de page) et respect du réglage « réduire les animations » de votre appareil.</li><li>Zoom jusqu'à 200 % et affichage sur mobile sans perte d'information.</li></ul><h2>Limites connues</h2><p>Certains contenus fournis par des services tiers (paiement, applications d'avis) ne dépendent pas entièrement de nous. Nous les signalons à leurs éditeurs lorsque nous constatons un problème.</p>"
+    },
+    { "type": "text", "id": "last_review", "label": "Date de dernière vérification", "default": "septembre 2026" }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,108 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "vendor"
+        },
+        "title": {
+          "type": "title"
+        },
+        "rating": {
+          "type": "rating"
+        },
+        "price": {
+          "type": "price"
+        },
+        "short": {
+          "type": "short_description",
+          "settings": {
+            "words": 30
+          }
+        },
+        "variants": {
+          "type": "variant_picker"
+        },
+        "stock": {
+          "type": "stock",
+          "settings": {
+            "low_stock": 5
+          }
+        },
+        "buy": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true
+          }
+        },
+        "trust": {
+          "type": "trust"
+        },
+        "desc": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Description",
+            "source": "description",
+            "open": false
+          }
+        },
+        "shipping": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Livraison",
+            "source": "shipping"
+          }
+        },
+        "returns": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Rétractation & retours",
+            "source": "returns"
+          }
+        },
+        "gpsr": {
+          "type": "collapsible",
+          "settings": {
+            "heading": "Sécurité du produit",
+            "source": "gpsr"
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "rating",
+        "price",
+        "short",
+        "variants",
+        "stock",
+        "buy",
+        "trust",
+        "desc",
+        "shipping",
+        "returns",
+        "gpsr"
+      ],
+      "settings": {}
+    },
+    "reviews": {
+      "type": "product-reviews",
+      "settings": {
+        "heading": "Avis clients"
+      }
+    },
+    "related": {
+      "type": "related-products",
+      "settings": {
+        "heading": "Vous aimerez aussi",
+        "limit": 4
+      }
+    }
+  },
+  "order": [
+    "main",
+    "reviews",
+    "related"
+  ]
+}

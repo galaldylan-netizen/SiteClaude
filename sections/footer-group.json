@@ -1,0 +1,11 @@
+{
+  "type": "footer",
+  "name": "Groupe pied de page",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": { "menu_1": "footer", "show_payment_icons": true }
+    }
+  },
+  "order": ["footer"]
+}

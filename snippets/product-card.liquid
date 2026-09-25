@@ -1,0 +1,71 @@
+{%- comment -%}
+  Carte produit. Paramètres : product, index (pour l'animation décalée), show_quick_add (booléen)
+{%- endcomment -%}
+{%- liquid
+  assign img = product.featured_media
+  assign img2 = product.media[1]
+  assign on_sale = false
+  if product.compare_at_price > product.price
+    assign on_sale = true
+  endif
+  assign card_id = 'card-' | append: product.id | append: '-' | append: section.id
+-%}
+<article class="card" data-reveal style="--i: {{ index | modulo: 4 }}" aria-labelledby="{{ card_id }}">
+  <div class="card__media">
+    {%- if img != blank -%}
+      {%- assign img_alt = img.alt | default: product.title | escape -%}
+      {{ img | image_url: width: 900 | image_tag:
+        loading: 'lazy',
+        widths: '360, 540, 720, 900',
+        sizes: '(min-width: 990px) 25vw, 50vw',
+        alt: img_alt
+      }}
+      {%- if img2 != blank and img2.media_type == 'image' -%}
+        {{ img2 | image_url: width: 900 | image_tag:
+          loading: 'lazy',
+          widths: '360, 540, 720, 900',
+          sizes: '(min-width: 990px) 25vw, 50vw',
+          alt: '',
+          class: 'card__img-2'
+        }}
+      {%- endif -%}
+    {%- else -%}
+      {{ 'product-apparel-1' | placeholder_svg_tag: 'placeholder' }}
+    {%- endif -%}
+
+    <div class="card__badges">
+      {%- if product.available == false -%}
+        <span class="badge badge--soldout">{{ 'products.product.sold_out' | t }}</span>
+      {%- elsif on_sale -%}
+        <span class="badge badge--sale">{{ 'products.product.on_sale' | t }}</span>
+      {%- endif -%}
+    </div>
+
+    {%- if show_quick_add and product.available -%}
+      <div class="card__quick">
+        {%- if product.has_only_default_variant -%}
+          {%- form 'product', product, data-product-form: '', novalidate: 'novalidate' -%}
+            <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            <button type="submit" class="button" aria-label="{{ 'products.product.add_to_cart_named' | t: title: product.title | escape }}">
+              {{- 'products.product.add_to_cart' | t -}}
+              {% render 'icon', name: 'plus' %}
+            </button>
+          {%- endform -%}
+        {%- else -%}
+          <a class="button" href="{{ product.url }}" aria-label="{{ 'products.product.choose_options_named' | t: title: product.title | escape }}">
+            {{- 'products.product.choose_options' | t -}}
+          </a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </div>
+
+  <div class="card__info">
+    <div>
+      <h3 class="card__title" id="{{ card_id }}"><a href="{{ product.url }}">{{ product.title | escape }}</a></h3>
+      {%- if product.type != blank -%}<p class="card__type">{{ product.type | escape }}</p>{%- endif -%}
+      {% render 'rating', product: product, show_count: true %}
+    </div>
+    {% render 'price', product: product %}
+  </div>
+</article>

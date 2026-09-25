@@ -1,0 +1,173 @@
+{
+  "general": {
+    "meta": { "tags": "Étiqueté « {{ tags }} »", "page": "Page {{ page }}" },
+    "close": "Fermer",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "new_window": "s'ouvre dans un nouvel onglet",
+    "required_fields": "Les champs marqués d'un astérisque (*) sont obligatoires.",
+    "password": "Mot de passe",
+    "enter": "Entrer",
+    "pagination": { "label": "Pagination", "page": "Page" }
+  },
+  "accessibility": {
+    "skip_to_content": "Aller au contenu",
+    "reduce_motion": "Réduire les animations"
+  },
+  "cart": {
+    "title": "Votre panier",
+    "items_label": "Articles du panier",
+    "summary": "Récapitulatif de la commande",
+    "added": "Article ajouté au panier.",
+    "updated": "Panier mis à jour.",
+    "error": "Une erreur est survenue. Veuillez réessayer.",
+    "checkout": "Passer au paiement",
+    "view_cart": "Voir le panier",
+    "continue": "Continuer mes achats",
+    "empty": "Votre panier est vide.",
+    "remove": "Retirer",
+    "note": "Note pour votre commande",
+    "subtotal": "Sous-total",
+    "taxes_included_shipping_at_checkout": "TVA incluse. Frais de livraison calculés à l'étape suivante, avant le paiement.",
+    "taxes_and_shipping_at_checkout": "Taxes et frais de livraison calculés à l'étape suivante, avant le paiement.",
+    "free_shipping_remaining_html": "Plus que {{ amount }} pour la livraison offerte",
+    "free_shipping_reached": "Livraison offerte !"
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Ajouter au panier",
+      "add_to_cart_named": "Ajouter {{ title }} au panier",
+      "choose_options": "Choisir les options",
+      "choose_options_named": "Choisir les options de {{ title }}",
+      "sold_out": "Épuisé",
+      "unavailable": "Indisponible",
+      "on_sale": "Promo",
+      "in_stock": "En stock",
+      "low_stock": { "one": "Plus que {{ count }} article en stock", "other": "Plus que {{ count }} articles en stock" },
+      "gallery": "Galerie d'images",
+      "show_image": "Afficher l'image {{ index }} sur {{ total }}",
+      "zoom": "Agrandir l'image",
+      "withdrawal_text": "Vous disposez de 14 jours à compter de la réception pour vous rétracter, sans avoir à vous justifier.",
+      "trust": { "withdrawal": "14 jours pour changer d'avis", "secure": "Paiement sécurisé" },
+      "price": {
+        "regular_price": "Prix",
+        "sale_price": "Prix promotionnel",
+        "compare_price": "Prix de référence",
+        "from_price_html": "Dès {{ price }}",
+        "lowest_30d": "Prix le plus bas des 30 derniers jours : {{ price }}",
+        "taxes_included": "TVA incluse",
+        "taxes_excluded": "Hors taxes",
+        "shipping_link": "Frais de livraison",
+        "shipping_at_checkout": "Frais de livraison calculés au paiement"
+      },
+      "quantity": {
+        "label": "Quantité",
+        "label_for": "Quantité pour {{ product }}",
+        "decrease": "Diminuer la quantité de {{ product }}",
+        "increase": "Augmenter la quantité de {{ product }}"
+      },
+      "rating": {
+        "label": "Note moyenne : {{ rating }} sur {{ max }}",
+        "count": { "one": "{{ count }} avis", "other": "{{ count }} avis" }
+      }
+    },
+    "gpsr": {
+      "manufacturer": "Fabricant",
+      "eu_responsible": "Personne responsable dans l'UE",
+      "identifier": "Identification du produit",
+      "sku": "Réf.",
+      "barcode": "EAN",
+      "warnings": "Avertissements et consignes de sécurité",
+      "on_request": "Les informations de sécurité de ce produit sont disponibles sur simple demande par e-mail."
+    }
+  },
+  "sections": {
+    "announcement": { "label": "Annonces" },
+    "header": {
+      "menu": "Menu",
+      "main_nav": "Navigation principale",
+      "search": "Rechercher",
+      "search_placeholder": "Rechercher un produit…",
+      "account": "Mon compte",
+      "cart": "Panier",
+      "cart_items": { "one": "{{ count }} article", "other": "{{ count }} articles" }
+    },
+    "hero": { "scroll": "Défiler" },
+    "featured_collection": { "view_all": "Tout voir", "empty": "Aucun produit pour le moment." },
+    "collection": {
+      "eyebrow": "Collection",
+      "sort": "Trier par",
+      "apply": "Appliquer",
+      "auto_update": "La liste se met à jour automatiquement quand vous changez un filtre ou le tri.",
+      "empty": "Aucun produit ne correspond à votre sélection.",
+      "count": { "one": "{{ count }} produit", "other": "{{ count }} produits" }
+    },
+    "collections": { "title": "Collections", "count": { "one": "{{ count }} produit", "other": "{{ count }} produits" } },
+    "search": {
+      "title": "Recherche",
+      "results": { "one": "{{ count }} résultat pour « {{ terms }} »", "other": "{{ count }} résultats pour « {{ terms }} »" }
+    },
+    "reviews": {
+      "eyebrow": "Avis",
+      "based_on": { "one": "Basé sur {{ count }} avis client", "other": "Basé sur {{ count }} avis clients" },
+      "verified": "Achat vérifié",
+      "how_verified": "Comment les avis sont-ils vérifiés ?",
+      "none_yet": "Aucun avis pour le moment. Vous avez acheté ce produit ? Votre avis nous intéresse."
+    },
+    "newsletter": {
+      "email_label": "Adresse e-mail",
+      "email_placeholder": "Votre adresse e-mail",
+      "subscribe": "S'inscrire",
+      "success": "Merci ! Votre inscription est bien prise en compte.",
+      "legal": "En vous inscrivant, vous acceptez de recevoir nos e-mails. Désinscription possible à tout moment via le lien présent dans chaque e-mail. Plus d'infos :"
+    },
+    "footer": {
+      "help": "Aide",
+      "legal": "Informations légales",
+      "withdrawal": "Se rétracter",
+      "orders": "Suivre ma commande",
+      "accessibility": "Accessibilité",
+      "cookies": "Préférences cookies",
+      "payment_methods": "Moyens de paiement acceptés"
+    },
+    "contact": {
+      "name": "Nom",
+      "email": "E-mail",
+      "order": "Numéro de commande (facultatif)",
+      "message": "Message",
+      "send": "Envoyer",
+      "success": "Merci, votre message a bien été envoyé. Nous vous répondons rapidement.",
+      "privacy": "Vos données servent uniquement à répondre à votre demande."
+    },
+    "not_found": { "title": "Cette page s'est évaporée", "text": "La page que vous cherchez n'existe pas ou a été déplacée." }
+  },
+  "withdrawal": {
+    "eyebrow": "Droit de rétractation",
+    "intro": "Vous pouvez vous rétracter de votre achat dans les 14 jours suivant la réception, sans justification. Cliquez sur le bouton ci-dessous pour commencer.",
+    "start_button": "Se rétracter du contrat ici",
+    "step2_title": "Vos informations",
+    "step3_title": "Vérifiez puis confirmez",
+    "name": "Nom et prénom",
+    "email": "Adresse e-mail",
+    "email_hint": "Nous vous enverrons l'accusé de réception à cette adresse.",
+    "order": "Numéro de commande",
+    "order_hint": "Il figure dans l'e-mail de confirmation de commande (ex. #1001).",
+    "items": "Articles concernés",
+    "items_hint": "Laissez vide si vous vous rétractez de toute la commande.",
+    "continue": "Continuer",
+    "edit": "Modifier",
+    "confirm_button": "Confirmer la rétractation",
+    "error_required": "Merci de remplir les champs obligatoires : nom, e-mail valide et numéro de commande.",
+    "subject": "Déclaration de rétractation",
+    "received_title": "Votre rétractation a bien été envoyée.",
+    "received_text": "Vous allez recevoir un accusé de réception par e-mail, avec les instructions de retour. Conservez cette page (capture d'écran ou impression) comme preuve.",
+    "received_time": "Envoyée le :",
+    "model_form_title": "Formulaire type de rétractation (à imprimer)",
+    "model_form_intro": "Vous pouvez aussi nous notifier votre rétractation par e-mail ou par courrier, par exemple avec le modèle ci-dessous."
+  },
+  "gift_card": {
+    "title": "Votre carte cadeau",
+    "code": "Code :",
+    "expired": "Cette carte cadeau n'est plus valable."
+  }
+}

@@ -1,0 +1,24 @@
+<section class="section section--alt" data-recommendations data-url="{{ routes.product_recommendations_url }}?section_id={{ section.id }}&product_id={{ product.id }}&limit={{ section.settings.limit }}&intent=related" aria-labelledby="RelatedTitle-{{ section.id }}">
+  {%- if recommendations.performed and recommendations.products_count > 0 -%}
+    <div class="container">
+      <div class="section-header"><h2 id="RelatedTitle-{{ section.id }}">{{ section.settings.heading | escape }}</h2></div>
+      <ul class="product-grid" role="list" style="--cols: 4">
+        {%- for rec in recommendations.products -%}
+          <li>{% render 'product-card', product: rec, index: forloop.index0, show_quick_add: true, section: section %}</li>
+        {%- endfor -%}
+      </ul>
+    </div>
+  {%- else -%}
+    <h2 id="RelatedTitle-{{ section.id }}" class="visually-hidden">{{ section.settings.heading | escape }}</h2>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Produits similaires",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Vous aimerez aussi" },
+    { "type": "range", "id": "limit", "label": "Nombre de produits", "min": 2, "max": 8, "step": 1, "default": 4 }
+  ]
+}
+{% endschema %}

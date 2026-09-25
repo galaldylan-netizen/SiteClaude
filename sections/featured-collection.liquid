@@ -1,0 +1,52 @@
+{%- liquid
+  assign collection = section.settings.collection
+  if collection == blank
+    assign collection = collections.all
+  endif
+  assign limit = section.settings.limit
+-%}
+<section class="section{% if section.settings.alt %} section--alt{% endif %}" id="{{ section.settings.anchor | default: section.id }}" aria-labelledby="Title-{{ section.id }}">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal="fade">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 id="Title-{{ section.id }}" class="split-words" data-split>{{ section.settings.heading }}</h2>
+      </div>
+      <div data-reveal>
+        {%- if section.settings.text != blank -%}<p>{{ section.settings.text | escape }}</p>{%- endif -%}
+        <a class="link-arrow" href="{{ collection.url }}" style="margin-top: 1rem"><span>{{ 'sections.featured_collection.view_all' | t }}</span> {% render 'icon', name: 'arrow' %}</a>
+      </div>
+    </div>
+
+    <ul class="product-grid{% if section.settings.bento %} product-grid--bento{% endif %}" role="list" style="--cols: {{ section.settings.columns }}">
+      {%- for product in collection.products limit: limit -%}
+        {%- unless section.settings.hide_samples and product.tags contains 'Sample Product' -%}
+          <li>{% render 'product-card', product: product, index: forloop.index0, show_quick_add: section.settings.quick_add, section: section %}</li>
+        {%- endunless -%}
+      {%- else -%}
+        <li><p>{{ 'sections.featured_collection.empty' | t }}</p></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection en vedette",
+  "class": "section-featured-collection",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "La collection" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Des objets qui <em>respirent</em> avec vous" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Chaque diffuseur est choisi pour sa brume fine, son silence et sa présence dans la pièce." },
+    { "type": "collection", "id": "collection", "label": "Collection", "info": "Par défaut : tous les produits." },
+    { "type": "range", "id": "limit", "label": "Nombre de produits", "min": 2, "max": 16, "step": 1, "default": 8 },
+    { "type": "range", "id": "columns", "label": "Colonnes (ordinateur)", "min": 2, "max": 5, "step": 1, "default": 4 },
+    { "type": "checkbox", "id": "bento", "label": "Mettre le premier produit en grand (mise en page « bento »)", "default": true, "info": "Idéal avec 5 ou 9 produits sur 4 colonnes." },
+    { "type": "checkbox", "id": "quick_add", "label": "Ajout rapide au panier", "default": true },
+    { "type": "checkbox", "id": "hide_samples", "label": "Masquer les produits d'exemple Shopify (tag « Sample Product »)", "default": true },
+    { "type": "checkbox", "id": "alt", "label": "Fond secondaire", "default": false },
+    { "type": "text", "id": "anchor", "label": "Ancre (ID)", "default": "collection" }
+  ],
+  "presets": [{ "name": "Collection en vedette" }]
+}
+{% endschema %}

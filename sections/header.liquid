@@ -1,0 +1,101 @@
+{%- assign menu = section.settings.menu -%}
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <div class="site-header__left">
+      <button type="button" class="icon-button menu-toggle" aria-controls="MobileMenu" aria-expanded="false" data-menu-open>
+        {% render 'icon', name: 'menu' %}
+        <span class="visually-hidden">{{ 'sections.header.menu' | t }}</span>
+      </button>
+      <nav class="site-header__nav" aria-label="{{ 'sections.header.main_nav' | t }}">
+        <ul role="list">
+          {%- for link in menu.links -%}
+            <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+    </div>
+
+    <a href="{{ routes.root_url }}" class="site-header__logo">
+      {%- if section.settings.logo != blank -%}
+        {%- assign logo_height = section.settings.logo_width | divided_by: section.settings.logo.aspect_ratio | round -%}
+        {{ section.settings.logo | image_url: width: 400 | image_tag: alt: shop.name, loading: 'eager', width: section.settings.logo_width, height: logo_height }}
+      {%- else -%}
+        {{ shop.name }}
+      {%- endif -%}
+    </a>
+
+    <div class="site-header__icons">
+      <button type="button" class="icon-button" data-search-open aria-haspopup="dialog">
+        {% render 'icon', name: 'search' %}
+        <span class="visually-hidden">{{ 'sections.header.search' | t }}</span>
+      </button>
+      {%- if shop.customer_accounts_enabled -%}
+        <a href="{{ routes.account_url }}" class="icon-button">
+          {% render 'icon', name: 'account' %}
+          <span class="visually-hidden">{{ 'sections.header.account' | t }}</span>
+        </a>
+      {%- endif -%}
+      <a href="{{ routes.cart_url }}" class="icon-button" data-cart-open aria-haspopup="dialog">
+        {% render 'icon', name: 'cart' %}
+        <span class="visually-hidden">{{ 'sections.header.cart' | t }}, </span>
+        <span class="cart-count" data-cart-count data-count="{{ cart.item_count }}">
+          {%- if cart.item_count > 0 -%}{{ cart.item_count }}{%- endif -%}
+        </span>
+        <span class="visually-hidden">{{ 'sections.header.cart_items' | t: count: cart.item_count }}</span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-menu" id="MobileMenu" data-mobile-menu role="dialog" aria-modal="true" aria-label="{{ 'sections.header.menu' | t }}" hidden>
+  <div class="mobile-menu__overlay" data-menu-close></div>
+  <div class="mobile-menu__panel">
+    <div>
+      <button type="button" class="icon-button" data-menu-close>
+        {% render 'icon', name: 'close' %}
+        <span class="visually-hidden">{{ 'general.close' | t }}</span>
+      </button>
+    </div>
+    <nav aria-label="{{ 'sections.header.main_nav' | t }}">
+      <ul role="list" class="mobile-menu__links">
+        {%- for link in menu.links -%}
+          <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}>{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    {%- if shop.customer_accounts_enabled -%}
+      <a class="link-arrow" href="{{ routes.account_url }}"><span>{{ 'sections.header.account' | t }}</span> {% render 'icon', name: 'arrow' %}</a>
+    {%- endif -%}
+  </div>
+</div>
+
+<dialog class="search-modal" id="SearchModal" aria-label="{{ 'sections.header.search' | t }}" data-search-modal>
+  <div class="container search-modal__inner">
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-modal__row">
+      <label for="SearchInput" class="visually-hidden">{{ 'sections.header.search' | t }}</label>
+      <div class="search-form" style="flex:1; max-width:none">
+        <input type="search" id="SearchInput" name="q" placeholder="{{ 'sections.header.search_placeholder' | t }}" autocomplete="off" data-predictive-input aria-controls="PredictiveResults" aria-describedby="PredictiveStatus">
+        <input type="hidden" name="type" value="product">
+        <button class="button" type="submit">{{ 'sections.header.search' | t }}</button>
+      </div>
+      <button type="button" class="icon-button" data-search-close>
+        {% render 'icon', name: 'close' %}
+        <span class="visually-hidden">{{ 'general.close' | t }}</span>
+      </button>
+    </form>
+    <p id="PredictiveStatus" class="visually-hidden" aria-live="polite"></p>
+    <div id="PredictiveResults" class="predictive-results" data-predictive-results></div>
+  </div>
+</dialog>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "class": "section-header",
+  "settings": [
+    { "type": "image_picker", "id": "logo", "label": "Logo" },
+    { "type": "range", "id": "logo_width", "label": "Largeur du logo", "min": 60, "max": 240, "step": 10, "unit": "px", "default": 120 },
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu" }
+  ]
+}
+{% endschema %}

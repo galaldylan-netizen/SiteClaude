@@ -1,0 +1,22 @@
+{%- comment -%}
+  Affiche la note moyenne UNIQUEMENT si des avis réels existent.
+  Source : métachamps standards reviews.rating / reviews.rating_count (remplis automatiquement
+  par les applis d'avis compatibles : Shopify Product Reviews, Judge.me, Loox, etc.).
+{%- endcomment -%}
+{%- liquid
+  assign r = product.metafields.reviews.rating.value
+  assign count = product.metafields.reviews.rating_count.value | default: 0
+-%}
+{%- if r != blank and count > 0 -%}
+  {%- liquid
+    assign r_value = r.rating | default: r
+    assign r_max = r.scale_max | default: 5
+    assign pct = r_value | times: 100 | divided_by: r_max
+  -%}
+  <div class="rating">
+    <span class="stars" style="--pct: {{ pct }}%" aria-hidden="true"></span>
+    <span class="visually-hidden">{{ 'products.product.rating.label' | t: rating: r_value, max: r_max }}</span>
+    <span aria-hidden="true">{{ r_value | round: 1 }}</span>
+    {%- if show_count %}<span>({{ 'products.product.rating.count' | t: count: count }})</span>{% endif -%}
+  </div>
+{%- endif -%}

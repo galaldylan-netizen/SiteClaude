@@ -1,0 +1,39 @@
+<div class="marquee{% if section.settings.dark %} section--dark{% endif %}" role="region" aria-label="{{ section.settings.label | escape }}">
+  <p class="visually-hidden">{% for block in section.blocks %}{{ block.settings.text | escape }}{% unless forloop.last %}, {% endunless %}{% endfor %}</p>
+  <div class="marquee__track" style="--speed: {{ section.settings.speed }}s" aria-hidden="true">
+    {%- for i in (1..2) -%}
+      <div class="marquee__group">
+        {%- for n in (1..2) -%}
+          {%- for block in section.blocks -%}
+            <span class="marquee__item" {{ block.shopify_attributes }}>{{ block.settings.text | escape }}</span>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Texte défilant",
+  "settings": [
+    { "type": "text", "id": "label", "label": "Nom de la zone (lecteurs d'écran)", "default": "Nos engagements" },
+    { "type": "range", "id": "speed", "label": "Durée d'un tour", "min": 10, "max": 80, "step": 5, "unit": "s", "default": 35 },
+    { "type": "checkbox", "id": "dark", "label": "Fond sombre", "default": false }
+  ],
+  "blocks": [
+    { "type": "item", "name": "Texte", "settings": [ { "type": "text", "id": "text", "label": "Texte", "default": "Brume ultra-fine" } ] }
+  ],
+  "presets": [
+    {
+      "name": "Texte défilant",
+      "blocks": [
+        { "type": "item", "settings": { "text": "Brume ultra-fine" } },
+        { "type": "item", "settings": { "text": "Lumière d'ambiance" } },
+        { "type": "item", "settings": { "text": "Design minimaliste" } },
+        { "type": "item", "settings": { "text": "Silencieux" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

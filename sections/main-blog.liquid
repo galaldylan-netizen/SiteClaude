@@ -1,0 +1,25 @@
+{%- paginate blog.articles by 9 -%}
+<section class="section section--tight">
+  <div class="container">
+    <h1 class="split-words" data-split>{{ blog.title | escape }}</h1>
+    <ul class="product-grid" role="list" style="--cols: 3; margin-top: 2rem">
+      {%- for article in blog.articles -%}
+        <li>
+          <article class="card" data-reveal style="--i: {{ forloop.index0 | modulo: 3 }}">
+            <div class="card__media" style="--ratio: 3 / 2">
+              {%- if article.image -%}{{ article.image | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 33vw, 50vw', alt: '' }}{%- endif -%}
+            </div>
+            <p class="card__type"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: format: 'date' }}</time></p>
+            <h2 class="card__title" style="font-family: var(--font-heading); font-size: 1.4rem"><a href="{{ article.url }}">{{ article.title | escape }}</a></h2>
+            <p class="card__type">{{ article.excerpt_or_content | strip_html | truncatewords: 24 }}</p>
+          </article>
+        </li>
+      {%- endfor -%}
+    </ul>
+    {%- if paginate.pages > 1 -%}{% render 'pagination', paginate: paginate %}{%- endif -%}
+  </div>
+</section>
+{%- endpaginate -%}
+{% schema %}
+{ "name": "Blog", "settings": [] }
+{% endschema %}

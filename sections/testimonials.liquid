@@ -1,0 +1,125 @@
+{%- comment -%}
+  Avis clients (page d'accueil).
+  IMPORTANT : uniquement des avis réels. Deux options :
+  1) Bloc d'application (Judge.me, Shopify Product Reviews, Loox…) : recommandé, avis collectés et vérifiés automatiquement.
+  2) Blocs « Avis » saisis à la main, en recopiant fidèlement un avis réel reçu.
+  La section reste invisible tant qu'aucun avis n'est ajouté.
+{%- endcomment -%}
+{%- liquid
+  assign manual_count = 0
+  assign rating_sum = 0
+  assign has_app = false
+  for block in section.blocks
+    if block.type == 'review'
+      assign manual_count = manual_count | plus: 1
+      assign rating_sum = rating_sum | plus: block.settings.rating
+    elsif block.type == '@app'
+      assign has_app = true
+    endif
+  endfor
+-%}
+{%- if manual_count > 0 or has_app -%}
+<section class="section section--dark" aria-labelledby="Title-{{ section.id }}">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal="fade">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+        <h2 id="Title-{{ section.id }}" class="split-words" data-split>{{ section.settings.heading }}</h2>
+      </div>
+      {%- if manual_count > 0 -%}
+        {%- liquid
+          assign avg = rating_sum | times: 1.0 | divided_by: manual_count
+          assign pct = avg | times: 20
+        -%}
+        <div class="reviews-summary" data-reveal>
+          <span class="reviews-summary__score" aria-hidden="true">{{ avg | round: 1 }}</span>
+          <div>
+            <span class="stars" style="--pct: {{ pct }}%" aria-hidden="true"></span>
+            <p style="margin:0">
+              <span class="visually-hidden">{{ 'products.product.rating.label' | t: rating: avg, max: 5 }}. </span>
+              {{ 'sections.reviews.based_on' | t: count: manual_count }}
+            </p>
+          </div>
+          <div class="reviews-controls">
+            <button type="button" class="icon-button" data-scroll-prev aria-controls="Track-{{ section.id }}">{% render 'icon', name: 'arrow-left' %}<span class="visually-hidden">{{ 'general.previous' | t }}</span></button>
+            <button type="button" class="icon-button" data-scroll-next-track aria-controls="Track-{{ section.id }}">{% render 'icon', name: 'arrow' %}<span class="visually-hidden">{{ 'general.next' | t }}</span></button>
+          </div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- if manual_count > 0 -%}
+      <ul class="reviews-track" id="Track-{{ section.id }}" role="list" tabindex="0" aria-label="{{ section.settings.heading | strip_html | escape }}">
+        {%- for block in section.blocks -%}
+          {%- if block.type == 'review' -%}
+            <li style="display:flex; --i: {{ forloop.index0 | modulo: 3 }}" data-reveal {{ block.shopify_attributes }}>
+              <figure class="review-card" style="width:100%">
+                <div>
+                  <span class="stars" style="--pct: {{ block.settings.rating | times: 20 }}%" aria-hidden="true"></span>
+                  <span class="visually-hidden">{{ 'products.product.rating.label' | t: rating: block.settings.rating, max: 5 }}</span>
+                </div>
+                <blockquote><p style="margin:0">« {{ block.settings.quote | escape }} »</p></blockquote>
+                <figcaption>
+                  <div>
+                    <strong>{{ block.settings.author | escape }}</strong>
+                    <small>
+                      {%- if block.settings.location != blank -%}{{ block.settings.location | escape }}{%- endif -%}
+                      {%- if block.settings.date != blank %} · {{ block.settings.date | escape }}{%- endif -%}
+                    </small>
+                    {%- if block.settings.product != blank -%}<small><a href="{{ block.settings.product.url }}">{{ block.settings.product.title | escape }}</a></small>{%- endif -%}
+                  </div>
+                  {%- if block.settings.verified -%}
+                    <span class="review-verified">{% render 'icon', name: 'shield' %}{{ 'sections.reviews.verified' | t }}</span>
+                  {%- endif -%}
+                </figcaption>
+              </figure>
+            </li>
+          {%- endif -%}
+        {%- endfor -%}
+      </ul>
+    {%- endif -%}
+
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}
+        <div {{ block.shopify_attributes }}>{% render block %}</div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if settings.reviews_verification_text != blank -%}
+      <details class="reviews-note">
+        <summary>{{ 'sections.reviews.how_verified' | t }}</summary>
+        <div style="margin-top:.6rem">{{ settings.reviews_verification_text }}</div>
+      </details>
+    {%- endif -%}
+  </div>
+</section>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Avis clients",
+  "class": "section-testimonials",
+  "settings": [
+    { "type": "paragraph", "content": "N'ajoute que des avis réels, recopiés fidèlement (loi UE Omnibus, LCD suisse). La section est masquée tant qu'elle est vide." },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Avis clients" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Ils en parlent <em>mieux que nous</em>" }
+  ],
+  "blocks": [
+    { "type": "@app" },
+    {
+      "type": "review",
+      "name": "Avis",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Note", "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Avis (texte exact du client)" },
+        { "type": "text", "id": "author", "label": "Prénom + initiale (avec l'accord du client)" },
+        { "type": "text", "id": "location", "label": "Ville (facultatif)" },
+        { "type": "text", "id": "date", "label": "Date de l'avis", "info": "Ex. : septembre 2026" },
+        { "type": "product", "id": "product", "label": "Produit concerné" },
+        { "type": "checkbox", "id": "verified", "label": "Achat vérifié (le client a bien commandé ce produit)", "default": false }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Avis clients" }]
+}
+{% endschema %}

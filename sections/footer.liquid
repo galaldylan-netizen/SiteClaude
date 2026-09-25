@@ -1,0 +1,96 @@
+<footer class="site-footer" role="contentinfo">
+  <div class="container">
+    <div class="footer__grid">
+      <div class="footer__brand">
+        <p class="h3" style="font-family: var(--font-heading); margin-bottom: .8rem;">{{ shop.name }}</p>
+        {%- if section.settings.text != blank -%}<div>{{ section.settings.text }}</div>{%- endif -%}
+        <ul class="footer__social" role="list">
+          {%- if settings.social_instagram != blank -%}
+            <li><a class="icon-button" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">{% render 'icon', name: 'instagram' %}<span class="visually-hidden">Instagram ({{ 'general.new_window' | t }})</span></a></li>
+          {%- endif -%}
+          {%- if settings.social_tiktok != blank -%}
+            <li><a class="icon-button" href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">{% render 'icon', name: 'tiktok' %}<span class="visually-hidden">TikTok ({{ 'general.new_window' | t }})</span></a></li>
+          {%- endif -%}
+          {%- if settings.social_facebook != blank -%}
+            <li><a class="icon-button" href="{{ settings.social_facebook }}" target="_blank" rel="noopener">{% render 'icon', name: 'facebook' %}<span class="visually-hidden">Facebook ({{ 'general.new_window' | t }})</span></a></li>
+          {%- endif -%}
+        </ul>
+      </div>
+
+      {%- if section.settings.menu_1 != blank -%}
+        <nav aria-labelledby="FooterMenu1">
+          <h2 id="FooterMenu1">{{ section.settings.menu_1.title | escape }}</h2>
+          <ul role="list">
+            {%- for link in section.settings.menu_1.links -%}
+              <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+            {%- endfor -%}
+          </ul>
+        </nav>
+      {%- endif -%}
+
+      <nav aria-labelledby="FooterHelp">
+        <h2 id="FooterHelp">{{ 'sections.footer.help' | t }}</h2>
+        <ul role="list">
+          {%- if section.settings.withdrawal_page != blank -%}
+            <li><a href="{{ section.settings.withdrawal_page.url }}"><strong>{{ 'sections.footer.withdrawal' | t }}</strong></a></li>
+          {%- endif -%}
+          {%- if section.settings.contact_page != blank -%}<li><a href="{{ section.settings.contact_page.url }}">{{ section.settings.contact_page.title }}</a></li>{%- endif -%}
+          {%- if shop.customer_accounts_enabled -%}<li><a href="{{ routes.account_url }}">{{ 'sections.footer.orders' | t }}</a></li>{%- endif -%}
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="FooterLegal">
+        <h2 id="FooterLegal">{{ 'sections.footer.legal' | t }}</h2>
+        <ul role="list">
+          {%- for policy in shop.policies -%}
+            {%- if policy.body != blank -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endif -%}
+          {%- endfor -%}
+          {%- if section.settings.accessibility_page != blank -%}<li><a href="{{ section.settings.accessibility_page.url }}">{{ 'sections.footer.accessibility' | t }}</a></li>{%- endif -%}
+          <li><button type="button" class="link-button" style="color: inherit; padding: 0; min-height: 0; font-size: inherit;" data-cookie-preferences hidden>{{ 'sections.footer.cookies' | t }}</button></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <p class="footer__wordmark" aria-hidden="true">{{ shop.name }}</p>
+
+  <div class="container">
+    <div class="footer__bottom">
+      <p style="margin:0">&copy; {{ 'now' | date: '%Y' }} {{ shop.name }}{% if section.settings.company_line != blank %} · {{ section.settings.company_line | escape }}{% endif %}</p>
+
+      <button type="button" class="motion-toggle" aria-pressed="false" data-motion-toggle>
+        {% render 'icon', name: 'motion' %}
+        <span>{{ 'accessibility.reduce_motion' | t }}</span>
+      </button>
+
+      {%- if section.settings.show_payment_icons and shop.enabled_payment_types.size > 0 -%}
+        <div>
+          <span class="visually-hidden">{{ 'sections.footer.payment_methods' | t }}</span>
+          <ul class="payment-icons" role="list">
+            {%- for type in shop.enabled_payment_types -%}
+              <li>{{ type | payment_type_svg_tag }}</li>
+            {%- endfor -%}
+          </ul>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "class": "section-footer",
+  "settings": [
+    { "type": "richtext", "id": "text", "label": "Texte de présentation", "default": "<p>Des diffuseurs d'arômes pensés comme des objets de décoration, pour transformer chaque pièce en refuge.</p>" },
+    { "type": "link_list", "id": "menu_1", "label": "Menu", "default": "footer" },
+    { "type": "header", "content": "Pages légales" },
+    { "type": "paragraph", "content": "Toutes les politiques publiées (CGV, confidentialité, remboursement, expédition, mentions légales, coordonnées) sont reprises automatiquement depuis Paramètres > Politiques." },
+    { "type": "page", "id": "withdrawal_page", "label": "Page « Se rétracter » (bouton de rétractation UE)" },
+    { "type": "page", "id": "accessibility_page", "label": "Page « Déclaration d'accessibilité »" },
+    { "type": "page", "id": "contact_page", "label": "Page Contact" },
+    { "type": "text", "id": "company_line", "label": "Raison sociale / n° IDE (facultatif)", "info": "Ex. : Squizio, CHE-123.456.789" },
+    { "type": "checkbox", "id": "show_payment_icons", "label": "Afficher les moyens de paiement", "default": true }
+  ]
+}
+{% endschema %}

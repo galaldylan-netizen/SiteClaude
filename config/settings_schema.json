@@ -1,0 +1,75 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Squizio Mist",
+    "theme_version": "1.0.0",
+    "theme_author": "Squizio",
+    "theme_documentation_url": "https://github.com/galaldylan-netizen/siteclaude",
+    "theme_support_url": "https://github.com/galaldylan-netizen/siteclaude"
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      { "type": "paragraph", "content": "Les couleurs par défaut respectent un contraste WCAG 2.1 AA (4.5:1 minimum pour le texte). Si tu les modifies, vérifie le contraste (par ex. sur webaim.org/resources/contrastchecker)." },
+      { "type": "color", "id": "color_background", "label": "Fond", "default": "#F5F1EA" },
+      { "type": "color", "id": "color_background_alt", "label": "Fond secondaire", "default": "#EAE4D9" },
+      { "type": "color", "id": "color_text", "label": "Texte", "default": "#17241E" },
+      { "type": "color", "id": "color_text_muted", "label": "Texte secondaire", "default": "#4A5A52" },
+      { "type": "color", "id": "color_accent", "label": "Accent (liens)", "default": "#2F5D4B" },
+      { "type": "color", "id": "color_accent_soft", "label": "Accent doux (décor)", "default": "#CFDCCF" },
+      { "type": "color", "id": "color_highlight", "label": "Doré (décor)", "default": "#C9A96E" },
+      { "type": "color", "id": "color_button", "label": "Bouton", "default": "#17241E" },
+      { "type": "color", "id": "color_button_text", "label": "Texte du bouton", "default": "#F5F1EA" },
+      { "type": "color", "id": "color_dark", "label": "Sections sombres", "default": "#101A15" },
+      { "type": "color", "id": "color_dark_text", "label": "Texte des sections sombres", "default": "#EDE8DF" },
+      { "type": "color", "id": "color_sale", "label": "Promotion", "default": "#9E2A1F" }
+    ]
+  },
+  {
+    "name": "Typographie",
+    "settings": [
+      { "type": "paragraph", "content": "Les polices sont servies par Shopify (pas de Google Fonts), ce qui évite un transfert de données personnelles vers un tiers (RGPD / nLPD)." },
+      { "type": "font_picker", "id": "type_heading_font", "label": "Titres", "default": "fraunces_n4" },
+      { "type": "font_picker", "id": "type_body_font", "label": "Texte", "default": "geist_n4" }
+    ]
+  },
+  {
+    "name": "Mise en page",
+    "settings": [
+      { "type": "range", "id": "page_width", "label": "Largeur max. de page", "min": 1000, "max": 1600, "step": 20, "unit": "px", "default": 1320 },
+      { "type": "range", "id": "radius", "label": "Arrondi des coins", "min": 0, "max": 24, "step": 2, "unit": "px", "default": 14 },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" }
+    ]
+  },
+  {
+    "name": "Animations",
+    "settings": [
+      { "type": "checkbox", "id": "animations_enabled", "label": "Activer les animations", "default": true },
+      { "type": "paragraph", "content": "Les animations sont automatiquement coupées pour les visiteurs qui ont activé « réduire les animations » sur leur appareil, et un bouton dans le pied de page permet de les couper à tout moment (WCAG 2.2.2 et 2.3.3)." }
+    ]
+  },
+  {
+    "name": "Produits & prix",
+    "settings": [
+      { "type": "checkbox", "id": "show_tax_note", "label": "Afficher « TVA incluse » sous les prix", "default": true },
+      { "type": "checkbox", "id": "show_lowest_price", "label": "Afficher le prix le plus bas des 30 derniers jours en cas de promotion (directive Omnibus UE)", "default": true, "info": "Renseigne le métachamp produit custom.lowest_price_30d (type Argent ou Nombre décimal)." },
+      { "type": "text", "id": "delivery_text", "label": "Délai de livraison affiché", "default": "Livraison estimée : 5 à 10 jours ouvrés" },
+      { "type": "number", "id": "free_shipping_threshold", "label": "Seuil de livraison offerte (dans la devise de la boutique, 0 = désactivé)", "default": 0, "info": "Doit correspondre à tes tarifs d'expédition réels dans Shopify." }
+    ]
+  },
+  {
+    "name": "Avis clients",
+    "settings": [
+      { "type": "paragraph", "content": "N'affiche que des avis réels. Le droit UE (directive Omnibus) et la LCD suisse interdisent les faux avis et obligent à expliquer comment les avis sont vérifiés." },
+      { "type": "richtext", "id": "reviews_verification_text", "label": "Comment les avis sont vérifiés", "default": "<p>Les avis proviennent uniquement de clients ayant commandé le produit. Ils sont collectés après la livraison et publiés sans modification, qu'ils soient positifs ou négatifs.</p>" }
+    ]
+  },
+  {
+    "name": "Réseaux sociaux",
+    "settings": [
+      { "type": "text", "id": "social_instagram", "label": "Instagram (URL)" },
+      { "type": "text", "id": "social_tiktok", "label": "TikTok (URL)" },
+      { "type": "text", "id": "social_facebook", "label": "Facebook (URL)" }
+    ]
+  }
+]

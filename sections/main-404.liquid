@@ -1,0 +1,13 @@
+<section class="section">
+  <div class="container not-found">
+    <div>
+      <p class="big" aria-hidden="true">404</p>
+      <h1 class="h2">{{ 'sections.not_found.title' | t }}</h1>
+      <p>{{ 'sections.not_found.text' | t }}</p>
+      <a class="button" href="{{ routes.all_products_collection_url }}">{{ 'cart.continue' | t }} {% render 'icon', name: 'arrow' %}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Page 404", "settings": [] }
+{% endschema %}

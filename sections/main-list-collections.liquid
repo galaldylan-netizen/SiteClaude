@@ -1,0 +1,24 @@
+<section class="section section--tight">
+  <div class="container">
+    <h1 class="split-words" data-split>{{ 'sections.collections.title' | t }}</h1>
+    <ul class="product-grid" role="list" style="--cols: 3; margin-top: 2rem">
+      {%- for collection in collections -%}
+        {%- if collection.products_count > 0 -%}
+        <li>
+          <article class="card" data-reveal style="--i: {{ forloop.index0 | modulo: 3 }}">
+            <div class="card__media">
+              {%- assign cimg = collection.featured_image | default: collection.products.first.featured_media -%}
+              {%- if cimg -%}{{ cimg | image_url: width: 900 | image_tag: loading: 'lazy', widths: '360, 540, 720, 900', sizes: '(min-width: 990px) 33vw, 50vw', alt: '' }}{%- endif -%}
+            </div>
+            <h2 class="card__title"><a href="{{ collection.url }}">{{ collection.title | escape }}</a></h2>
+            <p class="card__type">{{ 'sections.collections.count' | t: count: collection.products_count }}</p>
+          </article>
+        </li>
+        {%- endif -%}
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+{% schema %}
+{ "name": "Liste des collections", "settings": [] }
+{% endschema %}

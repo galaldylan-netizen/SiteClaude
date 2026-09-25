@@ -1,0 +1,45 @@
+{%- comment -%}
+  Sécurité des produits — Règlement (UE) 2023/988 (GPSR), art. 19, applicable depuis le 13.12.2024
+  pour toute vente en ligne à des consommateurs de l'UE. Chaque fiche doit indiquer :
+  - fabricant : nom, adresse postale, contact électronique  -> métachamp custom.gpsr_manufacturer
+  - si le fabricant est hors UE : personne responsable dans l'UE -> custom.gpsr_eu_responsible
+  - identification du produit (type, lot, n° de série…)       -> SKU / code-barres / custom.gpsr_identifier
+  - avertissements et consignes de sécurité                    -> custom.gpsr_warnings
+{%- endcomment -%}
+{%- liquid
+  assign mf = product.metafields.custom
+  assign variant = product.selected_or_first_available_variant
+-%}
+<div class="gpsr">
+  {%- if mf.gpsr_manufacturer != blank or mf.gpsr_eu_responsible != blank or mf.gpsr_warnings != blank -%}
+    <dl>
+      {%- if mf.gpsr_manufacturer != blank -%}
+        <dt>{{ 'products.gpsr.manufacturer' | t }}</dt>
+        <dd>{{ mf.gpsr_manufacturer | metafield_tag }}</dd>
+      {%- endif -%}
+      {%- if mf.gpsr_eu_responsible != blank -%}
+        <dt>{{ 'products.gpsr.eu_responsible' | t }}</dt>
+        <dd>{{ mf.gpsr_eu_responsible | metafield_tag }}</dd>
+      {%- endif -%}
+      <dt>{{ 'products.gpsr.identifier' | t }}</dt>
+      <dd>
+        {{ product.title | escape }}
+        {%- if mf.gpsr_identifier != blank %} · {{ mf.gpsr_identifier.value | escape }}{% endif -%}
+        {%- if variant.sku != blank %} · {{ 'products.gpsr.sku' | t }} {{ variant.sku | escape }}{% endif -%}
+        {%- if variant.barcode != blank %} · {{ 'products.gpsr.barcode' | t }} {{ variant.barcode | escape }}{% endif -%}
+      </dd>
+    </dl>
+    {%- if mf.gpsr_warnings != blank -%}
+      <div style="margin-top: 1rem">
+        <p style="margin-bottom:.3rem"><strong>{{ 'products.gpsr.warnings' | t }}</strong></p>
+        {{ mf.gpsr_warnings | metafield_tag }}
+      </div>
+    {%- endif -%}
+  {%- elsif request.design_mode -%}
+    <p style="padding:1rem;border:2px dashed var(--color-sale);border-radius:var(--radius)">
+      <strong>Visible uniquement dans l'éditeur :</strong> renseigne les métachamps custom.gpsr_manufacturer, custom.gpsr_eu_responsible et custom.gpsr_warnings de ce produit (obligatoire pour vendre dans l'UE — règlement GPSR).
+    </p>
+  {%- else -%}
+    <p>{{ 'products.gpsr.on_request' | t }}</p>
+  {%- endif -%}
+</div>

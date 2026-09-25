@@ -1,0 +1,23 @@
+<section class="section{% if section.settings.alt %} section--alt{% endif %}">
+  <div class="container rich-text">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal="fade">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 class="h2 split-words" data-split>{{ section.settings.heading }}</h2>
+    {%- if section.settings.button_label != blank -%}
+      <div data-reveal style="margin-top: 2rem"><a class="link-arrow" href="{{ section.settings.button_link }}"><span>{{ section.settings.button_label | escape }}</span> {% render 'icon', name: 'arrow' %}</a></div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Grand texte",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Notre philosophie" },
+    { "type": "inline_richtext", "id": "heading", "label": "Texte", "default": "Nous croyons qu'un intérieur apaisé commence par <em>ce que l'on respire</em>. Nos diffuseurs allient brume douce et lumière tamisée pour créer des moments de pause, chaque jour." },
+    { "type": "text", "id": "button_label", "label": "Lien (texte)" },
+    { "type": "url", "id": "button_link", "label": "Lien (URL)" },
+    { "type": "checkbox", "id": "alt", "label": "Fond secondaire", "default": false }
+  ],
+  "presets": [{ "name": "Grand texte" }]
+}
+{% endschema %}

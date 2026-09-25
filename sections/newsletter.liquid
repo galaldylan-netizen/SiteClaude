@@ -1,0 +1,40 @@
+<section class="section section--dark" aria-labelledby="Title-{{ section.id }}">
+  <div class="container newsletter">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal="fade">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 id="Title-{{ section.id }}" class="split-words" data-split>{{ section.settings.heading }}</h2>
+    {%- if section.settings.text != blank -%}<p data-reveal>{{ section.settings.text | escape }}</p>{%- endif -%}
+
+    {%- form 'customer', id: 'NewsletterForm', class: 'newsletter-form' -%}
+      <input type="hidden" name="contact[tags]" value="newsletter">
+      <div class="newsletter__form" data-reveal>
+        <label for="NewsletterEmail-{{ section.id }}" class="visually-hidden">{{ 'sections.newsletter.email_label' | t }}</label>
+        <input id="NewsletterEmail-{{ section.id }}" type="email" name="contact[email]" autocomplete="email" required
+          placeholder="{{ 'sections.newsletter.email_placeholder' | t }}"
+          aria-describedby="NewsletterLegal-{{ section.id }}{% if form.errors %} NewsletterError-{{ section.id }}{% endif %}"
+          {% if form.errors %}aria-invalid="true"{% endif %}>
+        <button type="submit" class="button button--light">{{ 'sections.newsletter.subscribe' | t }}</button>
+      </div>
+      {%- if form.posted_successfully? -%}
+        <p class="form-message form-message--success" role="status" tabindex="-1" autofocus>{{ 'sections.newsletter.success' | t }}</p>
+      {%- elsif form.errors -%}
+        <p class="form-message form-message--error" id="NewsletterError-{{ section.id }}" role="alert">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+      {%- endif -%}
+      <p class="newsletter__legal" id="NewsletterLegal-{{ section.id }}">
+        {{ 'sections.newsletter.legal' | t }}
+        {%- if shop.privacy_policy.body != blank %} <a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a>.{% endif -%}
+      </p>
+    {%- endform -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Newsletter" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Un peu de <em>calme</em> dans votre boîte mail" },
+    { "type": "text", "id": "text", "label": "Texte", "default": "Rituels bien-être, nouveautés et offres réservées aux abonnés. Pas plus d'un e-mail par mois." }
+  ],
+  "presets": [{ "name": "Newsletter" }]
+}
+{% endschema %}

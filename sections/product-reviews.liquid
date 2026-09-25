@@ -1,0 +1,53 @@
+{%- comment -%}
+  Avis produit. Ajoute ici le bloc de ton application d'avis (Judge.me, Shopify Product Reviews, Loox…).
+  Sans application : affiche un résumé honnête (aucun avis inventé).
+{%- endcomment -%}
+<section class="section section--tight" id="ProductReviews" aria-labelledby="ReviewsTitle-{{ section.id }}">
+  <div class="container">
+    <div class="section-header">
+      <div>
+        <p class="eyebrow">{{ 'sections.reviews.eyebrow' | t }}</p>
+        <h2 id="ReviewsTitle-{{ section.id }}">{{ section.settings.heading | escape }}</h2>
+      </div>
+      {%- assign count = product.metafields.reviews.rating_count.value | default: 0 -%}
+      {%- if count > 0 -%}
+        <div class="reviews-summary">
+          <span class="reviews-summary__score" aria-hidden="true">{{ product.metafields.reviews.rating.value.rating | round: 1 }}</span>
+          <div>{% render 'rating', product: product, show_count: true %}</div>
+        </div>
+      {%- endif -%}
+    </div>
+
+    {%- assign app_count = 0 -%}
+    {%- for block in section.blocks -%}
+      {%- if block.type == '@app' -%}
+        {%- assign app_count = app_count | plus: 1 -%}
+        <div class="product-reviews" {{ block.shopify_attributes }}>{% render block %}</div>
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- if app_count == 0 and count == 0 -%}
+      <p>{{ 'sections.reviews.none_yet' | t }}</p>
+      {%- if request.design_mode -%}
+        <p style="padding:1rem;border:2px dashed var(--color-sale);border-radius:var(--radius)"><strong>Visible uniquement dans l'éditeur :</strong> installe une application d'avis (ex. Judge.me ou Shopify Product Reviews), puis ajoute son bloc dans cette section.</p>
+      {%- endif -%}
+    {%- endif -%}
+
+    {%- if settings.reviews_verification_text != blank -%}
+      <details class="reviews-note">
+        <summary>{{ 'sections.reviews.how_verified' | t }}</summary>
+        <div style="margin-top:.6rem">{{ settings.reviews_verification_text }}</div>
+      </details>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Avis produit",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Titre", "default": "Avis clients" }
+  ],
+  "blocks": [ { "type": "@app" } ]
+}
+{% endschema %}

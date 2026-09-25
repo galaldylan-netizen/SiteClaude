@@ -1,0 +1,60 @@
+<section class="section{% if section.settings.alt %} section--alt{% endif %}" aria-labelledby="Title-{{ section.id }}">
+  <div class="container faq">
+    {%- if section.settings.eyebrow != blank -%}<p class="eyebrow" data-reveal="fade">{{ section.settings.eyebrow | escape }}</p>{%- endif -%}
+    <h2 id="Title-{{ section.id }}" class="split-words" data-split style="margin-bottom: 2.5rem">{{ section.settings.heading }}</h2>
+    <div data-reveal>
+      {%- for block in section.blocks -%}
+        <details class="accordion" {{ block.shopify_attributes }}>
+          <summary>{{ block.settings.question | escape }}<span class="plus" aria-hidden="true"></span></summary>
+          <div class="accordion__content rte">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{%- if section.blocks.size > 0 -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {%- for block in section.blocks -%}
+    { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ]
+}
+</script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "FAQ",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Questions fréquentes" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Tout ce que vous <em>voulez savoir</em>" },
+    { "type": "checkbox", "id": "alt", "label": "Fond secondaire", "default": false }
+  ],
+  "blocks": [
+    {
+      "type": "question",
+      "name": "Question",
+      "settings": [
+        { "type": "text", "id": "question", "label": "Question", "default": "Question" },
+        { "type": "richtext", "id": "answer", "label": "Réponse", "default": "<p>Réponse.</p>" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "FAQ",
+      "blocks": [
+        { "type": "question", "settings": { "question": "Quelles huiles puis-je utiliser ?", "answer": "<p>Des huiles essentielles 100 % pures, quelques gouttes diluées dans l'eau du réservoir. Évitez les huiles épaisses ou parfumées de synthèse.</p>" } },
+        { "type": "question", "settings": { "question": "Quels sont les délais de livraison ?", "answer": "<p>Le délai estimé est indiqué sur chaque fiche produit et au moment du paiement. Vous êtes prévenu par e-mail dès l'expédition de votre commande.</p>" } },
+        { "type": "question", "settings": { "question": "Puis-je changer d'avis ?", "answer": "<p>Oui. Vous disposez de 14 jours après réception pour vous rétracter, sans justification, via notre page « Se rétracter ».</p>" } },
+        { "type": "question", "settings": { "question": "Comment entretenir mon diffuseur ?", "answer": "<p>Débranchez l'appareil, videz et rincez le réservoir après usage, et suivez les consignes de nettoyage de la notice fournie.</p>" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

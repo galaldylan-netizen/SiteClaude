@@ -1,0 +1,64 @@
+{%- comment -%}
+  Prix accessible et conforme :
+  - prix TTC (prix final pour le consommateur),
+  - prix barré uniquement si compare_at_price est renseigné,
+  - prix le plus bas des 30 derniers jours (directive Omnibus 2019/2161, art. 6a directive 98/6/CE)
+    via le métachamp custom.lowest_price_30d (type Argent conseillé).
+  Paramètres : product (obligatoire), variant (facultatif), show_note (booléen), show_lowest (booléen)
+{%- endcomment -%}
+{%- liquid
+  assign target = variant | default: product.selected_or_first_available_variant
+  assign price = target.price
+  assign compare = target.compare_at_price
+  assign on_sale = false
+  if compare > price
+    assign on_sale = true
+  endif
+  assign varies = false
+  if variant == blank and product.price_varies
+    assign varies = true
+  endif
+-%}
+<div class="price{% if on_sale %} price--sale{% endif %}" data-price>
+  {%- if on_sale -%}
+    <span class="visually-hidden">{{ 'products.product.price.sale_price' | t }}</span>
+  {%- else -%}
+    <span class="visually-hidden">{{ 'products.product.price.regular_price' | t }}</span>
+  {%- endif -%}
+  <span class="price__current">
+    {%- if varies -%}{%- assign min_money = product.price_min | money -%}{{ 'products.product.price.from_price_html' | t: price: min_money }}{%- else -%}{{ price | money }}{%- endif -%}
+  </span>
+  {%- if on_sale -%}
+    <span class="visually-hidden">{{ 'products.product.price.compare_price' | t }}</span>
+    <s class="price__compare">{{ compare | money }}</s>
+  {%- endif -%}
+
+  {%- if target.unit_price_measurement -%}
+    <span class="price__unit">
+      {{- target.unit_price | money }} /
+      {% if target.unit_price_measurement.reference_value != 1 %}{{ target.unit_price_measurement.reference_value }}{% endif -%}
+      {{ target.unit_price_measurement.reference_unit }}
+    </span>
+  {%- endif -%}
+
+  {%- if on_sale and show_lowest and settings.show_lowest_price -%}
+    {%- assign lowest = product.metafields.custom.lowest_price_30d -%}
+    {%- if lowest != blank -%}
+      <span class="price__lowest">
+        {%- if lowest.type == 'money' -%}
+          {%- assign lowest_money = lowest.value | money -%}
+        {%- else -%}
+          {%- assign lowest_money = lowest.value | times: 100 | money -%}
+        {%- endif -%}
+        {{ 'products.product.price.lowest_30d' | t: price: lowest_money }}
+      </span>
+    {%- endif -%}
+  {%- endif -%}
+
+  {%- if show_note and settings.show_tax_note -%}
+    <span class="price__note">
+      {%- if cart.taxes_included -%}{{ 'products.product.price.taxes_included' | t }}{%- else -%}{{ 'products.product.price.taxes_excluded' | t }}{%- endif -%}
+      {%- if shop.shipping_policy.body != blank %} · <a href="{{ shop.shipping_policy.url }}">{{ 'products.product.price.shipping_link' | t }}</a>{%- else %} · {{ 'products.product.price.shipping_at_checkout' | t }}{%- endif -%}
+    </span>
+  {%- endif -%}
+</div>

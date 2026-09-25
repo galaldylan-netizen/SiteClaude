@@ -1,0 +1,22 @@
+{%- liquid
+  assign threshold = settings.free_shipping_threshold | times: 100
+-%}
+{%- if threshold > 0 -%}
+  {%- assign remaining = threshold | minus: cart.total_price -%}
+  <div class="shipping-bar">
+    <span>
+      {%- if remaining > 0 -%}{%- assign remaining_money = remaining | money -%}{{ 'cart.free_shipping_remaining_html' | t: amount: remaining_money }}{%- else -%}{{ 'cart.free_shipping_reached' | t }}{%- endif -%}
+    </span>
+    <progress value="{{ cart.total_price | at_most: threshold }}" max="{{ threshold }}" aria-hidden="true"></progress>
+  </div>
+{%- endif -%}
+{%- for discount in cart.cart_level_discount_applications -%}
+  <p class="cart-item__meta" style="margin:0">{{ discount.title | escape }} : −{{ discount.total_allocated_amount | money }}</p>
+{%- endfor -%}
+<div class="cart-totals">
+  <span>{{ 'cart.subtotal' | t }}</span>
+  <span>{{ cart.total_price | money_with_currency }}</span>
+</div>
+<p class="cart-legal">
+  {%- if cart.taxes_included -%}{{ 'cart.taxes_included_shipping_at_checkout' | t }}{%- else -%}{{ 'cart.taxes_and_shipping_at_checkout' | t }}{%- endif -%}
+</p>

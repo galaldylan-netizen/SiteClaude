@@ -1,0 +1,228 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Aromathérapie · Design",
+        "heading": "Respirez. <em>Ralentissez.</em> Ressentez.",
+        "text": "Des diffuseurs d'huiles essentielles qui transforment chaque pièce en un lieu de calme. Une brume légère, une lumière douce, un design qui se remarque.",
+        "button_label": "Découvrir la collection",
+        "button2_label": "",
+        "ring_text": "Brume · Lumière · Sérénité · ",
+        "scroll_target": "collection"
+      }
+    },
+    "marquee": {
+      "type": "marquee",
+      "blocks": {
+        "a": {
+          "type": "item",
+          "settings": {
+            "text": "Brume ultra-fine"
+          }
+        },
+        "b": {
+          "type": "item",
+          "settings": {
+            "text": "Lumière d'ambiance"
+          }
+        },
+        "c": {
+          "type": "item",
+          "settings": {
+            "text": "Design minimaliste"
+          }
+        },
+        "d": {
+          "type": "item",
+          "settings": {
+            "text": "Rituel bien-être"
+          }
+        }
+      },
+      "block_order": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ],
+      "settings": {
+        "label": "Nos engagements",
+        "speed": 35,
+        "dark": false
+      }
+    },
+    "collection": {
+      "type": "featured-collection",
+      "settings": {
+        "eyebrow": "La collection",
+        "heading": "Des objets qui <em>respirent</em> avec vous",
+        "text": "Chaque diffuseur est choisi pour sa brume fine et sa présence dans la pièce.",
+        "limit": 8,
+        "columns": 4,
+        "quick_add": true,
+        "hide_samples": true,
+        "anchor": "collection",
+        "bento": true
+      }
+    },
+    "philosophy": {
+      "type": "rich-text",
+      "settings": {
+        "eyebrow": "Notre philosophie",
+        "heading": "Nous croyons qu'un intérieur apaisé commence par <em>ce que l'on respire</em>. Brume douce et lumière tamisée, pour des moments de pause chaque jour.",
+        "alt": true
+      }
+    },
+    "spotlight": {
+      "type": "spotlight",
+      "blocks": {
+        "p1": {
+          "type": "point",
+          "settings": {
+            "text": "Design épuré, pensé comme un objet de décoration"
+          }
+        },
+        "p2": {
+          "type": "point",
+          "settings": {
+            "text": "Brume fine pour diffuser vos huiles essentielles"
+          }
+        },
+        "p3": {
+          "type": "point",
+          "settings": {
+            "text": "S'intègre dans toutes les pièces"
+          }
+        }
+      },
+      "block_order": [
+        "p1",
+        "p2",
+        "p3"
+      ],
+      "settings": {
+        "eyebrow": "Coup de cœur",
+        "button_label": "Voir le produit",
+        "reverse": false
+      }
+    },
+    "benefits": {
+      "type": "benefits",
+      "blocks": {
+        "b1": {
+          "type": "benefit",
+          "settings": {
+            "icon": "drop",
+            "title": "Brume fine",
+            "text": "Une diffusion douce de vos huiles essentielles préférées."
+          }
+        },
+        "b2": {
+          "type": "benefit",
+          "settings": {
+            "icon": "moon",
+            "title": "Ambiance apaisante",
+            "text": "Lumière tamisée pour vos soirées et vos nuits."
+          }
+        },
+        "b3": {
+          "type": "benefit",
+          "settings": {
+            "icon": "return",
+            "title": "14 jours pour changer d'avis",
+            "text": "Rétractation simple, en ligne, sans justification."
+          }
+        },
+        "b4": {
+          "type": "benefit",
+          "settings": {
+            "icon": "lock",
+            "title": "Paiement sécurisé",
+            "text": "Paiement chiffré, géré par Shopify."
+          }
+        }
+      },
+      "block_order": [
+        "b1",
+        "b2",
+        "b3",
+        "b4"
+      ],
+      "settings": {
+        "heading": "Pourquoi nous choisir",
+        "hide_title": true
+      }
+    },
+    "reviews": {
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "Avis clients",
+        "heading": "Ils en parlent <em>mieux que nous</em>"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Quelles huiles puis-je utiliser ?",
+            "answer": "<p>Des huiles essentielles pures, quelques gouttes dans l'eau du réservoir. Suivez les recommandations de la notice de votre diffuseur.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Quels sont les délais de livraison ?",
+            "answer": "<p>Le délai estimé est indiqué sur chaque fiche produit et au moment du paiement. Vous êtes prévenu par e-mail dès l'expédition de votre commande.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "Puis-je changer d'avis ?",
+            "answer": "<p>Oui. Vous disposez de 14 jours après réception pour vous rétracter, sans justification, via notre page « Se rétracter ».</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Comment entretenir mon diffuseur ?",
+            "answer": "<p>Débranchez l'appareil, videz et rincez le réservoir après usage, et suivez les consignes de nettoyage de la notice fournie.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4"
+      ],
+      "settings": {
+        "eyebrow": "Questions fréquentes",
+        "heading": "Tout ce que vous <em>voulez savoir</em>",
+        "alt": true
+      }
+    },
+    "newsletter": {
+      "type": "newsletter",
+      "settings": {
+        "eyebrow": "Newsletter",
+        "heading": "Un peu de <em>calme</em> dans votre boîte mail",
+        "text": "Rituels bien-être, nouveautés et offres réservées aux abonnés."
+      }
+    }
+  },
+  "order": [
+    "hero",
+    "marquee",
+    "collection",
+    "philosophy",
+    "spotlight",
+    "benefits",
+    "reviews",
+    "faq",
+    "newsletter"
+  ]
+}

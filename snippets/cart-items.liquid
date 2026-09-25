@@ -1,0 +1,34 @@
+{%- comment -%} Liste des articles du panier (tiroir + page panier) {%- endcomment -%}
+<ul role="list" aria-label="{{ 'cart.items_label' | t }}">
+  {%- for item in cart.items -%}
+    <li class="cart-item" style="animation-delay: {{ forloop.index0 | times: 60 }}ms">
+      <a href="{{ item.url }}" tabindex="-1" aria-hidden="true">
+        {%- if item.image -%}{{ item.image | image_url: width: 200 | image_tag: loading: 'lazy', alt: '' }}{%- endif -%}
+      </a>
+      <div>
+        <a class="cart-item__title" href="{{ item.url }}">{{ item.product.title | escape }}</a>
+        {%- unless item.product.has_only_default_variant -%}
+          <span class="cart-item__meta">{{ item.variant.title | escape }}</span>
+        {%- endunless -%}
+        {%- for discount in item.line_level_discount_allocations -%}
+          <span class="cart-item__meta">{{ discount.discount_application.title | escape }} (−{{ discount.amount | money }})</span>
+        {%- endfor -%}
+        <div class="cart-item__actions">
+          <div class="quantity" data-line="{{ forloop.index }}">
+            <button type="button" data-line-change="{{ item.quantity | minus: 1 }}">{% render 'icon', name: 'minus' %}<span class="visually-hidden">{{ 'products.product.quantity.decrease' | t: product: item.product.title | escape }}</span></button>
+            <label class="visually-hidden" for="Line-{{ context }}-{{ forloop.index }}">{{ 'products.product.quantity.label_for' | t: product: item.product.title | escape }}</label>
+            <input type="number" id="Line-{{ context }}-{{ forloop.index }}" value="{{ item.quantity }}" min="0" inputmode="numeric" data-line-input>
+            <button type="button" data-line-change="{{ item.quantity | plus: 1 }}">{% render 'icon', name: 'plus' %}<span class="visually-hidden">{{ 'products.product.quantity.increase' | t: product: item.product.title | escape }}</span></button>
+          </div>
+          <button type="button" class="link-button" data-line-change="0">{{ 'cart.remove' | t }}<span class="visually-hidden"> : {{ item.product.title | escape }}</span></button>
+        </div>
+      </div>
+      <div class="price" style="text-align:right">
+        {%- if item.original_line_price != item.final_line_price -%}
+          <s class="price__compare">{{ item.original_line_price | money }}</s><br>
+        {%- endif -%}
+        <span class="price__current">{{ item.final_line_price | money }}</span>
+      </div>
+    </li>
+  {%- endfor -%}
+</ul>
