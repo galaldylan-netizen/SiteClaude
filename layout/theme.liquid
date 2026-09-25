@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}" class="no-js{% unless settings.animations_enabled %} reduce-motion{% endunless %}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_bg }}">
+    <meta name="color-scheme" content="dark">
+    <link rel="canonical" href="{{ canonical_url }}">
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 64, height: 64 }}">
+    {%- endif -%}
+
+    <title>
+      {{- page_title -}}
+      {%- if current_page != 1 %} &ndash; {{ 'general.page' | t: page: current_page }}{% endif -%}
+      {%- unless page_title contains settings.site_name %} &ndash; {{ settings.site_name }}{% endunless -%}
+    </title>
+    {%- if page_description -%}<meta name="description" content="{{ page_description | escape }}">{%- endif -%}
+
+    {% render 'meta-tags' %}
+    {% render 'css-variables' %}
+    {{ 'orbyte.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      document.documentElement.classList.replace('no-js', 'js');
+      try { if (localStorage.getItem('orbyte-reduce-motion') === '1') document.documentElement.classList.add('reduce-motion'); } catch (e) {}
+    </script>
+    <script src="{{ 'orbyte.js' | asset_url }}" defer></script>
+    {{ content_for_header }}
+  </head>
+
+  <body class="tpl-{{ template.name | handle }}">
+    <a class="skip-link" href="#MainContent">{{ 'a11y.skip' | t }}</a>
+
+    <canvas class="starfield" data-starfield aria-hidden="true"></canvas>
+    {%- if settings.scanlines -%}<div class="scanlines" aria-hidden="true"></div>{%- endif -%}
+    <div class="hud-frame" aria-hidden="true"><i></i><i></i><i></i><i></i></div>
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    <div class="visually-hidden" aria-live="polite" aria-atomic="true" id="LiveRegion"></div>
+  </body>
+</html>

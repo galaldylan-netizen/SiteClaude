@@ -1,0 +1,161 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "Centre de contrôle · En ligne",
+        "heading": "Explorez les mondes du Système solaire",
+        "text": "Données réelles, planètes en 3D, orbites en direct : ORBYTE vous emmène de Mercure à Pluton, sans quitter votre écran.",
+        "button_label": "Lancer l'exploration"
+      }
+    },
+    "ticker": {
+      "type": "ticker",
+      "settings": {
+        "speed": 70
+      }
+    },
+    "worlds": {
+      "type": "worlds",
+      "settings": {
+        "eyebrow": "01 — Catalogue",
+        "heading": "Neuf mondes, <em>une seule étoile</em>",
+        "anchor": "catalogue"
+      }
+    },
+    "orrery": {
+      "type": "orrery",
+      "settings": {
+        "eyebrow": "02 — Navigation orbitale"
+      }
+    },
+    "scale": {
+      "type": "scale",
+      "settings": {
+        "eyebrow": "03 — Échelle"
+      }
+    },
+    "stats": {
+      "type": "stats",
+      "blocks": {
+        "s1": {
+          "type": "stat",
+          "settings": {
+            "value": 4.6,
+            "decimals": 1,
+            "unit": "Md ans",
+            "text": "Âge du Système solaire"
+          }
+        },
+        "s2": {
+          "type": "stat",
+          "settings": {
+            "value": 99.86,
+            "decimals": 2,
+            "unit": "%",
+            "text": "de toute la masse du Système solaire se trouve dans le Soleil"
+          }
+        },
+        "s3": {
+          "type": "stat",
+          "settings": {
+            "value": 8.3,
+            "decimals": 1,
+            "unit": "min",
+            "text": "pour que la lumière du Soleil atteigne la Terre"
+          }
+        },
+        "s4": {
+          "type": "stat",
+          "settings": {
+            "value": 1321,
+            "decimals": 0,
+            "unit": "Terres",
+            "text": "tiendraient dans le volume de Jupiter"
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4"
+      ],
+      "settings": {
+        "heading": "Chiffres clés"
+      }
+    },
+    "journal": {
+      "type": "journal",
+      "settings": {
+        "eyebrow": "04 — Journal de bord",
+        "heading": "Dernières transmissions"
+      }
+    },
+    "faq": {
+      "type": "faq",
+      "blocks": {
+        "q1": {
+          "type": "question",
+          "settings": {
+            "question": "Pourquoi Pluton n'est-elle plus une planète ?",
+            "answer": "<p>En 2006, l'Union astronomique internationale a défini une planète comme un corps qui a « fait le ménage » sur son orbite. Pluton partage la sienne avec de nombreux objets de la ceinture de Kuiper : elle est donc classée planète naine.</p>"
+          }
+        },
+        "q2": {
+          "type": "question",
+          "settings": {
+            "question": "Quelle est la planète la plus chaude ?",
+            "answer": "<p>Vénus, avec environ 464 °C en moyenne, alors qu'elle est deux fois plus loin du Soleil que Mercure. Son épaisse atmosphère de dioxyde de carbone piège la chaleur : c'est un effet de serre extrême.</p>"
+          }
+        },
+        "q3": {
+          "type": "question",
+          "settings": {
+            "question": "D'où viennent les données ?",
+            "answer": "<p>Des fiches planétaires de la NASA (NSSDCA Planetary Fact Sheet). Le nombre de lunes évolue avec les découvertes : les valeurs affichées sont celles de cette source au moment de la publication.</p>"
+          }
+        },
+        "q4": {
+          "type": "question",
+          "settings": {
+            "question": "Les planètes en 3D sont-elles des photos ?",
+            "answer": "<p>Non. Elles sont dessinées en temps réel par votre navigateur à partir des couleurs dominantes de chaque planète. C'est une illustration, pas une image scientifique.</p>"
+          }
+        },
+        "q5": {
+          "type": "question",
+          "settings": {
+            "question": "ORBYTE est-il une vraie agence spatiale ?",
+            "answer": "<p>Non. ORBYTE est un observatoire fictif, créé pour informer et faire découvrir le Système solaire. Il n'est affilié à aucune agence.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "q1",
+        "q2",
+        "q3",
+        "q4",
+        "q5"
+      ],
+      "settings": {
+        "eyebrow": "05 — Questions de l'équipage"
+      }
+    },
+    "transmission": {
+      "type": "transmission",
+      "settings": {}
+    }
+  },
+  "order": [
+    "hero",
+    "ticker",
+    "worlds",
+    "orrery",
+    "scale",
+    "stats",
+    "journal",
+    "faq",
+    "transmission"
+  ]
+}

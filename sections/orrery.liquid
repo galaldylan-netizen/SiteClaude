@@ -1,0 +1,101 @@
+{%- assign planets = shop.metaobjects.planete.values -%}
+<section class="section" id="systeme" aria-labelledby="Title-{{ section.id }}">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="label" data-reveal>{{ section.settings.eyebrow | escape }}</p>
+        <h2 id="Title-{{ section.id }}" data-scramble>{{ section.settings.heading }}</h2>
+      </div>
+      <p data-reveal>{{ section.settings.text | escape }}</p>
+    </div>
+
+    <div class="orrery-wrap" data-orrery>
+      <div class="panel panel--glow">
+        <span class="tick" style="top:1rem;right:1.25rem" aria-hidden="true">{{ 'orrery.not_to_scale' | t }}</span>
+        <div class="orrery" id="Orrery-{{ section.id }}">
+          <svg viewBox="0 0 1000 1000" role="group" aria-label="{{ 'orrery.map_label' | t }}">
+            <defs>
+              <radialGradient id="sunGrad"><stop offset="0" stop-color="#FFF6D6"/><stop offset=".45" stop-color="#FFC45E"/><stop offset="1" stop-color="#FF6A2B"/></radialGradient>
+            </defs>
+            {%- for p in planets -%}
+              {%- assign r = forloop.index0 | times: 47 | plus: 95 -%}
+              <circle class="orbit" cx="500" cy="500" r="{{ r }}"/>
+            {%- endfor -%}
+            <circle class="sun" cx="500" cy="500" r="42"/>
+            {%- for p in planets -%}
+              {%- liquid
+                assign r = forloop.index0 | times: 47 | plus: 95
+                assign d = p.diametre_km.value | default: 5000
+                assign br = 7
+                if d > 5000
+                  assign br = 9
+                endif
+                if d > 10000
+                  assign br = 11
+                endif
+                if d > 40000
+                  assign br = 16
+                endif
+                if d > 100000
+                  assign br = 21
+                endif
+                assign cx = 500 | plus: r
+              -%}
+              <g class="arm" style="--period: 0s; --delay: 0s">
+                <a class="body" href="{{ p.system.url }}" aria-label="{{ p.nom.value | escape }} — {{ 'orrery.open' | t }}">
+                  <circle class="halo" cx="{{ cx }}" cy="500" r="{{ br | plus: 8 }}"/>
+                  {%- if p.anneaux_3d.value -%}<ellipse cx="{{ cx }}" cy="500" rx="{{ br | times: 1.9 }}" ry="{{ br | times: 0.55 }}" fill="none" stroke="{{ p.couleur_3.value }}" stroke-opacity=".7" stroke-width="2"/>{%- endif -%}
+                  <circle cx="{{ cx }}" cy="500" r="{{ br }}" fill="{{ p.couleur_1.value }}" style="filter: drop-shadow(0 0 8px {{ p.couleur_1.value }})"/>
+                </a>
+              </g>
+            {%- endfor -%}
+          </svg>
+        </div>
+      </div>
+
+      <div class="panel orrery-info" data-orrery-panel>
+        <p class="label" style="margin:0">{{ 'orrery.selected' | t }}</p>
+        <h3 class="h2" style="margin:0" data-f="name">—</h3>
+        <p class="chip chip--cyan" style="align-self:flex-start;margin:0" data-f="type">—</p>
+        <dl>
+          <dt>{{ 'planet.distance' | t }}</dt><dd data-f="dist">—</dd>
+          <dt>{{ 'planet.year' | t }}</dt><dd data-f="period">—</dd>
+          <dt>{{ 'planet.diameter' | t }}</dt><dd data-f="diam">—</dd>
+          <dt>{{ 'planet.moons' | t }}</dt><dd data-f="moons">—</dd>
+          <dt>{{ 'planet.temperature' | t }}</dt><dd data-f="temp">—</dd>
+        </dl>
+        <a class="btn" data-f="link" href="#">{{ 'orrery.see' | t }} <span data-f="linkname" style="margin-left:.3rem"></span> {% render 'icon', name: 'arrow' %}</a>
+        <div class="orrery-list" role="group" aria-label="{{ 'orrery.choose' | t }}">
+          {%- for p in planets -%}
+            <button type="button" data-select aria-pressed="false" style="--c: {{ p.couleur_1.value }}"><i aria-hidden="true"></i>{{ p.nom.value | escape }}</button>
+          {%- endfor -%}
+        </div>
+        <button type="button" class="pause-btn" data-pause aria-controls="Orrery-{{ section.id }}" aria-pressed="false" data-pause-text="{{ 'a11y.pause_orbits' | t }}" data-play-text="{{ 'a11y.play_orbits' | t }}" style="align-self:flex-start">
+          {% render 'icon', name: 'pause' %}<span data-pause-label>{{ 'a11y.pause_orbits' | t }}</span>
+        </button>
+      </div>
+
+      <script type="application/json">
+        [
+          {%- for p in planets -%}
+          { "name": {{ p.nom.value | json }}, "type": {{ p.categorie.value | json }}, "url": {{ p.system.url | json }},
+            "dist": {{ p.distance_mkm.value | default: 0 | json }}, "period": {{ p.annee_j.value | default: 365 | json }},
+            "diam": {{ p.diametre_km.value | default: 0 | json }}, "moons": {{ p.lunes.value | default: 0 | json }}, "temp": {{ p.temperature_c.value | default: 0 | json }} }{% unless forloop.last %},{% endunless %}
+          {%- endfor -%}
+        ]
+      </script>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Carte du Système solaire",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "02 — Navigation orbitale" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Le Système solaire en direct" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Plus une planète est loin du Soleil, plus elle tourne lentement (vitesses accélérées et compressées pour l'affichage). Survolez-la ou choisissez-la dans la liste pour voir ses données." }
+  ],
+  "presets": [{ "name": "Carte du Système solaire" }]
+}
+{% endschema %}

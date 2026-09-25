@@ -1,0 +1,20 @@
+{%- comment -%}
+  Planète 3D procédurale (dessinée par orbyte.js à partir des champs du métaobjet « planete »).
+  Paramètres : planet (métaobjet), speed (facultatif), label (booléen : texte alternatif)
+{%- endcomment -%}
+<canvas class="planet" data-planet
+  data-kind="{{ planet.rendu.value | default: 'rocheuse' }}"
+  data-c1="{{ planet.couleur_1.value | default: '#8899aa' }}"
+  data-c2="{{ planet.couleur_2.value | default: '#334455' }}"
+  data-c3="{{ planet.couleur_3.value | default: '#ddeeff' }}"
+  data-seed="{{ planet.graine.value | default: 7 }}"
+  data-rings="{% if planet.anneaux_3d.value %}true{% else %}false{% endif %}"
+  data-spot="{% if planet.tache.value %}true{% else %}false{% endif %}"
+  data-caps="{% if planet.calottes.value %}true{% else %}false{% endif %}"
+  data-tilt="{{ planet.inclinaison.value | default: 0 }}"
+  data-speed="{{ speed | default: 1 }}"
+  {% if maxres %}data-maxres="{{ maxres }}"{% endif %}
+  {% if hover %}data-hover="true"{% endif %}
+  data-start="{{ planet.numero.value | default: 1 | times: 1.7 }}"
+  {% if label %}role="img" aria-label="{{ 'planet.render_alt' | t: name: planet.nom.value | escape }}"{% else %}aria-hidden="true"{% endif %}
+  width="400" height="400"></canvas>

@@ -1,0 +1,63 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Orbyte",
+    "theme_version": "1.0.0",
+    "theme_author": "Orbyte",
+    "theme_documentation_url": "https://github.com/galaldylan-netizen/siteclaude/tree/orbyte",
+    "theme_support_url": "https://github.com/galaldylan-netizen/siteclaude/tree/orbyte"
+  },
+  {
+    "name": "Identité",
+    "settings": [
+      { "type": "text", "id": "site_name", "label": "Nom du site", "default": "ORBYTE" },
+      { "type": "text", "id": "site_tagline", "label": "Signature", "default": "Observatoire des mondes du Système solaire" },
+      { "type": "image_picker", "id": "favicon", "label": "Favicon" },
+      { "type": "textarea", "id": "disclaimer", "label": "Mention de transparence (pied de page)", "default": "ORBYTE est un observatoire fictif, créé à des fins d'information et de démonstration. Il n'est affilié à aucune agence spatiale. Données : NASA Planetary Fact Sheet (NSSDCA)." }
+    ]
+  },
+  {
+    "name": "Couleurs",
+    "settings": [
+      { "type": "paragraph", "content": "Les couleurs par défaut sont vérifiées pour un contraste WCAG 2.1 AA sur fond sombre." },
+      { "type": "color", "id": "color_bg", "label": "Fond (espace)", "default": "#05070D" },
+      { "type": "color", "id": "color_panel", "label": "Panneaux", "default": "#0B1120" },
+      { "type": "color", "id": "color_text", "label": "Texte", "default": "#E6EDF7" },
+      { "type": "color", "id": "color_muted", "label": "Texte secondaire", "default": "#93A4BD" },
+      { "type": "color", "id": "color_primary", "label": "Cyan (principal)", "default": "#5CE1FF" },
+      { "type": "color", "id": "color_secondary", "label": "Violet (secondaire)", "default": "#A48BFF" },
+      { "type": "color", "id": "color_alert", "label": "Ambre (alerte)", "default": "#FFB547" }
+    ]
+  },
+  {
+    "name": "Typographie",
+    "settings": [
+      { "type": "paragraph", "content": "Polices hébergées par Shopify : aucun appel à Google Fonts (RGPD / nLPD)." },
+      { "type": "font_picker", "id": "type_heading_font", "label": "Titres", "default": "space_grotesk_n5" },
+      { "type": "font_picker", "id": "type_body_font", "label": "Texte", "default": "space_grotesk_n4" },
+      { "type": "font_picker", "id": "type_mono_font", "label": "Interface (chiffres, étiquettes)", "default": "ibm_plex_mono_n4" }
+    ]
+  },
+  {
+    "name": "Mise en page",
+    "settings": [
+      { "type": "range", "id": "page_width", "label": "Largeur max.", "min": 1000, "max": 1700, "step": 20, "unit": "px", "default": 1380 }
+    ]
+  },
+  {
+    "name": "Animations",
+    "settings": [
+      { "type": "checkbox", "id": "animations_enabled", "label": "Activer les animations (étoiles, planètes 3D, orbites)", "default": true },
+      { "type": "checkbox", "id": "scanlines", "label": "Effet « écran de contrôle » (lignes de balayage)", "default": true },
+      { "type": "paragraph", "content": "Les animations s'arrêtent automatiquement si le visiteur a activé « réduire les animations », et un bouton Pause est toujours disponible (WCAG 2.2.2)." }
+    ]
+  },
+  {
+    "name": "Réseaux sociaux",
+    "settings": [
+      { "type": "text", "id": "social_instagram", "label": "Instagram (URL)" },
+      { "type": "text", "id": "social_tiktok", "label": "TikTok (URL)" },
+      { "type": "text", "id": "social_youtube", "label": "YouTube (URL)" }
+    ]
+  }
+]

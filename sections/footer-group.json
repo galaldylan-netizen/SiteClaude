@@ -1,0 +1,6 @@
+{
+  "type": "footer",
+  "name": "Groupe pied de page",
+  "sections": { "footer": { "type": "footer", "settings": { "menu": "footer" } } },
+  "order": ["footer"]
+}

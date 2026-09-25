@@ -1,0 +1,11 @@
+<section class="section page-head">
+  <div class="container">
+    <h1 class="h2" data-scramble>{{ 'object.collections' | t }}</h1>
+    <ul class="results" role="list">
+      {%- for c in collections -%}<li><a href="{{ c.url }}">{{ c.title | escape }}</a></li>{%- endfor -%}
+    </ul>
+  </div>
+</section>
+{% schema %}
+{ "name": "Collections", "settings": [] }
+{% endschema %}

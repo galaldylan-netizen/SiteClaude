@@ -1,0 +1,22 @@
+{%- comment -%} Site d'information : pas de vente. Une fiche « objet » est affichée sans prix ni panier. {%- endcomment -%}
+<section class="section page-head">
+  <div class="container">
+    <p class="label">{{ 'object.label' | t }}</p>
+    <div class="planet-hero__grid">
+      <div class="panel" style="padding:0">
+        {%- if product.featured_media -%}
+          {%- assign alt = product.featured_media.alt | default: product.title | escape -%}
+          {{ product.featured_media | image_url: width: 1200 | image_tag: loading: 'eager', widths: '600, 900, 1200', sizes: '(min-width: 990px) 50vw, 100vw', alt: alt }}
+        {%- endif -%}
+      </div>
+      <div>
+        <h1 class="h2" data-scramble>{{ product.title | escape }}</h1>
+        <div class="rte">{{ product.description }}</div>
+        <a class="btn" href="{{ routes.root_url }}">{% render 'icon', name: 'arrow-left' %} {{ 'notfound.back' | t }}</a>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Fiche objet", "settings": [] }
+{% endschema %}

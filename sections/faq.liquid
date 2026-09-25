@@ -1,0 +1,39 @@
+<section class="section" aria-labelledby="Title-{{ section.id }}">
+  <div class="container faq">
+    <p class="label" data-reveal>{{ section.settings.eyebrow | escape }}</p>
+    <h2 id="Title-{{ section.id }}" data-scramble style="margin-bottom: 2.5rem">{{ section.settings.heading }}</h2>
+    <div data-reveal>
+      {%- for block in section.blocks -%}
+        <details class="qa" {{ block.shopify_attributes }}>
+          <summary><small aria-hidden="true">Q{{ forloop.index | prepend: '0' | slice: -2, 2 }}</small><span>{{ block.settings.question | escape }}</span><span class="sign" aria-hidden="true">+</span></summary>
+          <div class="qa__a rte">{{ block.settings.answer }}</div>
+        </details>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{%- if section.blocks.size > 0 -%}
+<script type="application/ld+json">
+{ "@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+  {%- for block in section.blocks -%}
+  { "@type": "Question", "name": {{ block.settings.question | json }}, "acceptedAnswer": { "@type": "Answer", "text": {{ block.settings.answer | strip_html | json }} } }{% unless forloop.last %},{% endunless %}
+  {%- endfor -%}
+] }
+</script>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Questions",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "05 — Questions de l'équipage" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Vous avez demandé, nous répondons" }
+  ],
+  "blocks": [
+    { "type": "question", "name": "Question", "settings": [
+      { "type": "text", "id": "question", "label": "Question", "default": "Question" },
+      { "type": "richtext", "id": "answer", "label": "Réponse", "default": "<p>Réponse.</p>" }
+    ] }
+  ],
+  "presets": [{ "name": "Questions" }]
+}
+{% endschema %}

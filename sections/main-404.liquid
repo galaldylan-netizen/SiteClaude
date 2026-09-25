@@ -1,0 +1,14 @@
+<section class="section">
+  <div class="container not-found">
+    <div>
+      <p class="code" aria-hidden="true">404</p>
+      <p class="label" style="justify-content:center">{{ 'notfound.label' | t }}</p>
+      <h1 class="h2">{{ 'notfound.title' | t }}</h1>
+      <p class="lead" style="margin-inline:auto">{{ 'notfound.text' | t }}</p>
+      <a class="btn btn--solid" href="{{ routes.root_url }}">{{ 'notfound.back' | t }} {% render 'icon', name: 'arrow' %}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Signal perdu", "settings": [] }
+{% endschema %}

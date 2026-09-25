@@ -1,0 +1,178 @@
+{%- liquid
+  assign p = metaobject
+  assign all = shop.metaobjects.planete.values
+  assign prev = nil
+  assign next = nil
+  assign found = false
+  for item in all
+    if found and next == nil
+      assign next = item
+    endif
+    if item.system.handle == p.system.handle
+      assign found = true
+    endif
+    unless found
+      assign prev = item
+    endunless
+  endfor
+
+  assign d = p.diametre_km.value | default: 0
+  assign g = p.gravite.value | default: 0
+  assign dist = p.distance_mkm.value | default: 0
+  assign x_diam = d | times: 1.0 | divided_by: 12756 | round: 2
+  assign x_grav = g | times: 1.0 | divided_by: 9.8 | round: 2
+  assign pct_diam = d | times: 100.0 | divided_by: 142984 | at_least: 1.5
+  assign pct_mass = p.masse.value | default: 0 | times: 100.0 | divided_by: 1898 | at_least: 1.5
+  assign pct_grav = g | times: 100.0 | divided_by: 23.1 | at_least: 1.5
+  assign pct_day = p.jour_h.value | default: 0 | times: 100.0 | divided_by: 4222.6 | at_least: 1.5
+  assign pct_year = p.annee_j.value | default: 0 | times: 100.0 | divided_by: 90560 | at_least: 1.5
+  assign pct_dist = dist | times: 100.0 | divided_by: 5906.4 | at_least: 1.5
+  assign pct_temp = p.temperature_c.value | default: 0 | plus: 225 | times: 100.0 | divided_by: 689 | at_least: 1.5
+  assign pct_moons = p.lunes.value | default: 0 | times: 100.0 | divided_by: 274 | at_least: 1.5
+
+  assign light_s = dist | times: 3.33564 | round
+  assign light_min = light_s | divided_by: 60
+  assign light_rem = light_s | modulo: 60
+  assign light_h = light_min | divided_by: 60
+  assign light_min_rem = light_min | modulo: 60
+
+  assign ref = dist | at_least: 149.6
+  assign r_this = dist | times: 140.0 | divided_by: ref | at_least: 6
+  assign r_earth = 149.6 | times: 140.0 | divided_by: ref
+  assign years = p.annee_j.value | default: 0 | divided_by: 365.25 | round: 1
+-%}
+
+<article class="planet-page" aria-labelledby="PlanetTitle">
+  <section class="planet-hero section--tight">
+    <div class="container">
+      <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}">
+        <a href="{{ routes.root_url }}">{{ settings.site_name | escape }}</a> /
+        <a href="{{ routes.root_url }}#catalogue">{{ 'planet.catalogue' | t }}</a> /
+        <span aria-current="page">P-{{ p.numero.value | prepend: '0' | slice: -2, 2 }} {{ p.nom.value | escape }}</span>
+      </nav>
+      <div class="planet-hero__grid">
+        <div class="viewport" style="--glow: {{ p.couleur_1.value }}">
+          <svg class="viewport__rings" viewBox="0 0 400 400" aria-hidden="true">
+            <g class="r1"><circle cx="200" cy="200" r="196" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="2 6"/></g>
+            <g class="r2"><circle cx="200" cy="200" r="184" fill="none" stroke="currentColor" stroke-opacity=".45" stroke-dasharray="80 20 4 20"/></g>
+            <g class="r3"><path d="M200 4 v16 M200 380 v16 M4 200 h16 M380 200 h16" stroke="currentColor"/><circle cx="200" cy="16" r="3" fill="#FFB547"/></g>
+          </svg>
+          {% render 'planet-canvas', planet: p, speed: 1, label: true %}
+          <div class="viewport__tag viewport__tag--tl" aria-hidden="true"><span>LAT/LON</span><strong>00.00 / ROT</strong></div>
+          <div class="viewport__tag viewport__tag--br" aria-hidden="true"><span>{{ 'planet.tilt' | t }}</span><strong><span data-num>{{ p.inclinaison.value | default: 0 }}</span>°</strong></div>
+        </div>
+
+        <div>
+          <p class="label"><span class="blink" aria-hidden="true"></span>{{ 'planet.file' | t }} P-{{ p.numero.value | prepend: '0' | slice: -2, 2 }}</p>
+          <h1 id="PlanetTitle" data-scramble>{{ p.nom.value | escape }}</h1>
+          <div class="chips">
+            <span class="chip chip--cyan">{{ p.categorie.value | escape }}</span>
+            {%- if p.anneaux.value -%}<span class="chip">{{ 'planet.rings' | t }}</span>{%- endif -%}
+            {%- if p.temperature_c.value > 100 -%}<span class="chip chip--hot">{{ 'planet.hot' | t }}</span>{%- endif -%}
+            {%- if p.temperature_c.value < -150 -%}<span class="chip">{{ 'planet.cold' | t }}</span>{%- endif -%}
+          </div>
+          <p class="lead">{{ p.resume.value | escape }}</p>
+          <dl class="telemetry">
+            <div><dt>{{ 'planet.distance' | t }}</dt><dd><span data-num>{{ dist }}</span> <small>M km</small></dd></div>
+            <div><dt>{{ 'planet.year' | t }}</dt><dd>{% if p.annee_j.value >= 1000 %}<span data-num>{{ years }}</span> <small>{{ 'planet.years' | t }}</small>{% else %}<span data-num>{{ p.annee_j.value }}</span> <small>{{ 'planet.days' | t }}</small>{% endif %}</dd></div>
+            <div><dt>{{ 'planet.moons' | t }}</dt><dd><span data-num>{{ p.lunes.value }}</span></dd></div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="DataTitle">
+    <div class="container">
+      <p class="label">{{ 'planet.telemetry_label' | t }}</p>
+      <h2 id="DataTitle" data-scramble>{{ 'planet.telemetry' | t }}</h2>
+      <dl class="data-grid" data-reveal>
+        <div class="datum"><dt>{{ 'planet.diameter' | t }}</dt><dd><div class="datum__value"><span data-num>{{ d }}</span><small>km</small></div><div class="meter" aria-hidden="true"><i style="--v: {{ pct_diam }}%"></i></div><div class="datum__cmp">{{ 'planet.x_earth' | t: x: x_diam }}</div></dd></div>
+        <div class="datum"><dt>{{ 'planet.mass' | t }}</dt><dd><div class="datum__value"><span data-num>{{ p.masse.value }}</span><small>×10²⁴ kg</small></div><div class="meter" aria-hidden="true"><i style="--v: {{ pct_mass }}%"></i></div></dd></div>
+        <div class="datum"><dt>{{ 'planet.gravity' | t }}</dt><dd><div class="datum__value"><span data-num>{{ g }}</span><small>m/s²</small></div><div class="meter" aria-hidden="true"><i style="--v: {{ pct_grav }}%"></i></div><div class="datum__cmp">{{ 'planet.x_earth' | t: x: x_grav }}</div></dd></div>
+        <div class="datum"><dt>{{ 'planet.day' | t }}</dt><dd><div class="datum__value"><span data-num>{{ p.jour_h.value }}</span><small>h</small></div><div class="meter" aria-hidden="true"><i style="--v: {{ pct_day }}%"></i></div></dd></div>
+        <div class="datum"><dt>{{ 'planet.year' | t }}</dt><dd><div class="datum__value"><span data-num>{{ p.annee_j.value }}</span><small>{{ 'planet.days' | t }}</small></div><div class="meter" aria-hidden="true"><i style="--v: {{ pct_year }}%"></i></div></dd></div>
+        <div class="datum"><dt>{{ 'planet.distance' | t }}</dt><dd><div class="datum__value"><span data-num>{{ dist }}</span><small>M km</small></div><div class="meter" aria-hidden="true"><i style="--v: {{ pct_dist }}%"></i></div></dd></div>
+        <div class="datum"><dt>{{ 'planet.temperature' | t }}</dt><dd><div class="datum__value"><span data-num>{{ p.temperature_c.value }}</span><small>°C</small></div><div class="meter" aria-hidden="true"><i style="--v: {{ pct_temp }}%"></i></div></dd></div>
+        <div class="datum"><dt>{{ 'planet.moons' | t }}</dt><dd><div class="datum__value"><span data-num>{{ p.lunes.value }}</span></div><div class="meter" aria-hidden="true"><i style="--v: {{ pct_moons }}%"></i></div></dd></div>
+      </dl>
+      <p class="source" style="margin-top:1rem">{{ 'planet.source' | t }}</p>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-label="{{ 'planet.tools' | t }}">
+    <div class="container tools">
+      <div class="panel tool" data-reveal>
+        <p class="label">{{ 'planet.weight_label' | t }}</p>
+        <h2>{{ 'planet.weight_title' | t: name: p.nom.value }}</h2>
+        <form data-weight data-gravity="{{ g }}" novalidate>
+          <div class="field">
+            <label for="Weight">{{ 'planet.weight_input' | t }}</label>
+            <input id="Weight" type="number" inputmode="decimal" min="1" max="500" value="70" aria-describedby="WeightOut">
+          </div>
+          <p id="WeightOut" aria-live="polite">{{ 'planet.weight_result' | t }} <span class="readout" style="display:block"><span data-weight-out>—</span> <small>{{ 'planet.weight_unit' | t }}</small></span></p>
+          <p class="fine">{{ 'planet.weight_note' | t }}</p>
+        </form>
+      </div>
+
+      <div class="panel tool" data-reveal style="--i:1">
+        <p class="label">{{ 'planet.light_label' | t }}</p>
+        <h2>{{ 'planet.light_title' | t }}</h2>
+        <p class="readout">
+          {%- if light_h > 0 -%}{{ light_h }}<small> h </small>{{ light_min_rem }}<small> min</small>{%- else -%}{{ light_min }}<small> min </small>{{ light_rem }}<small> s</small>{%- endif -%}
+        </p>
+        <div class="lightpath" style="--c1: {{ p.couleur_1.value }}; --c2: {{ p.couleur_2.value }}; --c3: {{ p.couleur_3.value }}" aria-hidden="true"><span class="sun"></span><span class="photon"></span><span class="dest"></span></div>
+        <p class="fine">{{ 'planet.light_note' | t: name: p.nom.value }}</p>
+        <div class="orbit-mini" aria-hidden="true">
+          <svg viewBox="0 0 320 320">
+            <circle class="o" cx="160" cy="160" r="{{ r_earth }}"/>
+            <circle class="o o--this" cx="160" cy="160" r="{{ r_this }}"/>
+            <circle cx="160" cy="160" r="6" fill="#FFB547"/>
+            {%- if dist != 149.6 -%}
+            <circle cx="{{ 160 | plus: r_earth }}" cy="160" r="4" fill="#4FA3FF"/>
+            <text x="{{ 164 | plus: r_earth }}" y="176">TERRE</text>
+            {%- endif -%}
+            <circle cx="160" cy="{{ 160 | minus: r_this }}" r="5" fill="{{ p.couleur_1.value }}"/>
+            <text x="168" y="{{ 156 | minus: r_this }}">{{ p.nom.value | upcase }}</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--tight" aria-labelledby="AboutTitle">
+    <div class="container narrow">
+      <p class="label">{{ 'planet.dossier' | t }}</p>
+      <h2 id="AboutTitle" data-scramble>{{ 'planet.about' | t: name: p.nom.value }}</h2>
+      <div class="rte" data-reveal>{{ p.description | metafield_tag }}</div>
+      {%- if p.fait.value != blank -%}
+        <aside class="callout" style="margin-top:2rem" data-reveal>
+          <p class="label">{{ 'planet.fact' | t }}</p>
+          <p style="margin:0">{{ p.fait.value | escape }}</p>
+        </aside>
+      {%- endif -%}
+    </div>
+  </section>
+
+  <nav class="section section--tight" aria-label="{{ 'planet.pager' | t }}">
+    <div class="container pager">
+      {%- if prev -%}<a href="{{ prev.system.url }}"><span>← {{ 'planet.prev' | t }}</span><strong>{{ prev.nom.value | escape }}</strong></a>{%- else -%}<span></span>{%- endif -%}
+      {%- if next -%}<a href="{{ next.system.url }}"><span>{{ 'planet.next' | t }} →</span><strong>{{ next.nom.value | escape }}</strong></a>{%- endif -%}
+    </div>
+  </nav>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": {{ p.nom.value | append: ' — ' | append: p.categorie.value | json }},
+  "description": {{ p.resume.value | json }},
+  "about": { "@type": "Thing", "name": {{ p.nom.value | json }} },
+  "publisher": { "@type": "Organization", "name": {{ settings.site_name | json }} }
+}
+</script>
+
+{% schema %}
+{ "name": "Fiche planète", "settings": [] }
+{% endschema %}

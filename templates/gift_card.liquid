@@ -1,0 +1,17 @@
+{%- layout none -%}
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{ settings.site_name | escape }}</title>
+    {% render 'css-variables' %}
+    {{ 'orbyte.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body>
+    <main class="section"><div class="container narrow" style="text-align:center">
+      <h1 class="h2">{{ gift_card.balance | money }}</h1>
+      <p class="mono">{{ gift_card.code | format_code }}</p>
+    </div></main>
+  </body>
+</html>

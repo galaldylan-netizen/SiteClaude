@@ -1,0 +1,34 @@
+<section class="section" aria-labelledby="Title-{{ section.id }}">
+  <div class="container">
+    <div class="panel panel--glow terminal" style="padding:0">
+      <div class="terminal__bar" aria-hidden="true"><span><i></i>{{ 'transmission.channel' | t }}</span><span data-utc>UTC --:--:--</span></div>
+      <div class="terminal__body">
+        <p class="terminal__prompt" aria-hidden="true">&gt; {{ 'transmission.prompt' | t }}</p>
+        <h2 id="Title-{{ section.id }}" data-scramble>{{ section.settings.heading }}</h2>
+        <p class="lead">{{ section.settings.text | escape }}</p>
+        {%- form 'customer', id: 'Transmission' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter,orbyte">
+          <label for="TxEmail-{{ section.id }}" class="visually-hidden">{{ 'transmission.email' | t }}</label>
+          <input type="email" id="TxEmail-{{ section.id }}" name="contact[email]" required autocomplete="email" placeholder="{{ 'transmission.placeholder' | t }}" aria-describedby="TxLegal-{{ section.id }}">
+          <button type="submit" class="btn btn--solid">{{ 'transmission.submit' | t }}</button>
+          {%- if form.posted_successfully? -%}
+            <p class="msg msg--ok" role="status" style="flex-basis:100%">{{ 'transmission.ok' | t }}</p>
+          {%- elsif form.errors -%}
+            <p class="msg msg--err" role="alert" style="flex-basis:100%">{{ form.errors.translated_fields.email | capitalize }} {{ form.errors.messages.email }}</p>
+          {%- endif -%}
+        {%- endform -%}
+        <p class="fine" id="TxLegal-{{ section.id }}">{{ 'transmission.legal' | t }}{% if shop.privacy_policy.body != blank %} <a href="{{ shop.privacy_policy.url }}">{{ shop.privacy_policy.title }}</a>.{% endif %}</p>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Transmission",
+  "settings": [
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Recevez les transmissions" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Un message par mois : phénomènes à observer dans le ciel, nouvelles fiches, dossiers du journal de bord." }
+  ],
+  "presets": [{ "name": "Transmission" }]
+}
+{% endschema %}

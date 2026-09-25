@@ -1,0 +1,30 @@
+{%- assign blog = section.settings.blog | default: blogs.journal -%}
+{%- if blog != blank and blog.articles_count > 0 -%}
+<section class="section" aria-labelledby="Title-{{ section.id }}">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="label" data-reveal>{{ section.settings.eyebrow | escape }}</p>
+        <h2 id="Title-{{ section.id }}" data-scramble>{{ section.settings.heading }}</h2>
+      </div>
+      <a class="btn btn--ghost" href="{{ blog.url }}" data-reveal>{{ 'journal.all' | t }} {% render 'icon', name: 'arrow' %}</a>
+    </div>
+    <ul class="journal" role="list">
+      {%- for article in blog.articles limit: 3 -%}
+        <li data-reveal style="--i: {{ forloop.index0 }}">{% render 'log-card', article: article, index: forloop.index %}</li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{
+  "name": "Journal de bord",
+  "settings": [
+    { "type": "blog", "id": "blog", "label": "Blog", "info": "Par défaut : le blog « journal »." },
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "04 — Journal de bord" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Dernières transmissions" }
+  ],
+  "presets": [{ "name": "Journal de bord" }]
+}
+{% endschema %}

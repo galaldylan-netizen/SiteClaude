@@ -1,0 +1,47 @@
+{%- assign menu = section.settings.menu -%}
+<header class="site-header" data-header>
+  <div class="container site-header__inner">
+    <a class="logo" href="{{ routes.root_url }}" aria-label="{{ settings.site_name | escape }} — {{ 'nav.home' | t }}">
+      {% render 'logo' %}<span aria-hidden="true">{{ settings.site_name | escape }}</span>
+    </a>
+    <nav class="nav" aria-label="{{ 'nav.main' | t }}">
+      <ul role="list">
+        {%- for link in menu.links -%}
+          <li><a href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}><small aria-hidden="true">0{{ forloop.index }}</small>{{ link.title | escape }}</a></li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+    <div class="status">
+      <span class="status__led">{{ 'nav.signal' | t }}</span>
+      <span class="status__clock" data-utc aria-hidden="true">UTC --:--:--</span>
+      <a class="icon-btn" href="{{ routes.search_url }}">{% render 'icon', name: 'search' %}<span class="visually-hidden">{{ 'nav.search' | t }}</span></a>
+    </div>
+    <button type="button" class="icon-btn menu-btn" data-nav-open aria-controls="MobileNav" aria-expanded="false">
+      {% render 'icon', name: 'menu' %}<span class="visually-hidden">{{ 'nav.menu' | t }}</span>
+    </button>
+  </div>
+</header>
+
+<div class="mobile-nav" id="MobileNav" data-mobile-nav role="dialog" aria-modal="true" aria-label="{{ 'nav.menu' | t }}" hidden>
+  <div class="mobile-nav__top">
+    <span class="logo">{% render 'logo' %}<span>{{ settings.site_name | escape }}</span></span>
+    <button type="button" class="icon-btn" data-nav-close>{% render 'icon', name: 'close' %}<span class="visually-hidden">{{ 'general.close' | t }}</span></button>
+  </div>
+  <nav aria-label="{{ 'nav.main' | t }}">
+    <ul role="list">
+      {%- for link in menu.links -%}
+        <li><a class="big" href="{{ link.url }}"{% if link.current %} aria-current="page"{% endif %}><small aria-hidden="true">0{{ forloop.index }}</small>{{ link.title | escape }}</a></li>
+      {%- endfor -%}
+      <li><a class="big" href="{{ routes.search_url }}"><small aria-hidden="true">//</small>{{ 'nav.search' | t }}</a></li>
+    </ul>
+  </nav>
+</div>
+
+{% schema %}
+{
+  "name": "En-tête",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "main-menu", "info": "Conseil : Planètes, Journal de bord, À propos." }
+  ]
+}
+{% endschema %}

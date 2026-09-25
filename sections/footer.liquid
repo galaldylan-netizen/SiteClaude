@@ -1,0 +1,72 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a class="logo" href="{{ routes.root_url }}">{% render 'logo' %}<span>{{ settings.site_name | escape }}</span></a>
+        <p style="margin-top:1rem">{{ settings.site_tagline | escape }}</p>
+        <p class="footer-coords" aria-hidden="true">46°12′N · 6°09′E · {{ 'footer.coords' | t }}</p>
+        <ul class="footer-social" role="list">
+          {%- if settings.social_instagram != blank -%}<li><a class="icon-btn" href="{{ settings.social_instagram }}" target="_blank" rel="noopener">{% render 'icon', name: 'instagram' %}<span class="visually-hidden">Instagram ({{ 'general.new_window' | t }})</span></a></li>{%- endif -%}
+          {%- if settings.social_tiktok != blank -%}<li><a class="icon-btn" href="{{ settings.social_tiktok }}" target="_blank" rel="noopener">{% render 'icon', name: 'tiktok' %}<span class="visually-hidden">TikTok ({{ 'general.new_window' | t }})</span></a></li>{%- endif -%}
+          {%- if settings.social_youtube != blank -%}<li><a class="icon-btn" href="{{ settings.social_youtube }}" target="_blank" rel="noopener">{% render 'icon', name: 'youtube' %}<span class="visually-hidden">YouTube ({{ 'general.new_window' | t }})</span></a></li>{%- endif -%}
+        </ul>
+      </div>
+
+      <nav aria-labelledby="FooterExplore">
+        <h2 id="FooterExplore">{{ 'footer.explore' | t }}</h2>
+        <ul role="list">
+          {%- for planet in shop.metaobjects.planete.values limit: 9 -%}
+            <li><a href="{{ planet.system.url }}">{{ planet.nom.value | escape }}</a></li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="FooterMenu">
+        {%- assign station_label = 'footer.station' | t -%}
+        <h2 id="FooterMenu">{{ section.settings.menu.title | default: station_label | escape }}</h2>
+        <ul role="list">
+          {%- for link in section.settings.menu.links -%}
+            <li><a href="{{ link.url }}">{{ link.title | escape }}</a></li>
+          {%- endfor -%}
+          <li><a href="{{ routes.search_url }}">{{ 'nav.search' | t }}</a></li>
+        </ul>
+      </nav>
+
+      <nav aria-labelledby="FooterLegal">
+        <h2 id="FooterLegal">{{ 'footer.legal' | t }}</h2>
+        <ul role="list">
+          {%- for policy in shop.policies -%}
+            {%- if policy.body != blank -%}<li><a href="{{ policy.url }}">{{ policy.title | escape }}</a></li>{%- endif -%}
+          {%- endfor -%}
+          {%- if section.settings.accessibility_page != blank -%}<li><a href="{{ section.settings.accessibility_page.url }}">{{ 'footer.accessibility' | t }}</a></li>{%- endif -%}
+          {%- if section.settings.contact_page != blank -%}<li><a href="{{ section.settings.contact_page.url }}">{{ 'footer.contact' | t }}</a></li>{%- endif -%}
+          <li><button type="button" class="pause-btn" style="border:0;padding:0;min-height:0" data-cookie-preferences hidden>{{ 'footer.cookies' | t }}</button></li>
+        </ul>
+      </nav>
+    </div>
+
+    {%- if settings.disclaimer != blank -%}<p class="disclaimer">{{ settings.disclaimer | escape }}</p>{%- endif -%}
+  </div>
+
+  <p class="wordmark" aria-hidden="true">{{ settings.site_name | escape }}</p>
+
+  <div class="container">
+    <div class="footer-bottom">
+      <span>&copy; {{ 'now' | date: '%Y' }} {{ settings.site_name | escape }} · <span data-utc="met" aria-hidden="true">T+00:00:00</span></span>
+      <button type="button" class="pause-btn" data-motion-toggle aria-pressed="false" data-on-msg="{{ 'a11y.motion_off' | t }}" data-off-msg="{{ 'a11y.motion_on' | t }}">
+        {% render 'icon', name: 'pause' %}<span>{{ 'a11y.pause_all' | t }}</span>
+      </button>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Pied de page",
+  "settings": [
+    { "type": "link_list", "id": "menu", "label": "Menu", "default": "footer" },
+    { "type": "page", "id": "accessibility_page", "label": "Page Accessibilité" },
+    { "type": "page", "id": "contact_page", "label": "Page Contact" }
+  ]
+}
+{% endschema %}

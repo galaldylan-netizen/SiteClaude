@@ -1,0 +1,43 @@
+<section class="section" id="{{ section.settings.anchor | default: section.id }}" aria-labelledby="Title-{{ section.id }}">
+  <div class="container">
+    <div class="section-head">
+      <div>
+        <p class="label" data-reveal>{{ section.settings.eyebrow | escape }}</p>
+        <h2 id="Title-{{ section.id }}" data-scramble>{{ section.settings.heading }}</h2>
+      </div>
+      <p data-reveal>{{ section.settings.text | escape }}</p>
+    </div>
+    <ul class="worlds" role="list">
+      {%- for p in shop.metaobjects.planete.values -%}
+        <li data-reveal style="--i: {{ forloop.index0 | modulo: 4 }}">
+          <article class="world" data-hover-host style="--glow: {{ p.couleur_1.value }}" aria-labelledby="W-{{ p.system.handle }}">
+            <div class="panel">
+              <div class="world__id" aria-hidden="true"><span>P-{{ p.numero.value | prepend: '0' | slice: -2, 2 }}</span><b><span data-num>{{ p.distance_mkm.value }}</span> M km</b></div>
+              <div class="world__planet">{% render 'planet-canvas', planet: p, speed: 2, maxres: 300, hover: true %}</div>
+              <p class="world__type">{{ p.categorie.value | escape }}</p>
+              <h3 id="W-{{ p.system.handle }}"><a href="{{ p.system.url }}">{{ p.nom.value | escape }}</a></h3>
+              <dl class="world__stats">
+                <div><dt>{{ 'planet.diameter' | t }}</dt><dd><span data-num>{{ p.diametre_km.value }}</span> km</dd></div>
+                <div><dt>{{ 'planet.moons' | t }}</dt><dd>{{ p.lunes.value }}</dd></div>
+              </dl>
+            </div>
+          </article>
+        </li>
+      {%- else -%}
+        <li><p>{{ 'worlds.empty' | t }}</p></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Catalogue des mondes",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "01 — Catalogue" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Neuf mondes, une seule étoile" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Huit planètes et une planète naine, rendues en 3D à partir de leurs couleurs réelles. Cliquez pour ouvrir la fiche complète." },
+    { "type": "text", "id": "anchor", "label": "Ancre", "default": "catalogue" }
+  ],
+  "presets": [{ "name": "Catalogue des mondes" }]
+}
+{% endschema %}

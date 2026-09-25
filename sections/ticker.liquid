@@ -1,0 +1,29 @@
+<div class="ticker" id="Ticker-{{ section.id }}" role="region" aria-label="{{ 'ticker.label' | t }}">
+  <span class="ticker__label" aria-hidden="true">{{ 'ticker.live' | t }}</span>
+  <div class="ticker__viewport">
+    <ul class="visually-hidden">
+      {%- for p in shop.metaobjects.planete.values -%}
+        <li>{{ p.nom.value }} : {{ p.distance_mkm.value }} millions de km du Soleil, révolution {{ p.annee_j.value }} jours, {{ p.lunes.value }} lunes.</li>
+      {%- endfor -%}
+    </ul>
+    <div class="ticker__track" style="--speed: {{ section.settings.speed }}s" aria-hidden="true">
+      {%- for i in (1..2) -%}
+        <div class="ticker__group">
+          {%- for p in shop.metaobjects.planete.values -%}
+            <span class="ticker__item"><b>{{ p.nom.value | upcase }}</b> DIST <span>{{ p.distance_mkm.value }} M KM</span> · REV <span>{{ p.annee_j.value }} J</span> · T° <span>{{ p.temperature_c.value }} °C</span></span>
+          {%- endfor -%}
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+  <button type="button" class="pause-btn" data-pause aria-controls="Ticker-{{ section.id }}" aria-pressed="false" data-pause-text="{{ 'a11y.pause' | t }}" data-play-text="{{ 'a11y.play' | t }}">
+    {% render 'icon', name: 'pause' %}<span data-pause-label>{{ 'a11y.pause' | t }}</span><span class="visually-hidden"> — {{ 'ticker.label' | t }}</span>
+  </button>
+</div>
+{% schema %}
+{
+  "name": "Bande de données",
+  "settings": [ { "type": "range", "id": "speed", "label": "Durée d'un tour", "min": 20, "max": 120, "step": 5, "unit": "s", "default": 70 } ],
+  "presets": [{ "name": "Bande de données" }]
+}
+{% endschema %}

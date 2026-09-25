@@ -1,0 +1,27 @@
+{%- liquid
+  assign f_head = settings.type_heading_font
+  assign f_body = settings.type_body_font
+  assign f_mono = settings.type_mono_font
+  assign f_body_bold = f_body | font_modify: 'weight', '700'
+-%}
+<style>
+  {{ f_head | font_face: font_display: 'swap' }}
+  {{ f_body | font_face: font_display: 'swap' }}
+  {{ f_body_bold | font_face: font_display: 'swap' }}
+  {{ f_mono | font_face: font_display: 'swap' }}
+  :root {
+    --font-head: {{ f_head.family }}, {{ f_head.fallback_families }};
+    --font-head-weight: {{ f_head.weight }};
+    --font-body: {{ f_body.family }}, {{ f_body.fallback_families }};
+    --font-mono: {{ f_mono.family }}, ui-monospace, SFMono-Regular, Menlo, monospace;
+    --bg: {{ settings.color_bg }};
+    --panel: {{ settings.color_panel }};
+    --text: {{ settings.color_text }};
+    --muted: {{ settings.color_muted }};
+    --cyan: {{ settings.color_primary }};
+    --violet: {{ settings.color_secondary }};
+    --amber: {{ settings.color_alert }};
+    --line: color-mix(in srgb, var(--cyan) 22%, transparent);
+    --page-width: {{ settings.page_width }}px;
+  }
+</style>

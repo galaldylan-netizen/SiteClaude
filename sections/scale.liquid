@@ -1,0 +1,35 @@
+{%- comment -%} Tailles proportionnelles au diamètre réel (Jupiter = 100 %). {%- endcomment -%}
+<section class="section section--tight" aria-labelledby="Title-{{ section.id }}">
+  <div class="container">
+    <p class="label" data-reveal>{{ section.settings.eyebrow | escape }}</p>
+    <h2 id="Title-{{ section.id }}" data-scramble>{{ section.settings.heading }}</h2>
+    <p class="lead" data-reveal>{{ section.settings.text | escape }}</p>
+    <div class="scale" role="list" tabindex="0" aria-label="{{ 'scale.label' | t }}">
+      <span class="scale__sun" aria-hidden="true"></span>
+      {%- for p in shop.metaobjects.planete.values -%}
+        {%- liquid
+          assign d = p.diametre_km.value | default: 1000
+          assign px = d | times: 220 | divided_by: 142984
+          if px < 6
+            assign px = 6
+          endif
+        -%}
+        <a class="scale__item" role="listitem" href="{{ p.system.url }}" style="--c1: {{ p.couleur_1.value }}; --c2: {{ p.couleur_2.value }}; --c3: {{ p.couleur_3.value }}" data-reveal>
+          <span class="scale__ball" style="width: {{ px }}px; height: {{ px }}px" aria-hidden="true"></span>
+          <span>{{ p.nom.value | escape }}<span class="visually-hidden"> — {{ p.diametre_km.value }} km</span></span>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Échelle comparée",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "03 — Échelle" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "À la bonne taille" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Les diamètres sont à l'échelle entre eux : Jupiter pourrait contenir plus de 1 300 Terres. Le Soleil, lui, est encore dix fois plus large que Jupiter." }
+  ],
+  "presets": [{ "name": "Échelle comparée" }]
+}
+{% endschema %}

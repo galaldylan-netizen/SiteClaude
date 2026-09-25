@@ -1,0 +1,6 @@
+{
+  "type": "header",
+  "name": "Groupe en-tête",
+  "sections": { "header": { "type": "header", "settings": { "menu": "main-menu" } } },
+  "order": ["header"]
+}

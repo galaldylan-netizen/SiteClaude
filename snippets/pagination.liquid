@@ -1,0 +1,9 @@
+<nav class="pagination" aria-label="{{ 'general.pagination' | t }}">
+  {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">{% render 'icon', name: 'arrow-left' %}<span class="visually-hidden">{{ 'general.previous' | t }}</span></a>{%- endif -%}
+  {%- for part in paginate.parts -%}
+    {%- if part.is_link -%}<a href="{{ part.url }}">{{ part.title }}</a>
+    {%- elsif part.title == paginate.current_page -%}<span aria-current="page">{{ part.title }}</span>
+    {%- else -%}<span>{{ part.title }}</span>{%- endif -%}
+  {%- endfor -%}
+  {%- if paginate.next -%}<a href="{{ paginate.next.url }}">{% render 'icon', name: 'arrow' %}<span class="visually-hidden">{{ 'general.next' | t }}</span></a>{%- endif -%}
+</nav>

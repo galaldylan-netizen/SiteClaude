@@ -1,0 +1,36 @@
+<section class="section page-head">
+  <div class="container narrow">
+    <p class="label">{{ 'search.label' | t }}</p>
+    <h1 class="h2" data-scramble>{{ 'search.title' | t }}</h1>
+    <form action="{{ routes.search_url }}" method="get" role="search" class="search-row">
+      <label for="Q" class="visually-hidden">{{ 'nav.search' | t }}</label>
+      <input id="Q" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'search.placeholder' | t }}">
+      <button class="btn btn--solid" type="submit">{{ 'nav.search' | t }}</button>
+    </form>
+    {%- assign q = search.terms | downcase -%}
+    {%- if q != blank -%}
+      {%- assign hits = 0 -%}
+      <div class="results">
+        {%- for p in shop.metaobjects.planete.values -%}
+          {%- assign hay = p.nom.value | append: ' ' | append: p.categorie.value | append: ' ' | append: p.resume.value | downcase -%}
+          {%- if hay contains q -%}
+            {%- assign hits = hits | plus: 1 -%}
+            <a href="{{ p.system.url }}"><small>{{ 'search.planet' | t }}</small>{{ p.nom.value | escape }} — {{ p.resume.value | truncatewords: 16 | escape }}</a>
+          {%- endif -%}
+        {%- endfor -%}
+        {%- if search.performed -%}
+          {%- for item in search.results -%}
+            {%- if item.object_type == 'article' or item.object_type == 'page' -%}
+              {%- assign hits = hits | plus: 1 -%}
+              <a href="{{ item.url }}"><small>{% if item.object_type == 'article' %}{{ 'search.article' | t }}{% else %}{{ 'search.page' | t }}{% endif %}</small>{{ item.title | escape }}</a>
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+      </div>
+      <p role="status" style="margin-top:1.5rem" class="source">{{ 'search.count' | t: count: hits }}</p>
+    {%- endif -%}
+  </div>
+</section>
+{% schema %}
+{ "name": "Recherche", "settings": [] }
+{% endschema %}

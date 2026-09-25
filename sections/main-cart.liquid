@@ -1,0 +1,13 @@
+<section class="section">
+  <div class="container not-found">
+    <div>
+      <p class="label" style="justify-content:center">{{ 'cart.label' | t }}</p>
+      <h1 class="h2">{{ 'cart.title' | t }}</h1>
+      <p class="lead" style="margin-inline:auto">{{ 'cart.text' | t }}</p>
+      <a class="btn btn--solid" href="{{ routes.root_url }}">{{ 'notfound.back' | t }} {% render 'icon', name: 'arrow' %}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Panier", "settings": [] }
+{% endschema %}

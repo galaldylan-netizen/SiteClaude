@@ -1,0 +1,168 @@
+{
+  "general": {
+    "close": "Fermer",
+    "next": "Suivant",
+    "previous": "Précédent",
+    "page": "Page {{ page }}",
+    "new_window": "s'ouvre dans un nouvel onglet",
+    "breadcrumb": "Fil d'Ariane",
+    "pagination": "Pagination",
+    "required": "Les champs marqués d'un astérisque (*) sont obligatoires."
+  },
+  "a11y": {
+    "skip": "Aller au contenu",
+    "pause": "Pause",
+    "play": "Reprendre",
+    "pause_orbits": "Mettre les orbites en pause",
+    "play_orbits": "Relancer les orbites",
+    "pause_all": "Tout mettre en pause",
+    "motion_off": "Animations arrêtées.",
+    "motion_on": "Animations relancées.",
+    "contact_title": "Un problème d'accès ?",
+    "contact_text": "Écrivez-nous et nous vous transmettrons l'information sous une autre forme :",
+    "updated": "Dernière vérification :"
+  },
+  "nav": {
+    "home": "accueil",
+    "main": "Navigation principale",
+    "menu": "Menu",
+    "search": "Rechercher",
+    "signal": "SIGNAL NOMINAL"
+  },
+  "hero": {
+    "focus": "Fiche {{ name }}",
+    "scroll": "DÉFILER",
+    "target": "Cible",
+    "t_planets": "Planètes",
+    "t_moons": "Lunes recensées",
+    "t_light": "Vitesse de la lumière"
+  },
+  "ticker": {
+    "label": "Données orbitales",
+    "live": "Flux"
+  },
+  "worlds": {
+    "empty": "Aucune planète pour le moment. Ajoutez des entrées « Planète » dans Contenu > Métaobjets."
+  },
+  "orrery": {
+    "not_to_scale": "DISTANCES NON À L'ÉCHELLE",
+    "map_label": "Carte animée du Système solaire : chaque planète est un lien vers sa fiche",
+    "open": "ouvrir la fiche",
+    "selected": "Planète sélectionnée",
+    "see": "Voir la fiche",
+    "choose": "Choisir une planète"
+  },
+  "scale": {
+    "label": "Planètes classées par distance au Soleil, taille proportionnelle au diamètre"
+  },
+  "journal": {
+    "all": "Tout le journal",
+    "read": "Lire",
+    "label": "Journal de bord",
+    "empty": "Aucune transmission pour le moment.",
+    "back": "Retour au journal"
+  },
+  "transmission": {
+    "channel": "Canal de transmission",
+    "prompt": "ouverture du canal",
+    "email": "Adresse e-mail",
+    "placeholder": "votre@adresse.email",
+    "submit": "S'abonner",
+    "ok": "Canal ouvert. Merci, votre inscription est confirmée.",
+    "legal": "Désinscription possible à tout moment via le lien présent dans chaque e-mail. Plus d'infos :"
+  },
+  "footer": {
+    "coords": "STATION DE CONTRÔLE",
+    "explore": "Mondes",
+    "station": "Station",
+    "legal": "Informations",
+    "accessibility": "Accessibilité",
+    "contact": "Contact",
+    "cookies": "Préférences cookies"
+  },
+  "planet": {
+    "render_alt": "Illustration en 3D de {{ name }}, en rotation",
+    "catalogue": "Catalogue",
+    "file": "Fiche",
+    "tilt": "Inclinaison",
+    "rings": "Anneaux",
+    "hot": "Chaleur extrême",
+    "cold": "Froid extrême",
+    "telemetry_label": "Télémétrie",
+    "telemetry": "Données physiques",
+    "diameter": "Diamètre",
+    "mass": "Masse",
+    "gravity": "Gravité",
+    "day": "Durée du jour",
+    "year": "Année (révolution)",
+    "distance": "Distance au Soleil",
+    "temperature": "Température moyenne",
+    "moons": "Lunes",
+    "days": "jours",
+    "years": "ans",
+    "x_earth": "× {{ x }} par rapport à la Terre",
+    "source": "Source : NASA — NSSDCA Planetary Fact Sheet. Valeurs moyennes arrondies.",
+    "tools": "Outils interactifs",
+    "weight_label": "Simulateur",
+    "weight_title": "Votre poids sur {{ name }}",
+    "weight_input": "Votre masse sur Terre (kg)",
+    "weight_result": "Sur cette planète, la balance afficherait :",
+    "weight_unit": "kg",
+    "weight_note": "Votre masse ne change pas : c'est la gravité, donc la force qui vous attire, qui varie.",
+    "light_label": "Photon",
+    "light_title": "Temps de trajet de la lumière du Soleil",
+    "light_note": "C'est le temps que met un rayon de lumière pour aller du Soleil jusqu'à {{ name }}, à 299 792 km/s.",
+    "dossier": "Dossier",
+    "about": "Le dossier {{ name }}",
+    "fact": "Fait marquant",
+    "pager": "Planètes voisines",
+    "prev": "Planète précédente",
+    "next": "Planète suivante"
+  },
+  "search": {
+    "label": "Scanner",
+    "title": "Rechercher dans l'observatoire",
+    "placeholder": "Mars, anneaux, géante gazeuse…",
+    "planet": "Planète",
+    "article": "Journal",
+    "page": "Page",
+    "count": {
+      "one": "{{ count }} résultat",
+      "other": "{{ count }} résultats"
+    }
+  },
+  "contact": {
+    "label": "Canal ouvert",
+    "name": "Nom",
+    "email": "E-mail",
+    "message": "Message",
+    "send": "Transmettre",
+    "ok": "Message reçu. Nous vous répondrons dès que possible.",
+    "privacy": "Vos données servent uniquement à répondre à votre message."
+  },
+  "page": {
+    "label": "Document"
+  },
+  "notfound": {
+    "label": "Erreur 404",
+    "title": "Signal perdu",
+    "text": "Cette page a dérivé hors de portée de nos antennes.",
+    "back": "Retour à la base"
+  },
+  "object": {
+    "label": "Objet",
+    "collection": "Collection",
+    "collections": "Collections",
+    "empty": "Aucun objet."
+  },
+  "cart": {
+    "label": "Information",
+    "title": "Rien à acheter ici",
+    "text": "ORBYTE est un site d'information : il n'y a ni boutique ni panier."
+  },
+  "password": {
+    "label": "Accès restreint",
+    "field": "Mot de passe",
+    "enter": "Entrer"
+  }
+}

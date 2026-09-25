@@ -1,0 +1,18 @@
+<article class="section page-head" aria-labelledby="ArticleTitle">
+  <div class="container narrow">
+    <nav class="crumbs" aria-label="{{ 'general.breadcrumb' | t }}"><a href="{{ blog.url }}">{{ blog.title | escape }}</a> / <span aria-current="page">LOG-{{ article.id | modulo: 10000 }}</span></nav>
+    <p class="label"><time datetime="{{ article.published_at | date: '%Y-%m-%d' }}">{{ article.published_at | date: '%d.%m.%Y' }}</time>{% if article.author != blank %} · {{ article.author | escape }}{% endif %}</p>
+    <h1 class="h2" id="ArticleTitle" data-scramble>{{ article.title | escape }}</h1>
+    {%- if article.image -%}
+      <div class="panel" style="padding:0;margin-block:2rem">
+        {%- assign a_alt = article.image.alt | escape -%}
+        {{ article.image | image_url: width: 1600 | image_tag: loading: 'eager', widths: '600, 900, 1200, 1600', sizes: '(min-width: 800px) 780px, 100vw', alt: a_alt }}
+      </div>
+    {%- endif -%}
+    <div class="rte">{{ article.content }}</div>
+    <p style="margin-top:3rem"><a class="btn btn--ghost" href="{{ blog.url }}">{% render 'icon', name: 'arrow-left' %} {{ 'journal.back' | t }}</a></p>
+  </div>
+</article>
+{% schema %}
+{ "name": "Article", "settings": [] }
+{% endschema %}

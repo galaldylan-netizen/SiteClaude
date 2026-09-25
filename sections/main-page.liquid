@@ -1,0 +1,10 @@
+<section class="section page-head">
+  <div class="container narrow">
+    <p class="label">{{ 'page.label' | t }}</p>
+    <h1 class="h2" data-scramble>{{ page.title | escape }}</h1>
+    <div class="rte" data-reveal>{{ page.content }}</div>
+  </div>
+</section>
+{% schema %}
+{ "name": "Page", "settings": [] }
+{% endschema %}

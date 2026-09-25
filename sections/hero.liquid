@@ -1,0 +1,74 @@
+{%- liquid
+  assign featured = section.settings.planet
+  if featured == blank
+    for p in shop.metaobjects.planete.values
+      if p.anneaux_3d.value and featured == blank
+        assign featured = p
+      endif
+    endfor
+  endif
+  if featured == blank
+    assign featured = shop.metaobjects.planete.values.first
+  endif
+  assign total_moons = 0
+  assign planet_count = 0
+  for p in shop.metaobjects.planete.values
+    assign total_moons = total_moons | plus: p.lunes.value
+    unless p.categorie.value contains 'naine'
+      assign planet_count = planet_count | plus: 1
+    endunless
+  endfor
+-%}
+<section class="hero" aria-labelledby="HeroTitle-{{ section.id }}">
+  <div class="container hero__grid">
+    <div class="hero__text">
+      <p class="label" data-reveal><span class="blink" aria-hidden="true"></span>{{ section.settings.eyebrow | escape }}</p>
+      <h1 id="HeroTitle-{{ section.id }}" data-scramble>{{ section.settings.heading }}</h1>
+      <p class="lead" data-reveal style="--i:2">{{ section.settings.text | escape }}</p>
+      <div class="hero__cta" data-reveal style="--i:3">
+        {%- if section.settings.button_label != blank -%}
+          <a class="btn btn--solid" href="{{ section.settings.button_link | default: '#catalogue' }}">{{ section.settings.button_label | escape }} {% render 'icon', name: 'arrow' %}</a>
+        {%- endif -%}
+        {%- if featured != blank -%}
+          <a class="btn" href="{{ featured.system.url }}">{{ 'hero.focus' | t: name: featured.nom.value }}</a>
+        {%- endif -%}
+      </div>
+      <dl class="telemetry" data-reveal style="--i:4">
+        <div><dt>{{ 'hero.t_planets' | t }}</dt><dd>{{ planet_count }}</dd></div>
+        <div><dt>{{ 'hero.t_moons' | t }}</dt><dd>{{ total_moons }}</dd></div>
+        <div><dt>{{ 'hero.t_light' | t }}</dt><dd>299 792 <small>km/s</small></dd></div>
+      </dl>
+    </div>
+
+    <div class="hero__visual">
+      {%- if featured != blank -%}
+        <div class="viewport" style="--glow: {{ featured.couleur_1.value }}">
+          <svg class="viewport__rings" viewBox="0 0 400 400" aria-hidden="true">
+            <g class="r1"><circle cx="200" cy="200" r="196" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="2 6"/></g>
+            <g class="r2"><circle cx="200" cy="200" r="182" fill="none" stroke="currentColor" stroke-opacity=".5" stroke-dasharray="60 30 4 30" stroke-width="1.2"/></g>
+            <g class="r3"><path d="M200 6 v14 M200 380 v14 M6 200 h14 M380 200 h14" stroke="currentColor" stroke-opacity=".8"/><circle cx="200" cy="18" r="3" fill="#FFB547"/></g>
+          </svg>
+          {% render 'planet-canvas', planet: featured, speed: 1.3, label: true %}
+          <div class="viewport__tag viewport__tag--tl" aria-hidden="true"><span>{{ 'hero.target' | t }}</span><strong>{{ featured.nom.value | upcase }}</strong></div>
+          <div class="viewport__tag viewport__tag--tr" aria-hidden="true"><span>{{ 'planet.distance' | t }}</span><strong><span data-num>{{ featured.distance_mkm.value }}</span> M km</strong></div>
+          <div class="viewport__tag viewport__tag--br" aria-hidden="true"><span>{{ 'planet.diameter' | t }}</span><strong><span data-num>{{ featured.diametre_km.value }}</span> km</strong></div>
+        </div>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero orbital",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Surtitre", "default": "Centre de contrôle · En ligne" },
+    { "type": "inline_richtext", "id": "heading", "label": "Titre", "default": "Explorez les mondes du Système solaire" },
+    { "type": "textarea", "id": "text", "label": "Texte", "default": "Données réelles, planètes en 3D, orbites en direct : ORBYTE vous emmène de Mercure à Pluton, sans quitter votre écran." },
+    { "type": "text", "id": "button_label", "label": "Bouton", "default": "Lancer l'exploration" },
+    { "type": "url", "id": "button_link", "label": "Lien du bouton" },
+    { "type": "metaobject", "id": "planet", "metaobject_type": "planete", "label": "Planète affichée", "info": "Par défaut : la première planète à anneaux." }
+  ],
+  "presets": [{ "name": "Hero orbital" }]
+}
+{% endschema %}

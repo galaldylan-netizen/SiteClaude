@@ -1,0 +1,25 @@
+<section class="section page-head">
+  <div class="container narrow">
+    <p class="label">{{ 'page.label' | t }}</p>
+    <h1 class="h2" data-scramble>{{ page.title | escape }}</h1>
+    <div class="rte">
+      {%- if page.content != blank -%}
+        {{ page.content }}
+      {%- else -%}
+        {{ section.settings.statement }}
+        <h2>{{ 'a11y.contact_title' | t }}</h2>
+        <p>{{ 'a11y.contact_text' | t }} <a href="mailto:{{ shop.email }}">{{ shop.email }}</a>.</p>
+        {%- if section.settings.date != blank -%}<p class="source">{{ 'a11y.updated' | t }} {{ section.settings.date | escape }}</p>{%- endif -%}
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{
+  "name": "Accessibilité",
+  "settings": [
+    { "type": "richtext", "id": "statement", "label": "Déclaration", "default": "<p>ORBYTE veut être utilisable par toutes et tous, y compris avec un lecteur d'écran, au clavier ou avec un zoom important.</p><p><strong>Norme visée :</strong> WCAG 2.1 niveau AA et norme européenne EN 301 549.</p><ul><li>Navigation complète au clavier, focus toujours visible, lien « Aller au contenu ».</li><li>Planètes 3D décrites par un texte alternatif ; toutes les données sont aussi disponibles en texte.</li><li>Contrastes d'au moins 4,5:1 sur fond sombre.</li><li>Bouton « Tout mettre en pause » dans le pied de page, pauses locales sur les éléments animés, et respect du réglage « réduire les animations ».</li><li>Aucun contenu ne clignote plus de trois fois par seconde.</li></ul><p><strong>Limites connues :</strong> la carte animée du Système solaire n'est pas à l'échelle ; ses informations sont reprises dans la liste de boutons voisine.</p>" },
+    { "type": "text", "id": "date", "label": "Date de vérification", "default": "septembre 2026" }
+  ]
+}
+{% endschema %}
