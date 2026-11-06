@@ -7,9 +7,9 @@
       "settings": {
         "product": "machine-espresso-portable",
         "eyebrow": "Machine à café portable",
-        "title": "Le café ne reste plus à la maison.",
-        "subtitle": "Un bouton, et votre café coule face au paysage. Au sommet, au bord du lac, entre deux réunions.",
-        "price_note": "Livraison offerte en Suisse et dans l'UE",
+        "title": "Le café vient enfin à vous.",
+        "subtitle": "Plus de file d'attente, plus de gobelet tiède. Votre espresso, là où vous êtes.",
+        "price_note": "",
         "packs_label": "Choisissez votre pack",
         "best_label": "Meilleur prix",
         "cta": "Ajouter au panier",
@@ -48,9 +48,9 @@
         "image_2": "shopify://shop_images/cafecito_stone_2.jpg",
         "image_3": "shopify://shop_images/cafecito_stone_3.jpg",
         "eyebrow": "Votre pause, partout",
-        "title": "Le meilleur café de la journée se boit face à la vue.",
-        "text": "Le soleil se lève, le van est encore froid. Vous appuyez sur un bouton et l'odeur du café envahit l'air. Pas de file d'attente, pas de gobelet en carton : juste vous, votre café et l'horizon. Cafecito, c'est ce moment-là, où que vous soyez.",
-        "cta": "Je veux la mienne",
+        "title": "Le meilleur café se boit face à la vue.",
+        "text": "Le soleil se lève sur le lac. Pas de café à chercher, pas de gobelet qui refroidit dans la main. Juste vous, l'odeur du café et l'horizon. Ce moment vous attend partout où vous allez.",
+        "cta": "Je veux ce moment",
         "cta_link": "#top"
       }
     },
@@ -61,18 +61,18 @@
           "type": "moment",
           "settings": {
             "image": "shopify://shop_images/cafecito-camping.jpg",
-            "tag": "En pleine nature",
-            "title": "Au réveil, au bord de la rivière",
-            "text": "Le premier café de la journée, avant même de replier la tente."
+            "tag": "Au réveil",
+            "title": "Le premier café, face à la rivière",
+            "text": "Avant même de replier la tente, l'odeur du café réveille le camp."
           }
         },
         "m2": {
           "type": "moment",
           "settings": {
             "image": "shopify://shop_images/cafecito-voiture.jpg",
-            "tag": "Pause sur la route",
-            "title": "Sur une aire, moteur coupé",
-            "text": "Un bouton, et la route peut attendre. Jamais en conduisant."
+            "tag": "Sur la route",
+            "title": "La route peut attendre",
+            "text": "Moteur coupé, une pause rien qu'à vous. Jamais en conduisant."
           }
         },
         "m3": {
@@ -80,8 +80,8 @@
           "settings": {
             "image": "shopify://shop_images/cafecito-bureau.jpg",
             "tag": "Au bureau",
-            "title": "Votre café, pas celui de la machine",
-            "text": "Celui que vous aimez, préparé à votre bureau, sans faire la queue."
+            "title": "Adieu le café du couloir",
+            "text": "Celui que vous aimez vraiment, sans quitter votre bureau."
           }
         },
         "m4": {
@@ -104,8 +104,8 @@
         "anchor": "moments",
         "bg": "cf-bg-ivory",
         "eyebrow": "Quatre moments",
-        "title": "Partout où la journée vous emmène.",
-        "text": "Ce n'est pas une machine de plus dans la cuisine. C'est votre café qui part avec vous."
+        "title": "Votre pause, où la journée vous emmène.",
+        "text": "Au sommet, sur la route, au bureau, au-dessus des nuages : votre café ne vous attend plus quelque part. Il est déjà là."
       }
     },
     "buy": {
@@ -445,8 +445,8 @@
         "anchor": "faq",
         "bg": "cf-bg-ivory",
         "eyebrow": "Questions fréquentes",
-        "title": "Tout ce qu'il faut savoir.",
-        "text": "<p>Une autre question ? Nous sommes là pour vous répondre.</p>",
+        "title": "Vos questions, nos réponses.",
+        "text": "<p>Une autre question ? On vous répond en français, depuis Lausanne.</p>",
         "cta": "Nous écrire",
         "cta_link": "/pages/contact",
         "schema": true
@@ -537,8 +537,8 @@
       ],
       "settings": {
         "anchor": "fonctionnement",
-        "title": "Un vrai espresso, sans prise ni effort.",
-        "text": "Faites défiler : la machine se démonte sous vos yeux.",
+        "title": "Simple comme une pause.",
+        "text": "Tout ce qu'il faut savoir sur la machine tient ici. Faites défiler, elle se démonte sous vos yeux.",
         "tag_unit": "Unité principale, 15 bars"
       }
     },
