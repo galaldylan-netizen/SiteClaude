@@ -79,6 +79,14 @@
     {%- endform -%}
     <div class="product-form__error-message-wrapper" role="alert" hidden><span class="product-form__error-message"></span></div>
   </product-form>
+  {%- if shop.enabled_payment_types.size > 0 -%}
+  <div class="hm-pay">
+    <span class="visually-hidden">Moyens de paiement acceptés</span>
+    <ul role="list">
+      {%- for type in shop.enabled_payment_types -%}<li>{{ type | payment_type_svg_tag: class: 'hm-pay__icon' }}</li>{%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
   {%- if reassure_1 != blank -%}
   <ul class="hm-reassure" role="list">
     <li>{% render 'cf-icon', name: 'truck' %}<span>{{ reassure_1 }}</span></li>
