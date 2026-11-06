@@ -52,8 +52,13 @@
               <span class="hm-pack__name">{{ var.title }}</span>
               <span class="hm-pack__price hm-num">{{ var.price | money }}</span>
               {%- if q > 1 -%}
-                <span class="hm-pack__unit">soit {{ unit | money }} la machine</span>
-                {%- if save > 0 -%}<span class="hm-pack__save">Vous économisez {{ save | money }}</span>{%- endif -%}
+                {%- if size == 'hero' -%}
+                  <span class="hm-pack__unit">{{ unit | money }} / machine</span>
+                  {%- if save > 0 -%}<span class="hm-pack__save">−{{ save | money }}</span>{%- endif -%}
+                {%- else -%}
+                  <span class="hm-pack__unit">soit {{ unit | money }} la machine</span>
+                  {%- if save > 0 -%}<span class="hm-pack__save">Vous économisez {{ save | money }}</span>{%- endif -%}
+                {%- endif -%}
               {%- else -%}
                 <span class="hm-pack__unit">Pour vous</span>
               {%- endif -%}
