@@ -1,0 +1,67 @@
+{
+  "sections": {
+    "main": {
+      "type": "cf-buy",
+      "blocks": {
+        "k1": {
+          "type": "point",
+          "settings": {
+            "text": "Un bouton, et le café coule dans sa tasse"
+          }
+        },
+        "k2": {
+          "type": "point",
+          "settings": {
+            "text": "Rechargeable en USB-C, sans prise à l'usage"
+          }
+        },
+        "k3": {
+          "type": "point",
+          "settings": {
+            "text": "Café moulu ou capsules, au choix"
+          }
+        }
+      },
+      "block_order": [
+        "k1",
+        "k2",
+        "k3"
+      ],
+      "settings": {
+        "product": "",
+        "anchor": "acheter",
+        "eyebrow": "",
+        "title": "Cafecito Nomade",
+        "text": "",
+        "price_note": "Livraison offerte en Suisse et dans l'UE",
+        "packs_label": "Choisissez votre pack",
+        "best_label": "Meilleur prix",
+        "cta": "Ajouter au panier",
+        "show_dynamic": true,
+        "highlight": 2,
+        "highlight_label": "À deux ou à offrir",
+        "lowest_label": "Le moins cher par machine",
+        "discount_pct": 10,
+        "discount_note": "sur votre 1re commande",
+        "reassure_1": "Livraison offerte, en 7 à 15 jours ouvrables",
+        "reassure_2": "30 jours satisfait ou remboursé",
+        "reassure_3": "Garantie 2 ans, service à Lausanne",
+        "code": "CAFE",
+        "code_text": "−10 % sur votre première commande avec le code",
+        "ship_1": "",
+        "ship_2": "Rien de plus à payer à la livraison",
+        "deadline": "",
+        "deadline_label": "L'offre se termine dans",
+        "as_1": "Retours 30 jours",
+        "link_ret": "/policies/refund-policy",
+        "as_2": "Garantie 2 ans",
+        "link_gar": "/pages/garantie",
+        "as_3": "Basés à Lausanne",
+        "link_pay": "/pages/a-propos"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
