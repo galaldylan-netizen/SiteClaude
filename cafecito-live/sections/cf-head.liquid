@@ -1,0 +1,23 @@
+{%- comment -%} Chargement global Cafecito : polices, styles, scripts. Invisible. {%- endcomment -%}
+<link rel="preload" href="{{ 'cf-fraunces.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="{{ 'cf-dmsans.woff2' | asset_url }}" as="font" type="font/woff2" crossorigin>
+{{ 'cf.css' | asset_url | stylesheet_tag }}
+{{ 'cf-sections.css' | asset_url | stylesheet_tag }}
+{{ 'cf-commerce.css' | asset_url | stylesheet_tag }}
+{{ 'cf-packs.css' | asset_url | stylesheet_tag }}
+{{ 'cf-cart-latte.css' | asset_url | stylesheet_tag }}
+<style>:root{--cf-green:#1E7A4A}.tax-note::before{content:"✓  Livraison offerte en Suisse et dans l'UE\A✓  14 jours pour changer d'avis"}</style>
+<script type="importmap">{"imports":{"three":"{{ 'three.module.min.js' | asset_url }}"}}</script>
+<script src="{{ 'cf.js' | asset_url }}" defer></script>
+<script>
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href$="#cookies"]');
+    if (!a) return;
+    e.preventDefault();
+    if (window.privacyBanner && typeof window.privacyBanner.showPreferences === 'function') window.privacyBanner.showPreferences();
+    else window.location.href = '/pages/cookies';
+  });
+</script>
+{% schema %}
+{"name":"Cafecito — styles globaux","class":"cf-head-section","settings":[{"type":"paragraph","content":"Charge l'identité Cafecito (polices, couleurs, animations). Ne pas supprimer."}]}
+{% endschema %}
