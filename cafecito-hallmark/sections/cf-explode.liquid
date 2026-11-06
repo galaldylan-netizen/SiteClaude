@@ -9,25 +9,25 @@
       <div class="hm-x__stick">
         <div class="hm-x__stage" data-hm-stage data-step="explode" role="img" aria-label="{{ section.settings.stage_label | escape }}">
           <div class="hm-x__part hm-x__lid">
-            {{ 'hm-part-lid.png' | asset_url | image_tag: alt: '', width: 510, height: 306, loading: 'lazy' }}
+            <img src=\"{{ 'hm-part-lid.png' | asset_url }}\" alt=\"\" width=\"510\" height=\"306\" loading=\"lazy\">
             <span class="hm-x__tag">{{ section.settings.tag_lid }}</span>
           </div>
           <div class="hm-x__part hm-x__cap">
-            {{ 'hm-part-capsule.png' | asset_url | image_tag: alt: '', width: 450, height: 360, loading: 'lazy' }}
+            <img src=\"{{ 'hm-part-capsule.png' | asset_url }}\" alt=\"\" width=\"450\" height=\"360\" loading=\"lazy\">
             <span class="hm-x__tag">{{ section.settings.tag_capsule }}</span>
           </div>
           <div class="hm-x__part hm-x__ground">
-            {{ 'hm-part-ground.png' | asset_url | image_tag: alt: '', width: 390, height: 264, loading: 'lazy' }}
+            <img src=\"{{ 'hm-part-ground.png' | asset_url }}\" alt=\"\" width=\"390\" height=\"264\" loading=\"lazy\">
             <span class="hm-x__tag">{{ section.settings.tag_ground }}</span>
           </div>
           <div class="hm-x__part hm-x__unit">
-            {{ 'hm-part-unit.png' | asset_url | image_tag: alt: '', width: 480, height: 840, loading: 'lazy' }}
+            <img src=\"{{ 'hm-part-unit.png' | asset_url }}\" alt=\"\" width=\"480\" height=\"840\" loading=\"lazy\">
             <span class="hm-x__led" aria-hidden="true"></span>
             <span class="hm-x__tag">{{ section.settings.tag_unit }}</span>
           </div>
           <div class="hm-x__part hm-x__cup">
             <span class="hm-x__coffee" aria-hidden="true"></span>
-            {{ 'hm-part-cup.png' | asset_url | image_tag: alt: '', width: 486, height: 630, loading: 'lazy' }}
+            <img src=\"{{ 'hm-part-cup.png' | asset_url }}\" alt=\"\" width=\"486\" height=\"630\" loading=\"lazy\">
             <span class="hm-x__tag">{{ section.settings.tag_cup }}</span>
           </div>
           <span class="hm-x__stream hm-x__stream--water" aria-hidden="true"></span>
