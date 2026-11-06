@@ -412,3 +412,6 @@ cart-drawer #CartDrawer-Checkout:after, cart-drawer #CartDrawer-Checkout:before 
 cart-drawer .drawer__inner-empty .cart__empty-text { font-family: var(--font-display); }
 
 
+
+/* first section of a page (product page): no big gap under the header */
+#MainContent > .shopify-section:first-child > .hm { padding-top: var(--space-xl); }
