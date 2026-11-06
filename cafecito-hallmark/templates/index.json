@@ -36,7 +36,8 @@
         "reassure_1": "Livraison offerte, en 7 à 15 jours ouvrables",
         "reassure_2": "30 jours satisfait ou remboursé",
         "reassure_3": "Garantie 2 ans, service à Lausanne"
-      }
+      },
+      "disabled": true
     },
     "why": {
       "type": "cf-why",
@@ -51,7 +52,7 @@
         "title": "Le meilleur café se boit face à la vue.",
         "text": "Le soleil se lève sur le lac. Pas de café à chercher, pas de gobelet qui refroidit dans la main. Juste vous, l'odeur du café et l'horizon. Ce moment vous attend partout où vous allez.",
         "cta": "Je veux ce moment",
-        "cta_link": "#top"
+        "cta_link": "#acheter"
       }
     },
     "moments": {
@@ -166,8 +167,7 @@
         "reassure_1": "Livraison offerte, en 7 à 15 jours ouvrables",
         "reassure_2": "30 jours satisfait ou remboursé",
         "reassure_3": "Garantie 2 ans, service à Lausanne"
-      },
-      "disabled": true
+      }
     },
     "steps": {
       "type": "cf-steps",
@@ -472,7 +472,7 @@
         "label": "Cafecito Nomade",
         "note": "",
         "cta": "Commander",
-        "link": "#top"
+        "link": "#acheter"
       }
     },
     "explode": {
@@ -551,19 +551,84 @@
         "title": "Ceux qui l'utilisent en parlent.",
         "disclosure": "Avis publiés sur AliExpress par des acheteurs de ce modèle de machine, traduits en français."
       }
+    },
+    "hero3d": {
+      "type": "cf-hero-3d",
+      "blocks": {
+        "t1": {
+          "type": "trust",
+          "settings": {
+            "icon": "truck",
+            "title": "Livraison offerte",
+            "text": "La livraison est offerte en Suisse et partout dans l’Union européenne."
+          }
+        },
+        "t2": {
+          "type": "trust",
+          "settings": {
+            "icon": "check",
+            "title": "Zéro surprise",
+            "text": "Aucun frais supplémentaire au moment du paiement."
+          }
+        },
+        "t3": {
+          "type": "trust",
+          "settings": {
+            "icon": "return",
+            "title": "30 jours satisfait ou remboursé",
+            "text": "Elle ne vous plaît pas ? On vous rembourse."
+          }
+        },
+        "t4": {
+          "type": "trust",
+          "settings": {
+            "icon": "chat",
+            "title": "Café en toute liberté",
+            "text": "Votre pause café, où que vous soyez."
+          }
+        }
+      },
+      "block_order": [
+        "t1",
+        "t2",
+        "t3",
+        "t4"
+      ],
+      "settings": {
+        "product": "machine-espresso-portable",
+        "eyebrow": "Machine à café portable",
+        "title": "Le café ne reste plus <em>à la maison.</em>",
+        "subtitle": "Un bouton, et votre café coule face au paysage. Au sommet, au bord du lac, entre deux réunions.",
+        "price_note": "Livraison offerte en Suisse et dans l'UE",
+        "cta_1": "Achetez maintenant",
+        "cta_1_link": "#acheter",
+        "cta_2": "Voir la machine",
+        "cta_2_link": "#moments",
+        "model_url": "",
+        "poster": "shopify://shop_images/Machine_a_espresso_portable_elegante.png",
+        "canvas_label": "Machine Cafecito en 3D, que l'on peut faire tourner",
+        "hint": "Faites-la tourner",
+        "chip_1": "Recharge USB-C",
+        "chip_2": "Un seul bouton",
+        "chip_3": "Tasse intégrée",
+        "show_beans": true,
+        "show_bean_drawings": true,
+        "word": "cafecito"
+      }
     }
   },
   "order": [
+    "hero3d",
     "hero",
     "why",
     "explode",
     "steps",
     "moments",
+    "buy",
     "reviews",
     "details",
     "faq",
     "final",
-    "buy",
     "bar"
   ]
 }

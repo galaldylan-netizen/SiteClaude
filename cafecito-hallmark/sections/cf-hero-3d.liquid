@@ -1,0 +1,123 @@
+{%- liquid
+  assign p = section.settings.product
+  if p == blank
+    assign p = product
+  endif
+  assign poster = section.settings.poster
+  if poster == blank and p != blank
+    assign poster = p.featured_media.preview_image
+  endif
+-%}
+<section class="cf-hero" id="top" aria-labelledby="cf-hero-title-{{ section.id }}">
+  <div class="cf-hero__word" aria-hidden="true">{{ section.settings.word }}</div>
+  {%- if section.settings.show_bean_drawings -%}
+  <div class="cf-sketch" aria-hidden="true">
+    <svg width="0" height="0" style="position:absolute"><symbol id="cf-bean-line" viewBox="0 0 40 60"><ellipse cx="20" cy="30" rx="15" ry="24"/><path d="M20 6C11 17 29 28 20 39 16 44 17 50 20 54"/></symbol></svg>
+    <svg class="cf-sketch__b" style="left:4%;top:14%;--s:4.2rem;--r:-28deg;--t:14s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b cf-sketch__b--d" style="left:16%;top:72%;--s:2.6rem;--r:52deg;--t:17s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b cf-sketch__b--d" style="left:30%;top:8%;--s:2.2rem;--r:12deg;--t:15s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b" style="left:44%;top:84%;--s:3.4rem;--r:-64deg;--t:18s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b cf-sketch__b--d" style="left:58%;top:6%;--s:2.8rem;--r:38deg;--t:16s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b cf-sketch__b--d" style="left:70%;top:66%;--s:2.2rem;--r:-14deg;--t:13s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b" style="left:83%;top:20%;--s:4.6rem;--r:24deg;--t:19s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b" style="left:92%;top:78%;--s:3rem;--r:-48deg;--t:15s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b cf-sketch__b--d" style="left:8%;top:44%;--s:1.8rem;--r:80deg;--t:12s"><use href="#cf-bean-line"/></svg>
+    <svg class="cf-sketch__b cf-sketch__b--d" style="left:52%;top:40%;--s:1.6rem;--r:-36deg;--t:14s"><use href="#cf-bean-line"/></svg>
+  </div>
+  <style>
+    .cf-sketch{position:absolute;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+    .cf-sketch__b{position:absolute;width:var(--s);height:calc(var(--s)*1.5);transform:rotate(var(--r));fill:none;stroke:rgba(185,85,36,.17);stroke-width:1.2;overflow:visible;animation:cfSketch var(--t) ease-in-out infinite alternate}
+    .cf-sketch__b *{vector-effect:non-scaling-stroke}
+    .cf-hero>.cf-wrap{position:relative;z-index:1}
+    @keyframes cfSketch{to{transform:rotate(calc(var(--r) + 8deg)) translateY(-10px)}}
+    @media (max-width:749px){.cf-sketch__b--d{display:none}.cf-sketch__b{width:calc(var(--s)*.7);height:calc(var(--s)*1.05)}}
+    @media (prefers-reduced-motion:reduce){.cf-sketch__b{animation:none}}
+  </style>
+  {%- endif -%}
+  <div class="cf-wrap cf-hero__grid">
+    <div class="cf-hero__copy">
+      {%- if section.settings.eyebrow != blank -%}<p class="cf-eyebrow" data-cf-reveal>{{ section.settings.eyebrow }}</p>{%- endif -%}
+      <h1 class="cf-hero__title" id="cf-hero-title-{{ section.id }}" data-cf-reveal style="--d:.08s">{{ section.settings.title }}</h1>
+      {%- if section.settings.subtitle != blank -%}<p class="cf-hero__sub" data-cf-reveal style="--d:.16s">{{ section.settings.subtitle }}</p>{%- endif -%}
+    </div>
+
+    <div class="cf-stage" data-cf-stage {% if section.settings.model_url != blank %}data-model-url="{{ section.settings.model_url | escape }}"{% endif %}>
+      <div class="cf-stage__halo" aria-hidden="true"></div>
+      <div class="cf-stage__ring" aria-hidden="true"></div>
+      {%- if section.settings.show_beans -%}
+        <span class="cf-bean" aria-hidden="true" style="left:12%;top:18%;--s:2.6rem;--r:-30deg;--t:6s"></span>
+        <span class="cf-bean" aria-hidden="true" style="right:14%;top:12%;--s:1.8rem;--r:40deg;--t:8s"></span>
+        <span class="cf-bean" aria-hidden="true" style="right:10%;bottom:22%;--s:3rem;--r:10deg;--t:7s"></span>
+        <span class="cf-bean" aria-hidden="true" style="left:18%;bottom:12%;--s:2rem;--r:70deg;--t:9s"></span>
+      {%- endif -%}
+      {%- if poster != blank -%}
+        <div class="cf-stage__poster">
+          {{ poster | image_url: width: 900 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '450, 700, 900', sizes: '(min-width: 990px) 40vw, 70vw', alt: poster.alt | default: p.title }}
+        </div>
+      {%- endif -%}
+      <div class="cf-stage__canvas" data-cf-canvas role="img" aria-label="{{ section.settings.canvas_label | escape }}"></div>
+      {%- if section.settings.chip_1 != blank -%}<span class="cf-chip cf-chip--a"><i></i>{{ section.settings.chip_1 }}</span>{%- endif -%}
+      {%- if section.settings.chip_2 != blank -%}<span class="cf-chip cf-chip--b cf-chip--led"><i></i>{{ section.settings.chip_2 }}</span>{%- endif -%}
+      {%- if section.settings.chip_3 != blank -%}<span class="cf-chip cf-chip--c"><i></i>{{ section.settings.chip_3 }}</span>{%- endif -%}
+      {%- if section.settings.hint != blank -%}<span class="cf-stage__hint" aria-hidden="true">{% render 'cf-icon', name: 'drag' %}{{ section.settings.hint }}</span>{%- endif -%}
+    </div>
+
+    <div class="cf-hero__buy" data-cf-reveal style="--d:.24s">
+      {%- if p != blank -%}
+        <p class="cf-hero__price"><strong>{{ p.price | money }}</strong><span>{{ section.settings.price_note }}</span></p>
+      {%- endif -%}
+      <div class="cf-hero__ctas">
+        {%- if section.settings.cta_1 != blank -%}<a class="cf-btn" href="{{ section.settings.cta_1_link | default: '#acheter' }}">{{ section.settings.cta_1 }}{% render 'cf-icon', name: 'arrow' %}</a>{%- endif -%}
+        {%- if section.settings.cta_2 != blank -%}<a class="cf-btn cf-btn--ghost" href="{{ section.settings.cta_2_link | default: '#fonctionnement' }}">{{ section.settings.cta_2 }}</a>{%- endif -%}
+      </div>
+    </div>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+  <div class="cf-wrap">
+    <ul class="cf-hero__trust" role="list" style="list-style:none;margin:0">
+      {%- for block in section.blocks -%}
+        <li class="cf-trust" {{ block.shopify_attributes }} data-cf-reveal style="--d:{{ forloop.index0 | times: 0.06 }}s">{% render 'cf-icon', name: block.settings.icon %}<span><strong>{{ block.settings.title }}</strong>{{ block.settings.text }}</span></li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
+</section>
+<script type="module" src="{{ 'cf-3d.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Cafecito — Héros 3D",
+  "tag": "div",
+  "settings": [
+    {"type":"product","id":"product","label":"Produit"},
+    {"type":"text","id":"eyebrow","label":"Surtitre","default":"Machine à café portable"},
+    {"type":"inline_richtext","id":"title","label":"Titre","default":"Le café ne reste plus <em>à la maison.</em>"},
+    {"type":"textarea","id":"subtitle","label":"Sous-titre","default":"Rechargeable en USB-C, un seul bouton, la tasse déjà intégrée. Votre café vous suit au bureau, sur la route ou en plein air."},
+    {"type":"text","id":"price_note","label":"Texte à côté du prix","default":"Livraison offerte en Suisse"},
+    {"type":"text","id":"cta_1","label":"Bouton principal","default":"Acheter maintenant"},
+    {"type":"text","id":"cta_1_link","label":"Lien du bouton principal","default":"#acheter"},
+    {"type":"text","id":"cta_2","label":"Bouton secondaire","default":"Comment ça marche"},
+    {"type":"text","id":"cta_2_link","label":"Lien du bouton secondaire","default":"#fonctionnement"},
+    {"type":"header","content":"Expérience 3D"},
+    {"type":"text","id":"model_url","label":"URL du modèle 3D (.glb)","info":"Laissez vide pour utiliser le modèle 3D intégré. Pour un modèle fournisseur : Contenu > Fichiers > importer le .glb, copier son lien et le coller ici."},
+    {"type":"image_picker","id":"poster","label":"Image affichée pendant le chargement","info":"Par défaut : la première photo du produit."},
+    {"type":"text","id":"canvas_label","label":"Description de la 3D (accessibilité)","default":"Machine Cafecito en 3D, que l'on peut faire tourner"},
+    {"type":"text","id":"hint","label":"Indication","default":"Faites-la tourner"},
+    {"type":"text","id":"chip_1","label":"Étiquette 1","default":"Recharge USB-C"},
+    {"type":"text","id":"chip_2","label":"Étiquette 2","default":"Un seul bouton"},
+    {"type":"text","id":"chip_3","label":"Étiquette 3","default":"Tasse intégrée"},
+    {"type":"checkbox","id":"show_beans","label":"Grains de café flottants","default":true},
+    {"type":"checkbox","id":"show_bean_drawings","label":"Grains dessinés en arrière-plan","default":true},
+    {"type":"text","id":"word","label":"Mot décoratif en arrière-plan","default":"cafecito"}
+  ],
+  "blocks": [
+    {"type":"trust","name":"Réassurance","limit":4,"settings":[
+      {"type":"select","id":"icon","label":"Icône","default":"truck","options":[{"value":"truck","label":"Livraison"},{"value":"return","label":"Retour"},{"value":"shield","label":"Garantie"},{"value":"usb","label":"USB-C"},{"value":"bean","label":"Grain"},{"value":"cup","label":"Tasse"},{"value":"chat","label":"Contact"},{"value":"check","label":"Validé"}]},
+      {"type":"text","id":"title","label":"Titre"},
+      {"type":"text","id":"text","label":"Texte"}
+    ]}
+  ],
+  "presets": [{"name":"Cafecito — Héros 3D"}]
+}
+{% endschema %}
