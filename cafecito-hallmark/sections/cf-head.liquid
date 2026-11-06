@@ -21,6 +21,20 @@
 <script type="importmap">{"imports":{"three":"{{ 'three.module.min.js' | asset_url }}"}}</script>
 <script src="{{ 'cf.js' | asset_url }}" defer></script>
 <script>
+  /* Site d'une page : un lien « /#section » fait défiler la page d'accueil au lieu de la recharger */
+  document.addEventListener('click', function (e) {
+    var a = e.target.closest('a[href^="/#"], a[href^="#"]');
+    if (!a || a.getAttribute('href') === '#cookies') return;
+    var id = a.getAttribute('href').split('#')[1];
+    var el = id && document.getElementById(id);
+    if (!el) return;
+    e.preventDefault();
+    el.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+    history.replaceState(null, '', '#' + id);
+    var d = document.querySelector('menu-drawer details[open], header-drawer details[open]'); if (d) d.removeAttribute('open'), document.body.classList.remove('overflow-hidden-tablet', 'overflow-hidden-mobile');
+  });
+</script>
+<script>
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href$="#cookies"]');
     if (!a) return;
