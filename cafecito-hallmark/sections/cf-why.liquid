@@ -1,0 +1,54 @@
+{%- liquid
+  assign lead_img = section.settings.image_2
+  if lead_img == blank
+    assign lead_img = section.settings.image_1
+  endif
+  assign title = section.settings.title | strip_html
+-%}
+<section class="hm hm-story" id="{{ section.settings.anchor | default: 'pourquoi' }}" aria-labelledby="cf-wh-{{ section.id }}">
+  <div class="hm-container hm-story__grid">
+    <figure class="hm-story__photo">
+      {%- if lead_img != blank -%}
+        {{ lead_img | image_url: width: 1600 | image_tag: loading: 'lazy', widths: '600, 900, 1200, 1600', sizes: '(min-width: 990px) 56vw, 100vw', alt: lead_img.alt | default: 'La machine Cafecito posée sur un rocher, face au paysage' }}
+      {%- endif -%}
+    </figure>
+    <div class="hm-story__text">
+      <h2 id="cf-wh-{{ section.id }}">{{ title }}</h2>
+      {%- if section.settings.text != blank -%}<p class="hm-story__body">{{ section.settings.text }}</p>{%- endif -%}
+      {%- if section.settings.cta != blank -%}
+        <p><a class="hm-btn hm-btn--quiet" href="{{ section.settings.cta_link | default: '#acheter' }}">{{ section.settings.cta }}</a></p>
+      {%- endif -%}
+    </div>
+  </div>
+  {%- if section.blocks.size > 0 -%}
+  <div class="hm-container">
+    <ul class="hm-promises" role="list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
+</section>
+{% schema %}
+{"name":"Cafecito — Pourquoi nous","tag":"div","settings":[
+ {"type":"text","id":"anchor","label":"Ancre","default":"pourquoi"},
+ {"type":"image_picker","id":"image_1","label":"Image 1 (utilisée si l'image 2 est vide)"},
+ {"type":"image_picker","id":"image_2","label":"Image principale"},
+ {"type":"image_picker","id":"image_3","label":"Image 3 (non affichée)"},
+ {"type":"text","id":"eyebrow","label":"Surtitre (non affiché)","default":"Votre pause, partout"},
+ {"type":"inline_richtext","id":"title","label":"Titre"},
+ {"type":"textarea","id":"text","label":"Texte"},
+ {"type":"text","id":"cta","label":"Bouton","default":"Je veux la mienne"},
+ {"type":"text","id":"cta_link","label":"Lien","default":"#acheter"}
+],
+"blocks":[{"type":"promise","name":"Engagement","limit":6,"settings":[
+ {"type":"select","id":"icon","label":"Icône (non affichée)","default":"truck","options":[{"value":"truck","label":"Livraison"},{"value":"return","label":"Retour"},{"value":"shield","label":"Garantie"},{"value":"chat","label":"Contact"},{"value":"check","label":"Validé"},{"value":"button","label":"Bouton"},{"value":"usb","label":"USB-C"},{"value":"mountain","label":"Plein air"}]},
+ {"type":"text","id":"title","label":"Titre"},
+ {"type":"textarea","id":"text","label":"Texte"}
+]}],
+"presets":[{"name":"Cafecito — Pourquoi nous"}]}
+{% endschema %}

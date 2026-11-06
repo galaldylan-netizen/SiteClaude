@@ -1,0 +1,75 @@
+{%- comment -%}
+  Hallmark : le bloc d'achat (prix, packs, bouton). Utilisé par le héros et par la section Achat.
+  Paramètres : p (produit), form_id, cta, packs_label, best_label, price_note, show_dynamic (bool), size ('hero' ou 'full')
+{%- endcomment -%}
+{%- liquid
+  assign v = p.selected_or_first_available_variant
+  assign base = p.variants.first.price
+  assign best_unit = 999999999
+  assign best_id = ''
+  for var in p.variants
+    assign q = var.title | split: ' ' | first | plus: 0
+    if q > 1
+      assign u = var.price | divided_by: q
+      if u < best_unit
+        assign best_unit = u
+        assign best_id = var.id
+      endif
+    endif
+  endfor
+-%}
+<div class="hm-offer hm-offer--{{ size | default: 'full' }}" data-hm-offer>
+  <p class="hm-offer__price"><strong class="hm-num" data-cf-price>{{ v.price | money }}</strong>{%- if price_note != blank -%}<span>{{ price_note }}</span>{%- endif -%}</p>
+  <product-form class="product-form" data-section-id="{{ section.id }}" data-hide-errors="false">
+    {%- form 'product', p, id: form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
+      {%- if p.has_only_default_variant -%}
+        <input type="hidden" name="id" value="{{ v.id }}">
+      {%- else -%}
+        <fieldset class="hm-packs" data-cf-packs>
+          <legend>{{ packs_label }}</legend>
+          {%- for var in p.variants -%}
+            {%- liquid
+              assign q = var.title | split: ' ' | first | plus: 0
+              if q < 1
+                assign q = 1
+              endif
+              assign full = base | times: q
+              assign save = full | minus: var.price
+              assign unit = var.price | divided_by: q
+            -%}
+            <label class="hm-pack">
+              <input type="radio" name="id" value="{{ var.id }}" data-price="{{ var.price | money | escape }}" {% if var.id == v.id %}checked{% endif %} {% unless var.available %}disabled{% endunless %}>
+              <span class="hm-pack__name">{{ var.title }}</span>
+              <span class="hm-pack__price hm-num">{{ var.price | money }}</span>
+              {%- if q > 1 -%}
+                <span class="hm-pack__unit">soit {{ unit | money }} la machine{% if save > 0 %}, −{{ save | money }}{% endif %}</span>
+              {%- else -%}
+                <span class="hm-pack__unit">Pour vous</span>
+              {%- endif -%}
+              {%- if var.id == best_id and best_label != blank -%}<span class="hm-pack__best">{{ best_label }}</span>{%- endif -%}
+            </label>
+          {%- endfor -%}
+        </fieldset>
+      {%- endif -%}
+      <input type="hidden" name="quantity" value="1">
+      <div class="hm-offer__actions">
+        <button type="submit" name="add" class="hm-btn" {% unless v.available %}disabled{% endunless %}>
+          <span>{%- if v.available -%}{{ cta }}{%- else -%}Bientôt de retour{%- endif -%}</span>
+          {%- render 'loading-spinner' -%}
+        </button>
+        {%- if show_dynamic -%}{{ form | payment_button }}{%- endif -%}
+      </div>
+    {%- endform -%}
+    <div class="product-form__error-message-wrapper" role="alert" hidden><span class="product-form__error-message"></span></div>
+  </product-form>
+</div>
+<script>
+  (function () {
+    var form = document.getElementById({{ form_id | json }});
+    if (!form) return;
+    var box = form.querySelector('[data-cf-packs]');
+    var price = form.closest('[data-hm-offer]').querySelector('[data-cf-price]');
+    if (box && price) box.addEventListener('change', function (e) { if (e.target.dataset.price) price.textContent = e.target.dataset.price; });
+  })();
+</script>
+<script src="{{ 'product-form.js' | asset_url }}" defer></script>

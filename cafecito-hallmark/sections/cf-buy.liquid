@@ -1,0 +1,100 @@
+{%- liquid
+  assign p = section.settings.product
+  if p == blank
+    assign p = product
+  endif
+  assign form_id = 'cf-form-' | append: section.id
+-%}
+{%- if p != blank -%}
+<section class="hm hm-buy" id="{{ section.settings.anchor | default: 'acheter' }}" aria-labelledby="cf-bu-{{ section.id }}">
+  <div class="hm-container hm-buy__grid">
+    <div class="hm-gal" data-cf-gal>
+      {%- assign imgs = p.media | where: 'media_type', 'image' -%}
+      {%- assign first = imgs | first -%}
+      <div class="hm-gal__main">
+        {%- if first -%}
+          <img data-cf-gal-main src="{{ first.preview_image | image_url: width: 1200 }}" srcset="{{ first.preview_image | image_url: width: 600 }} 600w, {{ first.preview_image | image_url: width: 1200 }} 1200w" sizes="(min-width: 990px) 50vw, 100vw" alt="{{ first.alt | default: p.title | escape }}" width="1200" height="1200" loading="lazy">
+        {%- endif -%}
+      </div>
+      {%- if imgs.size > 1 -%}
+      <div class="hm-gal__thumbs" role="group" aria-label="Photos du produit">
+        {%- for m in imgs -%}
+          <button type="button" class="hm-gal__thumb" data-cf-thumb aria-current="{% if forloop.first %}true{% else %}false{% endif %}" aria-label="Voir la photo {{ forloop.index }}" data-src="{{ m.preview_image | image_url: width: 1200 }}" data-srcset="{{ m.preview_image | image_url: width: 600 }} 600w, {{ m.preview_image | image_url: width: 1200 }} 1200w" data-alt="{{ m.alt | escape }}" data-cover="{% if forloop.first %}false{% else %}true{% endif %}">
+            {{ m.preview_image | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}
+          </button>
+        {%- endfor -%}
+      </div>
+      {%- endif -%}
+    </div>
+
+    <div class="hm-buy__info">
+      {%- if template.name == 'product' -%}<h1 class="hm-buy__title" id="cf-bu-{{ section.id }}">{{ section.settings.title | default: p.title }}</h1>{%- else -%}<h2 class="hm-buy__title" id="cf-bu-{{ section.id }}">{{ section.settings.title | default: p.title }}</h2>{%- endif -%}
+      {%- if section.settings.text != blank -%}<p class="hm-lead">{{ section.settings.text }}</p>{%- endif -%}
+      {%- assign points = section.blocks | where: 'type', 'point' -%}
+      {%- if points.size > 0 -%}
+      <ul class="hm-points" role="list">
+        {%- for b in points -%}<li {{ b.shopify_attributes }}>{{ b.settings.text }}</li>{%- endfor -%}
+      </ul>
+      {%- endif -%}
+
+      {%- render 'hm-offer', p: p, section: section, form_id: form_id, cta: section.settings.cta, packs_label: section.settings.packs_label, best_label: section.settings.best_label, price_note: section.settings.price_note, show_dynamic: section.settings.show_dynamic, size: 'full' -%}
+
+      {%- if section.settings.code != blank -%}
+      <div class="hm-code">
+        <p>{{ section.settings.code_text }} <strong>{{ section.settings.code }}</strong></p>
+        <button type="button" class="hm-code__copy" data-cf-copy="{{ section.settings.code | escape }}" aria-label="Copier le code {{ section.settings.code | escape }}"><span data-cf-copy-label>Copier</span></button>
+      </div>
+      {%- endif -%}
+
+      <ul class="hm-facts" role="list">
+        {%- if section.settings.ship_1 != blank -%}<li>{% render 'cf-icon', name: 'truck' %}<span>{{ section.settings.ship_1 }}</span></li>{%- endif -%}
+        {%- if section.settings.ship_2 != blank -%}<li>{% render 'cf-icon', name: 'check' %}<span>{{ section.settings.ship_2 }}</span></li>{%- endif -%}
+      </ul>
+      {%- if section.settings.deadline != blank -%}
+      <div class="hm-timer" data-cf-deadline="{{ section.settings.deadline | escape }}" hidden role="timer" aria-live="off">
+        <span>{{ section.settings.deadline_label }}</span>
+        <span class="hm-num"><b data-d>00</b> j <b data-h>00</b> h <b data-m>00</b> min <b data-s>00</b> s</span>
+      </div>
+      {%- endif -%}
+
+      <p class="hm-assure">
+        <a href="{{ section.settings.link_ret | default: '/policies/refund-policy' }}">{{ section.settings.as_1 }}</a>
+        <a href="{{ section.settings.link_gar | default: '/pages/garantie' }}">{{ section.settings.as_2 }}</a>
+        <a href="{{ section.settings.link_pay | default: '/policies/terms-of-service' }}">{{ section.settings.as_3 }}</a>
+      </p>
+    </div>
+  </div>
+</section>
+{%- if template.name == 'product' -%}<script type="application/ld+json">{{ p | structured_data }}</script>{%- endif -%}
+{%- endif -%}
+{% schema %}
+{"name":"Cafecito — Achat","tag":"div","settings":[
+ {"type":"product","id":"product","label":"Produit","info":"Vide sur la fiche produit : le produit de la page est utilisé."},
+ {"type":"text","id":"anchor","label":"Ancre","default":"acheter"},
+ {"type":"text","id":"eyebrow","label":"Surtitre (non affiché)","default":"Commander"},
+ {"type":"text","id":"title","label":"Titre (vide = nom du produit)","default":"Cafecito Nomade"},
+ {"type":"textarea","id":"text","label":"Texte","default":"La machine à café portable, rechargeable en USB-C, avec sa tasse transparente intégrée."},
+ {"type":"text","id":"price_note","label":"Texte à côté du prix","default":"Prix final en CHF"},
+ {"type":"text","id":"packs_label","label":"Titre du choix de pack","default":"Choisissez votre pack"},
+ {"type":"text","id":"best_label","label":"Mention du pack le moins cher par machine","default":"Meilleur prix"},
+ {"type":"text","id":"cta","label":"Bouton","default":"Ajouter au panier"},
+ {"type":"checkbox","id":"show_dynamic","label":"Boutons de paiement express","default":true},
+ {"type":"header","content":"Code de bienvenue"},
+ {"type":"text","id":"code","label":"Code","default":"CAFE","info":"Doit correspondre exactement à une remise active dans Shopify > Remises."},
+ {"type":"text","id":"code_text","label":"Texte","default":"Bienvenue : −10 % sur votre première commande avec le code"},
+ {"type":"header","content":"Livraison et offre"},
+ {"type":"text","id":"ship_1","label":"Ligne livraison 1","default":"Livraison offerte en Suisse dès CHF 65, expédiée sous 7 à 15 jours ouvrables"},
+ {"type":"text","id":"ship_2","label":"Ligne livraison 2","default":"Livraison internationale : CHF 16"},
+ {"type":"text","id":"deadline","label":"Fin de l'offre (compte à rebours)","info":"Format : 2026-11-30T23:59:00+01:00. Vide = pas de compte à rebours. Indiquez uniquement une date de fin réelle."},
+ {"type":"text","id":"deadline_label","label":"Texte du compte à rebours","default":"L'offre se termine dans"},
+ {"type":"header","content":"Réassurance"},
+ {"type":"text","id":"as_1","label":"Retours","default":"Retours sous 14 jours"},
+ {"type":"text","id":"link_ret","label":"Lien retours","default":"/policies/refund-policy"},
+ {"type":"text","id":"as_2","label":"Garantie","default":"Garantie légale 2 ans"},
+ {"type":"text","id":"link_gar","label":"Lien garantie","default":"/pages/garantie"},
+ {"type":"text","id":"as_3","label":"Paiement","default":"Paiement sécurisé"},
+ {"type":"text","id":"link_pay","label":"Lien paiement","default":"/policies/terms-of-service"}
+],
+"blocks":[{"type":"point","name":"Point fort","limit":6,"settings":[{"type":"text","id":"text","label":"Texte"}]}],
+"presets":[{"name":"Cafecito — Achat"}]}
+{% endschema %}

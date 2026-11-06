@@ -1,0 +1,47 @@
+{%- assign title = section.settings.title | strip_html -%}
+<section class="hm hm-faq" id="{{ section.settings.anchor | default: 'faq' }}" aria-labelledby="cf-fq-{{ section.id }}">
+  <div class="hm-container hm-faq__grid">
+    <div class="hm-faq__head">
+      <h2 id="cf-fq-{{ section.id }}">{{ title }}</h2>
+      {%- if section.settings.text != blank -%}<div class="hm-lead">{{ section.settings.text }}</div>{%- endif -%}
+      {%- if section.settings.cta != blank -%}<p><a class="hm-link" href="{{ section.settings.cta_link | default: '/pages/contact' }}">{{ section.settings.cta }}</a></p>{%- endif -%}
+    </div>
+    <div class="hm-faq__list" data-cf-faq>
+      {%- for block in section.blocks -%}
+        {%- unless block.settings.answer contains '[À COMPLÉTER' or block.settings.question == blank -%}
+          <details class="hm-faq__item" {{ block.shopify_attributes }}>
+            <summary>{{ block.settings.question }}<span class="hm-faq__sign" aria-hidden="true"></span></summary>
+            <div class="hm-faq__a">{{ block.settings.answer }}</div>
+          </details>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+  {%- if section.settings.schema -%}
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[
+    {%- assign sep = '' -%}
+    {%- for block in section.blocks -%}
+      {%- unless block.settings.answer contains '[À COMPLÉTER' or block.settings.question == blank -%}
+      {{ sep }}{"@type":"Question","name":{{ block.settings.question | json }},"acceptedAnswer":{"@type":"Answer","text":{{ block.settings.answer | strip_html | json }}}}
+      {%- assign sep = ',' -%}
+      {%- endunless -%}
+    {%- endfor -%}
+  ]}
+  </script>
+  {%- endif -%}
+</section>
+{% schema %}
+{"name":"Cafecito — FAQ","tag":"div","settings":[
+ {"type":"text","id":"anchor","label":"Ancre","default":"faq"},
+ {"type":"select","id":"bg","label":"Fond (non utilisé)","default":"cf-bg-ivory","options":[{"value":"cf-bg-ivory","label":"Blanc cassé"},{"value":"cf-bg-white","label":"Blanc"},{"value":"cf-bg-sand","label":"Beige"},{"value":"cf-bg-warm","label":"Dégradé chaud"}]},
+ {"type":"text","id":"eyebrow","label":"Surtitre (non affiché)","default":"Questions fréquentes"},
+ {"type":"inline_richtext","id":"title","label":"Titre","default":"Tout ce qu'il faut savoir."},
+ {"type":"richtext","id":"text","label":"Texte"},
+ {"type":"text","id":"cta","label":"Lien","default":"Nous écrire"},
+ {"type":"text","id":"cta_link","label":"Adresse du lien","default":"/pages/contact"},
+ {"type":"checkbox","id":"schema","label":"Données structurées FAQ (SEO)","default":true}
+],
+"blocks":[{"type":"qa","name":"Question","settings":[{"type":"text","id":"question","label":"Question"},{"type":"richtext","id":"answer","label":"Réponse","info":"Une réponse contenant [À COMPLÉTER] reste masquée sur le site."}]}],
+"presets":[{"name":"Cafecito — FAQ"}]}
+{% endschema %}

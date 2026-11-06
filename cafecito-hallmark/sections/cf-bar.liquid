@@ -1,0 +1,21 @@
+{%- liquid
+  assign p = section.settings.product
+  if p == blank
+    assign p = product
+  endif
+-%}
+{%- if p != blank -%}
+<div class="hm-bar" data-cf-bar>
+  <p class="hm-bar__info"><strong>{{ section.settings.label | default: p.title }}</strong> <span class="hm-num">{{ p.price | money }}</span>{% if section.settings.note != blank %} <span class="hm-bar__note">{{ section.settings.note }}</span>{% endif %}</p>
+  <a class="hm-btn" href="{{ section.settings.link | default: '#acheter' }}">{{ section.settings.cta }}</a>
+</div>
+{%- endif -%}
+{% schema %}
+{"name":"Cafecito — Barre d'achat","tag":"div","settings":[
+ {"type":"product","id":"product","label":"Produit"},
+ {"type":"text","id":"label","label":"Nom affiché","default":"Cafecito Nomade"},
+ {"type":"text","id":"note","label":"Note","default":"Livraison offerte en Suisse"},
+ {"type":"text","id":"cta","label":"Bouton","default":"Commander"},
+ {"type":"text","id":"link","label":"Lien","default":"#acheter"}
+],"presets":[{"name":"Cafecito — Barre d'achat"}]}
+{% endschema %}

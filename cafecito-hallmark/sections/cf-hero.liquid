@@ -1,0 +1,101 @@
+{%- liquid
+  assign p = section.settings.product
+  if p == blank
+    assign p = product
+  endif
+  assign poster = section.settings.poster
+  if poster == blank and p != blank
+    assign poster = p.featured_media.preview_image
+  endif
+  assign title = section.settings.title | strip_html
+-%}
+<section class="hm hm-hero" id="top" aria-labelledby="cf-hero-title-{{ section.id }}">
+  <div class="hm-container hm-hero__grid">
+    <div class="hm-hero__text">
+      <h1 class="hm-hero__title" id="cf-hero-title-{{ section.id }}">{{ title }}</h1>
+      {%- if section.settings.subtitle != blank -%}<p class="hm-lead">{{ section.settings.subtitle }}</p>{%- endif -%}
+      {%- if p != blank -%}
+        {%- assign hero_form = 'cf-form-hero-' | append: section.id -%}
+        {%- render 'hm-offer', p: p, section: section, form_id: hero_form, cta: section.settings.cta, packs_label: section.settings.packs_label, best_label: section.settings.best_label, price_note: section.settings.price_note, show_dynamic: false, size: 'hero' -%}
+      {%- endif -%}
+      <div class="cf-hero__ctas hm-hero__more">
+        {%- if section.settings.cta_2 != blank -%}<a class="hm-link" href="{{ section.settings.cta_2_link | default: '#fonctionnement' }}">{{ section.settings.cta_2 }}</a>{%- endif -%}
+      </div>
+    </div>
+
+    <figure class="hm-hero__visual">
+      <div class="cf-stage hm-stage" data-cf-stage {% if section.settings.model_url != blank %}data-model-url="{{ section.settings.model_url | escape }}"{% endif %}>
+        {%- if poster != blank -%}
+          <div class="cf-stage__poster">
+            {{ poster | image_url: width: 1100 | image_tag: loading: 'eager', fetchpriority: 'high', widths: '500, 800, 1100', sizes: '(min-width: 990px) 46vw, 90vw', alt: poster.alt | default: p.title }}
+          </div>
+        {%- endif -%}
+        <div class="cf-stage__canvas" data-cf-canvas role="img" aria-label="{{ section.settings.canvas_label | escape }}"></div>
+        {%- if section.settings.hint != blank -%}<span class="cf-stage__hint hm-stage__hint">{{ section.settings.hint }}</span>{%- endif -%}
+      </div>
+      {%- if section.settings.chip_1 != blank or section.settings.chip_2 != blank or section.settings.chip_3 != blank -%}
+        <figcaption>
+          <ul class="hm-hero__facts" role="list">
+            {%- if section.settings.chip_1 != blank -%}<li>{{ section.settings.chip_1 }}</li>{%- endif -%}
+            {%- if section.settings.chip_2 != blank -%}<li>{{ section.settings.chip_2 }}</li>{%- endif -%}
+            {%- if section.settings.chip_3 != blank -%}<li>{{ section.settings.chip_3 }}</li>{%- endif -%}
+          </ul>
+        </figcaption>
+      {%- endif -%}
+    </figure>
+  </div>
+
+  {%- if section.blocks.size > 0 -%}
+  <div class="hm-container">
+    <ul class="hm-trust" role="list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <p class="hm-trust__title">{% render 'cf-icon', name: block.settings.icon %}<strong>{{ block.settings.title }}</strong></p>
+          <p>{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+  {%- endif -%}
+</section>
+<script type="module" src="{{ 'cf-3d.js' | asset_url }}"></script>
+
+{% schema %}
+{
+  "name": "Cafecito — Héros",
+  "tag": "div",
+  "settings": [
+    {"type":"product","id":"product","label":"Produit"},
+    {"type":"text","id":"eyebrow","label":"Surtitre (non affiché)","info":"Gardé pour compatibilité, la nouvelle mise en page ne l'affiche plus.","default":"Machine à café portable"},
+    {"type":"inline_richtext","id":"title","label":"Titre","default":"Le café ne reste plus à la maison."},
+    {"type":"textarea","id":"subtitle","label":"Sous-titre","default":"Rechargeable en USB-C, un seul bouton, la tasse déjà intégrée."},
+    {"type":"text","id":"price_note","label":"Texte à côté du prix","default":"Livraison offerte en Suisse"},
+    {"type":"text","id":"packs_label","label":"Titre du choix de pack","default":"Choisissez votre pack"},
+    {"type":"text","id":"best_label","label":"Mention du pack le moins cher par machine","default":"Meilleur prix"},
+    {"type":"text","id":"cta","label":"Bouton d'achat","default":"Ajouter au panier"},
+    {"type":"text","id":"cta_1","label":"Ancien bouton principal (non affiché)","default":"Acheter maintenant"},
+    {"type":"text","id":"cta_1_link","label":"Ancien lien principal","default":"#acheter"},
+    {"type":"text","id":"cta_2","label":"Lien secondaire","default":"Comment ça marche"},
+    {"type":"text","id":"cta_2_link","label":"Lien secondaire : adresse","default":"#fonctionnement"},
+    {"type":"header","content":"Visuel 3D"},
+    {"type":"text","id":"model_url","label":"URL du modèle 3D (.glb)","info":"Laissez vide pour utiliser le modèle 3D intégré."},
+    {"type":"image_picker","id":"poster","label":"Image du produit","info":"Par défaut : la première photo du produit."},
+    {"type":"text","id":"canvas_label","label":"Description de la 3D (accessibilité)","default":"Machine Cafecito en 3D, que l'on peut faire tourner"},
+    {"type":"text","id":"hint","label":"Indication","default":"Faites-la tourner"},
+    {"type":"text","id":"chip_1","label":"Fait 1 (sous l'image)","default":"Recharge USB-C"},
+    {"type":"text","id":"chip_2","label":"Fait 2 (sous l'image)","default":"Un seul bouton"},
+    {"type":"text","id":"chip_3","label":"Fait 3 (sous l'image)","default":"Tasse intégrée"},
+    {"type":"checkbox","id":"show_beans","label":"Grains flottants (non affichés)","default":false},
+    {"type":"checkbox","id":"show_bean_drawings","label":"Grains dessinés (non affichés)","default":false},
+    {"type":"text","id":"word","label":"Mot décoratif (non affiché)","default":"cafecito"}
+  ],
+  "blocks": [
+    {"type":"trust","name":"Réassurance","limit":4,"settings":[
+      {"type":"select","id":"icon","label":"Icône","default":"truck","options":[{"value":"truck","label":"Livraison"},{"value":"return","label":"Retour"},{"value":"shield","label":"Garantie"},{"value":"usb","label":"USB-C"},{"value":"bean","label":"Grain"},{"value":"cup","label":"Tasse"},{"value":"chat","label":"Contact"},{"value":"check","label":"Validé"}]},
+      {"type":"text","id":"title","label":"Titre"},
+      {"type":"text","id":"text","label":"Texte"}
+    ]}
+  ],
+  "presets": [{"name":"Cafecito — Héros"}]
+}
+{% endschema %}

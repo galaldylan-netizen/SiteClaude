@@ -1,0 +1,33 @@
+{%- assign title = section.settings.title | strip_html -%}
+<section class="hm hm-steps" id="{{ section.settings.anchor | default: 'fonctionnement' }}" aria-labelledby="cf-st-{{ section.id }}">
+  <div class="hm-container">
+    <div class="hm-head">
+      <h2 id="cf-st-{{ section.id }}">{{ title }}</h2>
+      {%- if section.settings.text != blank -%}<p class="hm-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <ol class="hm-steps__list" role="list">
+      {%- for block in section.blocks -%}
+        <li {{ block.shopify_attributes }}>
+          <span class="hm-steps__n hm-num" aria-hidden="true">{{ forloop.index }}</span>
+          <h3>{{ block.settings.title }}</h3>
+          <p>{{ block.settings.text }}</p>
+        </li>
+      {%- endfor -%}
+    </ol>
+    {%- if section.settings.note != blank -%}<p class="hm-note">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+</section>
+{% schema %}
+{"name":"Cafecito — Fonctionnement","tag":"div","settings":[
+ {"type":"text","id":"anchor","label":"Ancre","default":"fonctionnement"},
+ {"type":"select","id":"bg","label":"Fond (non utilisé)","default":"cf-bg-ivory","options":[{"value":"cf-bg-ivory","label":"Blanc cassé"},{"value":"cf-bg-white","label":"Blanc"},{"value":"cf-bg-sand","label":"Beige"},{"value":"cf-bg-warm","label":"Dégradé chaud"}]},
+ {"type":"product","id":"product","label":"Produit (non utilisé)"},
+ {"type":"image_picker","id":"image","label":"Image (non affichée)"},
+ {"type":"text","id":"eyebrow","label":"Surtitre (non affiché)","default":"Mode d'emploi"},
+ {"type":"inline_richtext","id":"title","label":"Titre","default":"Comment ça fonctionne ?"},
+ {"type":"textarea","id":"text","label":"Texte"},
+ {"type":"text","id":"note","label":"Note sous les étapes"}
+],
+"blocks":[{"type":"step","name":"Étape","limit":4,"settings":[{"type":"text","id":"title","label":"Titre"},{"type":"textarea","id":"text","label":"Texte"}]}],
+"presets":[{"name":"Cafecito — Fonctionnement"}]}
+{% endschema %}

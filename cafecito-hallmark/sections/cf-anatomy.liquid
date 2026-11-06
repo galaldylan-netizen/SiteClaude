@@ -1,0 +1,54 @@
+{%- liquid
+  assign img = section.settings.image
+  if img == blank and section.settings.product != blank
+    assign img = section.settings.product.featured_media.preview_image
+  endif
+  if img == blank and product != blank
+    assign img = product.featured_media.preview_image
+  endif
+  assign parts = section.blocks | where: 'type', 'part'
+  assign specs = section.blocks | where: 'type', 'spec'
+  assign title = section.settings.title | strip_html
+-%}
+<section class="hm hm-detail" id="{{ section.settings.anchor | default: 'details' }}" aria-labelledby="cf-an-{{ section.id }}">
+  <div class="hm-container hm-detail__grid">
+    <figure class="hm-detail__fig">
+      {%- if img != blank -%}{{ img | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '450, 700, 1000', sizes: '(min-width: 990px) 38vw, 90vw', alt: img.alt | default: 'La machine Cafecito Nomade de face' }}{%- endif -%}
+      {%- for b in parts -%}<span class="hm-detail__mark hm-num" aria-hidden="true" style="--x:{{ b.settings.x }}%;--y:{{ b.settings.y }}%">{{ forloop.index }}</span>{%- endfor -%}
+    </figure>
+    <div class="hm-detail__text">
+      <h2 id="cf-an-{{ section.id }}">{{ title }}</h2>
+      {%- if section.settings.text != blank -%}<p class="hm-lead">{{ section.settings.text }}</p>{%- endif -%}
+      <ol class="hm-parts" role="list">
+        {%- for b in parts -%}
+          <li {{ b.shopify_attributes }}><span class="hm-parts__n hm-num" aria-hidden="true">{{ forloop.index }}</span><div><h3>{{ b.settings.title }}</h3><p>{{ b.settings.text }}</p></div></li>
+        {%- endfor -%}
+      </ol>
+      {%- if specs.size > 0 -%}
+        <dl class="hm-specs">
+          {%- for b in specs -%}
+            {%- unless b.settings.value contains '[À COMPLÉTER' -%}
+              <div {{ b.shopify_attributes }}><dt>{{ b.settings.label }}</dt><dd>{{ b.settings.value }}</dd></div>
+            {%- endunless -%}
+          {%- endfor -%}
+        </dl>
+      {%- endif -%}
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Cafecito — Détails","tag":"div","settings":[
+ {"type":"text","id":"anchor","label":"Ancre","default":"details"},
+ {"type":"select","id":"bg","label":"Fond (non utilisé)","default":"cf-bg-white","options":[{"value":"cf-bg-ivory","label":"Blanc cassé"},{"value":"cf-bg-white","label":"Blanc"},{"value":"cf-bg-sand","label":"Beige"},{"value":"cf-bg-warm","label":"Dégradé chaud"}]},
+ {"type":"product","id":"product","label":"Produit (image par défaut)"},
+ {"type":"image_picker","id":"image","label":"Image (packshot vertical)"},
+ {"type":"text","id":"eyebrow","label":"Surtitre (non affiché)","default":"Dans le détail"},
+ {"type":"inline_richtext","id":"title","label":"Titre","default":"Pensée pour l'essentiel."},
+ {"type":"textarea","id":"text","label":"Texte"}
+],
+"blocks":[
+ {"type":"part","name":"Élément","limit":6,"settings":[{"type":"text","id":"title","label":"Titre"},{"type":"textarea","id":"text","label":"Texte"},{"type":"range","id":"x","label":"Position horizontale du repère","min":0,"max":100,"step":1,"unit":"%","default":50},{"type":"range","id":"y","label":"Position verticale du repère","min":0,"max":100,"step":1,"unit":"%","default":50}]},
+ {"type":"spec","name":"Caractéristique","settings":[{"type":"text","id":"label","label":"Nom"},{"type":"text","id":"value","label":"Valeur","info":"Une valeur contenant [À COMPLÉTER] reste masquée sur le site."}]}
+],
+"presets":[{"name":"Cafecito — Détails"}]}
+{% endschema %}

@@ -1,0 +1,43 @@
+{%- assign title = section.settings.title | strip_html -%}
+<section class="hm hm-moments" id="{{ section.settings.anchor | default: 'moments' }}" aria-labelledby="cf-mo-{{ section.id }}">
+  <div class="hm-container">
+    <div class="hm-head hm-head--split">
+      <h2 id="cf-mo-{{ section.id }}">{{ title }}</h2>
+      {%- if section.settings.text != blank -%}<p class="hm-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+  </div>
+  <ul class="hm-rail" role="list" tabindex="0" aria-label="{{ title | escape }}">
+    {%- for block in section.blocks -%}
+      <li class="hm-rail__item" {{ block.shopify_attributes }}>
+        <figure>
+          <div class="hm-rail__img">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 1000 | image_tag: loading: 'lazy', widths: '400, 700, 1000', sizes: '(min-width: 990px) 30vw, 78vw', alt: block.settings.image.alt | default: block.settings.title }}
+            {%- endif -%}
+          </div>
+          <figcaption>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+            {%- if block.settings.tag != blank -%}<p class="hm-rail__when">{{ block.settings.tag }}</p>{%- endif -%}
+          </figcaption>
+        </figure>
+      </li>
+    {%- endfor -%}
+  </ul>
+</section>
+{% schema %}
+{"name":"Cafecito — Moments","tag":"div","settings":[
+ {"type":"text","id":"anchor","label":"Ancre","default":"moments"},
+ {"type":"select","id":"bg","label":"Fond (non utilisé)","default":"cf-bg-ivory","options":[{"value":"cf-bg-ivory","label":"Blanc cassé"},{"value":"cf-bg-white","label":"Blanc"},{"value":"cf-bg-sand","label":"Beige"},{"value":"cf-bg-warm","label":"Dégradé chaud"}]},
+ {"type":"text","id":"eyebrow","label":"Surtitre (non affiché)","default":"Au quotidien"},
+ {"type":"inline_richtext","id":"title","label":"Titre","default":"Le café vous accompagne."},
+ {"type":"textarea","id":"text","label":"Texte"}
+],
+"blocks":[{"type":"moment","name":"Moment","settings":[
+ {"type":"image_picker","id":"image","label":"Image (format 2:3)"},
+ {"type":"text","id":"tag","label":"Moment de la journée"},
+ {"type":"text","id":"title","label":"Titre"},
+ {"type":"textarea","id":"text","label":"Texte"}
+]}],
+"presets":[{"name":"Cafecito — Moments"}]}
+{% endschema %}

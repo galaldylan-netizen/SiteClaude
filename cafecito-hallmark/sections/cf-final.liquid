@@ -1,0 +1,27 @@
+{%- liquid
+  assign p = section.settings.product
+  if p == blank
+    assign p = product
+  endif
+  assign title = section.settings.title | strip_html
+-%}
+<section class="hm hm-final" aria-labelledby="cf-fi-{{ section.id }}">
+  <div class="hm-container hm-final__grid">
+    <h2 id="cf-fi-{{ section.id }}">{{ title }}</h2>
+    <div class="hm-final__side">
+      {%- if section.settings.text != blank -%}<p class="hm-lead">{{ section.settings.text }}</p>{%- endif -%}
+      <a class="hm-btn hm-btn--paper" href="{{ section.settings.link | default: '#acheter' }}">{{ section.settings.cta }}{% if section.settings.show_price and p != blank %}, {{ p.price | money }}{% endif %}</a>
+    </div>
+  </div>
+</section>
+{% schema %}
+{"name":"Cafecito — Appel final","tag":"div","settings":[
+ {"type":"product","id":"product","label":"Produit"},
+ {"type":"checkbox","id":"show_price","label":"Afficher le prix dans le bouton","default":true},
+ {"type":"image_picker","id":"image","label":"Image (non affichée)"},
+ {"type":"inline_richtext","id":"title","label":"Titre","default":"Votre prochain café vous attend ailleurs."},
+ {"type":"textarea","id":"text","label":"Texte"},
+ {"type":"text","id":"cta","label":"Bouton","default":"Commander Cafecito"},
+ {"type":"text","id":"link","label":"Lien","default":"#acheter"}
+],"presets":[{"name":"Cafecito — Appel final"}]}
+{% endschema %}
