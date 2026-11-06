@@ -233,7 +233,8 @@ html, body { overflow-x: clip; }
   .hm .hm-stage { height: 42svh; min-height: 300px; }
   .hm-trust, .hm-promises { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hm-steps__list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .hm-detail__fig, .hm-faq__head, .hm-gal { position: static; }
+  .hm-faq__head, .hm-gal { position: static; }
+  .hm-detail__fig { position: relative; top: auto; }
   .hm-detail__fig { max-height: 560px; }
   .hm-story__photo { aspect-ratio: 4 / 3; }
 }
