@@ -57,7 +57,12 @@
         "as_2": "Garantie 2 ans",
         "link_gar": "/pages/garantie",
         "as_3": "Basés à Lausanne",
-        "link_pay": "/pages/a-propos"
+        "link_pay": "/pages/a-propos",
+        "gallery_1": "shopify://shop_images/cafecito-camping.jpg",
+        "gallery_2": "shopify://shop_images/cafecito-voiture.jpg",
+        "gallery_3": "shopify://shop_images/cafecito-bureau.jpg",
+        "gallery_4": "shopify://shop_images/cafecito-avion.jpg",
+        "gallery_5": "shopify://shop_images/cafecito-neige.jpg"
       }
     }
   },

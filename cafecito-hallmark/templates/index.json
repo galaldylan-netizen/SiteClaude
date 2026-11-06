@@ -108,7 +108,8 @@
         "eyebrow": "Quatre moments",
         "title": "Votre pause, où la journée vous emmène.",
         "text": "Au sommet, sur la route, au bureau, au-dessus des nuages : votre café ne vous attend plus quelque part. Il est déjà là."
-      }
+      },
+      "disabled": true
     },
     "buy": {
       "type": "cf-buy",
@@ -167,7 +168,12 @@
         "discount_note": "sur votre 1re commande",
         "reassure_1": "Livraison offerte, en 7 à 15 jours ouvrables",
         "reassure_2": "30 jours satisfait ou remboursé",
-        "reassure_3": "Garantie 2 ans, service à Lausanne"
+        "reassure_3": "Garantie 2 ans, service à Lausanne",
+        "gallery_1": "shopify://shop_images/cafecito-camping.jpg",
+        "gallery_2": "shopify://shop_images/cafecito-voiture.jpg",
+        "gallery_3": "shopify://shop_images/cafecito-bureau.jpg",
+        "gallery_4": "shopify://shop_images/cafecito-avion.jpg",
+        "gallery_5": "shopify://shop_images/cafecito-neige.jpg"
       }
     },
     "steps": {

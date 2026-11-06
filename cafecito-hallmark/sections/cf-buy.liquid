@@ -9,7 +9,35 @@
 <section class="hm hm-buy" id="{{ section.settings.anchor | default: 'acheter' }}" aria-labelledby="cf-bu-{{ section.id }}">
   <div class="hm-container hm-buy__grid">
     <div class="hm-gal" data-cf-gal>
-      {%- assign imgs = p.media | where: 'media_type', 'image' -%}
+      {%- liquid
+        assign imgs = p.media | where: 'media_type', 'image'
+        assign custom = 0
+        for i in (1..6)
+          assign k = 'gallery_' | append: i
+          if section.settings[k] != blank
+            assign custom = custom | plus: 1
+          endif
+        endfor
+        assign pack = p.featured_media.preview_image
+      -%}
+      {%- if custom > 0 -%}
+        {%- comment -%} Galerie choisie dans la section : le packshot du produit, puis les photos de la section. {%- endcomment -%}
+        <div class="hm-gal__main">
+          <img data-cf-gal-main src="{{ pack | image_url: width: 1200 }}" srcset="{{ pack | image_url: width: 600 }} 600w, {{ pack | image_url: width: 1200 }} 1200w" sizes="(min-width: 990px) 50vw, 100vw" alt="{{ pack.alt | default: p.title | escape }}" width="1200" height="1200" loading="lazy">
+        </div>
+        <div class="hm-gal__thumbs" role="group" aria-label="Photos du produit">
+          <button type="button" class="hm-gal__thumb" data-cf-thumb aria-current="true" aria-label="Voir la photo 1" data-src="{{ pack | image_url: width: 1200 }}" data-srcset="{{ pack | image_url: width: 600 }} 600w, {{ pack | image_url: width: 1200 }} 1200w" data-alt="{{ pack.alt | default: p.title | escape }}" data-cover="false">{{ pack | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
+          {%- assign n = 1 -%}
+          {%- for i in (1..6) -%}
+            {%- assign k = 'gallery_' | append: i -%}
+            {%- assign g = section.settings[k] -%}
+            {%- if g != blank -%}
+              {%- assign n = n | plus: 1 -%}
+              <button type="button" class="hm-gal__thumb" data-cf-thumb aria-current="false" aria-label="Voir la photo {{ n }}" data-src="{{ g | image_url: width: 1200 }}" data-srcset="{{ g | image_url: width: 600 }} 600w, {{ g | image_url: width: 1200 }} 1200w" data-alt="{{ g.alt | escape }}" data-cover="true">{{ g | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
+            {%- endif -%}
+          {%- endfor -%}
+        </div>
+      {%- else -%}
       {%- assign first = imgs | first -%}
       <div class="hm-gal__main">
         {%- if first -%}
@@ -24,6 +52,7 @@
           </button>
         {%- endfor -%}
       </div>
+      {%- endif -%}
       {%- endif -%}
     </div>
 
@@ -71,6 +100,13 @@
 {"name":"Cafecito — Achat","tag":"div","settings":[
  {"type":"product","id":"product","label":"Produit","info":"Vide sur la fiche produit : le produit de la page est utilisé."},
  {"type":"text","id":"anchor","label":"Ancre","default":"acheter"},
+ {"type":"header","content":"Galerie","info":"Vide = les photos du produit. Sinon : le packshot du produit, puis ces photos."},
+ {"type":"image_picker","id":"gallery_1","label":"Photo 1"},
+ {"type":"image_picker","id":"gallery_2","label":"Photo 2"},
+ {"type":"image_picker","id":"gallery_3","label":"Photo 3"},
+ {"type":"image_picker","id":"gallery_4","label":"Photo 4"},
+ {"type":"image_picker","id":"gallery_5","label":"Photo 5"},
+ {"type":"image_picker","id":"gallery_6","label":"Photo 6"},
  {"type":"text","id":"eyebrow","label":"Surtitre (non affiché)","default":"Commander"},
  {"type":"text","id":"title","label":"Titre (vide = nom du produit)","default":"Cafecito Nomade"},
  {"type":"textarea","id":"text","label":"Texte","default":"La machine à café portable, rechargeable en USB-C, avec sa tasse transparente intégrée."},
