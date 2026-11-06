@@ -15,7 +15,7 @@
           "type": "announcement",
           "settings": {
             "text": "−10 % déjà appliqué sur votre 1re commande, livraison offerte en Suisse et dans l'UE",
-            "link": "shopify://products/machine-espresso-portable"
+            "link": "/#acheter"
           }
         }
       },
@@ -37,7 +37,7 @@
       "settings": {
         "logo_position": "middle-left",
         "mobile_logo_position": "left",
-        "menu": "main-menu",
+        "menu": "une-page",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": false,

@@ -53,7 +53,8 @@
         "text": "Le soleil se lève sur le lac. Pas de café à chercher, pas de gobelet qui refroidit dans la main. Juste vous, l'odeur du café et l'horizon. Ce moment vous attend partout où vous allez.",
         "cta": "Je veux ce moment",
         "cta_link": "#acheter"
-      }
+      },
+      "disabled": true
     },
     "moments": {
       "type": "cf-moments",
@@ -619,12 +620,12 @@
   },
   "order": [
     "hero3d",
+    "buy",
     "hero",
     "why",
     "explode",
     "steps",
     "moments",
-    "buy",
     "reviews",
     "details",
     "faq",
