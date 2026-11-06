@@ -127,25 +127,25 @@
         "m1": {
           "type": "moment",
           "settings": {
-            "image": "shopify://shop_images/cafecito_scene_1.jpg",
-            "tag": "Lever du soleil",
-            "title": "Au réveil, face aux montagnes",
-            "text": "Le premier café de la journée, avant même que le van se réchauffe."
+            "image": "shopify://shop_images/cafecito-camping.jpg",
+            "tag": "En pleine nature",
+            "title": "Au réveil, au bord de la rivière",
+            "text": "Le premier café de la journée, avant même de replier la tente."
           }
         },
         "m2": {
           "type": "moment",
           "settings": {
-            "image": "shopify://shop_images/cafecito_scene_2.jpg",
+            "image": "shopify://shop_images/cafecito-voiture.jpg",
             "tag": "Pause sur la route",
-            "title": "Sur une aire, au bord du lac",
-            "text": "Moteur coupé, un bouton, et la route peut attendre. Jamais en conduisant."
+            "title": "Sur une aire, moteur coupé",
+            "text": "Un bouton, et la route peut attendre. Jamais en conduisant."
           }
         },
         "m3": {
           "type": "moment",
           "settings": {
-            "image": "shopify://shop_images/cafecito_scene_3.jpg",
+            "image": "shopify://shop_images/cafecito-bureau.jpg",
             "tag": "Au bureau",
             "title": "Votre café, pas celui de la machine",
             "text": "Celui que vous aimez, préparé à votre bureau, sans faire la queue."
@@ -154,10 +154,10 @@
         "m4": {
           "type": "moment",
           "settings": {
-            "image": "shopify://shop_images/cafecito_scene_4.jpg",
-            "tag": "Entre amis",
-            "title": "Le café qui fait la pause",
-            "text": "Une nappe dans l'herbe, deux tasses, et personne ne regarde l'heure."
+            "image": "shopify://shop_images/cafecito-avion.jpg",
+            "tag": "En voyage",
+            "title": "Votre café, même en vol",
+            "text": "La tasse intégrée se pose sur la tablette, le café coule dedans."
           }
         }
       },
@@ -273,7 +273,8 @@
         "title": "Votre café en quatre gestes.",
         "text": "Pas de piston à pomper, pas de prise à chercher.",
         "note": "Suivez toujours la notice fournie avec la machine."
-      }
+      },
+      "disabled": true
     },
     "details": {
       "type": "cf-anatomy",
@@ -352,22 +353,43 @@
         "c7": {
           "type": "spec",
           "settings": {
-            "label": "Réservoir",
-            "value": "[À COMPLÉTER] ml"
+            "label": "Tasse",
+            "value": "120 ml, sans BPA"
           }
         },
         "c8": {
           "type": "spec",
           "settings": {
             "label": "Autonomie",
-            "value": "[À COMPLÉTER] cafés par charge"
+            "value": "3 à 5 cafés par charge (batterie 7,4 V, 2500 mAh)"
           }
         },
         "c9": {
           "type": "spec",
           "settings": {
             "label": "Dimensions et poids",
-            "value": "[À COMPLÉTER]"
+            "value": "24,5 × 7,5 cm, environ 600 g"
+          }
+        },
+        "c10": {
+          "type": "spec",
+          "settings": {
+            "label": "Pression",
+            "value": "Environ 15 bars"
+          }
+        },
+        "c11": {
+          "type": "spec",
+          "settings": {
+            "label": "Chauffe",
+            "value": "3 à 5 minutes"
+          }
+        },
+        "c12": {
+          "type": "spec",
+          "settings": {
+            "label": "Recharge",
+            "value": "USB-C, 2 à 3 heures"
           }
         }
       },
@@ -379,11 +401,14 @@
         "c1",
         "c2",
         "c3",
+        "c10",
+        "c11",
         "c4",
         "c6",
         "c7",
         "c8",
-        "c9"
+        "c9",
+        "c12"
       ],
       "settings": {
         "anchor": "details",
@@ -521,11 +546,78 @@
         "cta": "Commander",
         "link": "#acheter"
       }
+    },
+    "explode": {
+      "type": "cf-explode",
+      "blocks": {
+        "e0": {
+          "type": "step",
+          "settings": {
+            "state": "explode",
+            "title": "Cinq pièces, c'est tout",
+            "text": "Le couvercle, deux adaptateurs, l'unité principale et la tasse. 24,5 cm de haut, environ 600 g."
+          }
+        },
+        "e1": {
+          "type": "step",
+          "settings": {
+            "state": "water",
+            "title": "Versez l'eau",
+            "text": "Dévissez le couvercle et versez l'eau. Il est étanche : rien ne fuit dans le sac."
+          }
+        },
+        "e2": {
+          "type": "step",
+          "settings": {
+            "state": "heat",
+            "title": "Appuyez deux fois",
+            "text": "Double pression sur le bouton : l'eau chauffe en 3 à 5 minutes."
+          }
+        },
+        "e3": {
+          "type": "step",
+          "settings": {
+            "state": "flow",
+            "title": "Maintenez, le café coule",
+            "text": "Gardez le bouton enfoncé : environ 15 bars de pression, et le café coule directement dans la tasse."
+          }
+        },
+        "e4": {
+          "type": "step",
+          "settings": {
+            "state": "open",
+            "title": "Café moulu ou capsule",
+            "text": "Ouvrez la machine : un adaptateur pour le café moulu, un autre pour les capsules au format Nespresso®."
+          }
+        },
+        "e5": {
+          "type": "step",
+          "settings": {
+            "state": "result",
+            "title": "Votre espresso est prêt",
+            "text": "Dans sa tasse de 120 ml, prêt à boire face à la vue."
+          }
+        }
+      },
+      "block_order": [
+        "e0",
+        "e1",
+        "e2",
+        "e3",
+        "e4",
+        "e5"
+      ],
+      "settings": {
+        "anchor": "fonctionnement",
+        "title": "Du couvercle à la tasse.",
+        "text": "Pas de piston à pomper, pas de prise à chercher. Faites défiler, la machine se démonte sous vos yeux."
+      }
     }
   },
   "order": [
     "hero",
     "why",
+    "explode",
     "steps",
     "moments",
     "details",

@@ -1,0 +1,93 @@
+{%- assign title = section.settings.title | strip_html -%}
+<section class="hm hm-x" id="{{ section.settings.anchor | default: 'fonctionnement' }}" aria-labelledby="cf-x-{{ section.id }}">
+  <div class="hm-container">
+    <div class="hm-head hm-head--split">
+      <h2 id="cf-x-{{ section.id }}">{{ title }}</h2>
+      {%- if section.settings.text != blank -%}<p class="hm-lead">{{ section.settings.text }}</p>{%- endif -%}
+    </div>
+    <div class="hm-x__grid">
+      <div class="hm-x__stick">
+        <div class="hm-x__stage" data-hm-stage data-step="explode" role="img" aria-label="{{ section.settings.stage_label | escape }}">
+          <div class="hm-x__part hm-x__lid">
+            {{ 'hm-part-lid.png' | asset_url | image_tag: alt: '', width: 510, height: 306, loading: 'lazy' }}
+            <span class="hm-x__tag">{{ section.settings.tag_lid }}</span>
+          </div>
+          <div class="hm-x__part hm-x__cap">
+            {{ 'hm-part-capsule.png' | asset_url | image_tag: alt: '', width: 450, height: 360, loading: 'lazy' }}
+            <span class="hm-x__tag">{{ section.settings.tag_capsule }}</span>
+          </div>
+          <div class="hm-x__part hm-x__ground">
+            {{ 'hm-part-ground.png' | asset_url | image_tag: alt: '', width: 390, height: 264, loading: 'lazy' }}
+            <span class="hm-x__tag">{{ section.settings.tag_ground }}</span>
+          </div>
+          <div class="hm-x__part hm-x__unit">
+            {{ 'hm-part-unit.png' | asset_url | image_tag: alt: '', width: 480, height: 840, loading: 'lazy' }}
+            <span class="hm-x__led" aria-hidden="true"></span>
+            <span class="hm-x__tag">{{ section.settings.tag_unit }}</span>
+          </div>
+          <div class="hm-x__part hm-x__cup">
+            <span class="hm-x__coffee" aria-hidden="true"></span>
+            {{ 'hm-part-cup.png' | asset_url | image_tag: alt: '', width: 486, height: 630, loading: 'lazy' }}
+            <span class="hm-x__tag">{{ section.settings.tag_cup }}</span>
+          </div>
+          <span class="hm-x__stream hm-x__stream--water" aria-hidden="true"></span>
+          <span class="hm-x__stream hm-x__stream--coffee" aria-hidden="true"></span>
+          <span class="hm-x__heat" aria-hidden="true"><span>{{ section.settings.heat_label }}</span><i></i></span>
+          <span class="hm-x__ruler hm-x__ruler--h" aria-hidden="true"><span>{{ section.settings.height_label }}</span></span>
+          <span class="hm-x__ruler hm-x__ruler--w" aria-hidden="true"><span>{{ section.settings.width_label }}</span></span>
+        </div>
+      </div>
+      <ol class="hm-x__steps" role="list">
+        {%- for block in section.blocks -%}
+          <li class="hm-x__step" data-hm-step="{{ block.settings.state }}" {{ block.shopify_attributes }}>
+            <span class="hm-x__n hm-num" aria-hidden="true">{{ forloop.index }}</span>
+            <h3>{{ block.settings.title }}</h3>
+            <p>{{ block.settings.text }}</p>
+          </li>
+        {%- endfor -%}
+      </ol>
+    </div>
+    {%- if section.settings.note != blank -%}<p class="hm-note">{{ section.settings.note }}</p>{%- endif -%}
+  </div>
+</section>
+<script>
+  (function () {
+    var root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root || !('IntersectionObserver' in window)) return;
+    var stage = root.querySelector('[data-hm-stage]');
+    var steps = root.querySelectorAll('[data-hm-step]');
+    var narrow = window.matchMedia('(max-width: 60rem)').matches;
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        steps.forEach(function (s) { s.classList.toggle('is-current', s === e.target); });
+        stage.dataset.step = e.target.dataset.hmStep;
+      });
+    }, { rootMargin: narrow ? '-62% 0px -18% 0px' : '-45% 0px -45% 0px' });
+    steps.forEach(function (s) { io.observe(s); });
+  })();
+</script>
+{% schema %}
+{"name":"Cafecito — Plan éclaté","tag":"div","settings":[
+ {"type":"text","id":"anchor","label":"Ancre","default":"fonctionnement"},
+ {"type":"inline_richtext","id":"title","label":"Titre","default":"Du couvercle à la tasse."},
+ {"type":"textarea","id":"text","label":"Texte"},
+ {"type":"text","id":"stage_label","label":"Description du visuel (accessibilité)","default":"La machine Cafecito démontée pièce par pièce, animée à chaque étape"},
+ {"type":"header","content":"Étiquettes des pièces"},
+ {"type":"text","id":"tag_lid","label":"Couvercle","default":"Couvercle étanche"},
+ {"type":"text","id":"tag_capsule","label":"Adaptateur capsule","default":"Adaptateur capsule"},
+ {"type":"text","id":"tag_ground","label":"Adaptateur café moulu","default":"Adaptateur café moulu"},
+ {"type":"text","id":"tag_unit","label":"Unité principale","default":"Unité principale, environ 15 bars"},
+ {"type":"text","id":"tag_cup","label":"Tasse","default":"Tasse intégrée, 120 ml"},
+ {"type":"text","id":"heat_label","label":"Texte de la chauffe","default":"Chauffe, 3 à 5 min"},
+ {"type":"text","id":"height_label","label":"Hauteur","default":"24,5 cm"},
+ {"type":"text","id":"width_label","label":"Largeur","default":"7,5 cm"},
+ {"type":"text","id":"note","label":"Note sous les étapes","default":"Suivez toujours la notice fournie avec la machine."}
+],
+"blocks":[{"type":"step","name":"Étape","limit":8,"settings":[
+ {"type":"select","id":"state","label":"Animation","default":"explode","options":[{"value":"explode","label":"Pièces démontées"},{"value":"water","label":"Verser l'eau"},{"value":"heat","label":"Double pression : chauffe"},{"value":"flow","label":"Maintenir : le café coule"},{"value":"open","label":"Adaptateurs café et capsule"},{"value":"result","label":"Résultat"}]},
+ {"type":"text","id":"title","label":"Titre"},
+ {"type":"textarea","id":"text","label":"Texte"}
+]}],
+"presets":[{"name":"Cafecito — Plan éclaté"}]}
+{% endschema %}

@@ -37,7 +37,7 @@
               assign save = full | minus: var.price
               assign unit = var.price | divided_by: q
             -%}
-            <label class="hm-pack">
+            <label class="hm-pack{% if var.id == best_id %} hm-pack--best{% endif %}">
               <input type="radio" name="id" value="{{ var.id }}" data-price="{{ var.price | money | escape }}" {% if var.id == v.id %}checked{% endif %} {% unless var.available %}disabled{% endunless %}>
               <span class="hm-pack__name">{{ var.title }}</span>
               <span class="hm-pack__price hm-num">{{ var.price | money }}</span>
