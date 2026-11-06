@@ -1,9 +1,8 @@
 /* Hallmark · shape: Marquee Hero · genre: editorial · theme: brand · redesign: full · job: buy · draw: 800f50
  * paper: oklch(98.1% 0.006 80) · accent: oklch(55.6% 0.15 45) · display: Fraunces · body: DM Sans · hero: Counter · nav: kept (edge-aligned bar, solid) · footer: kept · signature: the machine you can turn, beside its price and its three packs
  * axes: light/roman-serif/warm · posture: Counter · contrast: pass · fold: pass · v2.0.0
- * hero: Counter (/) · sections: Hero (offer + 3D machine) · Story (one photograph, the van at sunrise) · Steps (four across) · Moments (Rail) · Detail (packshot with marks + specs) · FAQ · Final (statement band) · Buy (the offer again) */
+ * answered: 44c (the render measures the announcement bar; the hero fills the first screen), 59 (bands meet edge to edge, each carries its own 144px padding), 85 (the page ends on the buy box; the email field is the kept footer) · hero: Counter (/) · sections: Hero (offer + 3D machine) · Story (one photograph, the van at sunrise) · Steps (four across) · Moments (Rail) · Detail (packshot with marks + specs) · FAQ · Final (statement band) · Buy (the offer again) */
 /* Hallmark · pre-emit critique: P4 H4 E4 S3 R4 V4 · weakest: S, the signature leans on the 3D model; the packshot carries it when WebGL fails */
-/* Hallmark · waive 62 · .cf-stage__hint and .hm-bar only · both are hidden until their script has something to show; the page reads complete without them */
 /* Hallmark · dropped the eyebrows (54), the italic accent words in every heading (38i), the outlined "cafecito" word, floating beans, drawn beans and floating chips (decoration, 80), the glass cards (29), images 1 and 3 of the story band, the final packshot · the hero's "Achetez maintenant" button: the hero now holds the buy box itself */
 /* Hallmark · reworded "Je veux la mienne — CHF 79.90" to "Je veux la mienne, CHF 79.90" · 19 names the dash */
 
@@ -67,8 +66,8 @@ body { caret-color: var(--color-accent); }
 .hm-btn .loading__spinner { width: 20px; }
 .hm-btn--quiet { background: transparent; color: var(--color-ink); border-color: var(--color-ink); }
 .hm-btn--quiet:hover { background: var(--color-ink); border-color: var(--color-ink); color: var(--color-paper); }
-.hm-btn--paper { background: var(--color-on-dark); border-color: var(--color-on-dark); color: var(--color-ink); }
-.hm-btn--paper:hover { background: var(--color-paper-2); border-color: var(--color-paper-2); }
+.hm-btn--paper { background: transparent; border-color: var(--color-on-dark); color: var(--color-on-dark); }
+.hm-btn--paper:hover { background: var(--color-on-dark); border-color: var(--color-on-dark); color: var(--color-ink); }
 .hm-btn--paper:focus-visible { outline-color: var(--color-focus-on-dark); }
 .hm-link { color: var(--color-ink); font-weight: 600; text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.25em; transition: color var(--dur-short) var(--ease-out); }
 .hm-link:hover { color: var(--color-accent); }
