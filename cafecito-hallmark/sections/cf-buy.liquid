@@ -23,10 +23,10 @@
       {%- if custom > 0 -%}
         {%- comment -%} Galerie choisie dans la section : le packshot du produit, puis les photos de la section. {%- endcomment -%}
         <div class="hm-gal__main">
-          <img data-cf-gal-main src="{{ pack | image_url: width: 1200 }}" srcset="{{ pack | image_url: width: 600 }} 600w, {{ pack | image_url: width: 1200 }} 1200w" sizes="(min-width: 990px) 50vw, 100vw" alt="{{ pack.alt | default: p.title | escape }}" width="1200" height="1200" loading="lazy">
+          <img data-cf-gal-main data-blend="true" src="{{ pack | image_url: width: 1200 }}" srcset="{{ pack | image_url: width: 600 }} 600w, {{ pack | image_url: width: 1200 }} 1200w" sizes="(min-width: 990px) 50vw, 100vw" alt="{{ pack.alt | default: p.title | escape }}" width="1200" height="1200" loading="lazy">
         </div>
         <div class="hm-gal__thumbs" role="group" aria-label="Photos du produit">
-          <button type="button" class="hm-gal__thumb" data-cf-thumb aria-current="true" aria-label="Voir la photo 1" data-src="{{ pack | image_url: width: 1200 }}" data-srcset="{{ pack | image_url: width: 600 }} 600w, {{ pack | image_url: width: 1200 }} 1200w" data-alt="{{ pack.alt | default: p.title | escape }}" data-cover="false">{{ pack | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
+          <button type="button" class="hm-gal__thumb" data-cf-thumb aria-current="true" aria-label="Voir la photo 1" data-src="{{ pack | image_url: width: 1200 }}" data-srcset="{{ pack | image_url: width: 600 }} 600w, {{ pack | image_url: width: 1200 }} 1200w" data-alt="{{ pack.alt | default: p.title | escape }}" data-cover="false" data-blend="true">{{ pack | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
           {%- assign n = 1 -%}
           {%- for i in (1..6) -%}
             {%- assign k = 'gallery_' | append: i -%}
@@ -94,6 +94,17 @@
     </div>
   </div>
 </section>
+<script>
+  (function () {
+    var gal = document.querySelector('#shopify-section-{{ section.id }} [data-cf-gal]');
+    if (!gal) return;
+    var main = gal.querySelector('[data-cf-gal-main]');
+    gal.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-cf-thumb]');
+      if (t && main) setTimeout(function () { main.dataset.blend = t.dataset.blend === 'true' ? 'true' : 'false'; }, 180);
+    });
+  })();
+</script>
 {%- if template.name == 'product' -%}<script type="application/ld+json">{{ p | structured_data }}</script>{%- endif -%}
 {%- endif -%}
 {% schema %}

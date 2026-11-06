@@ -430,3 +430,5 @@ cart-drawer .drawer__inner-empty .cart__empty-text { font-family: var(--font-dis
 .hm-buy__grid { align-items: center; }
 /* portrait photos (and the packshot) are shown whole on the sand panel, never cropped */
 .hm .hm-gal__main img:not(.is-cover) { object-fit: contain; }
+.hm .hm-gal__main img { mix-blend-mode: normal; }
+.hm .hm-gal__main img[data-blend="true"] { mix-blend-mode: multiply; }
