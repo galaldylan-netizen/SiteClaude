@@ -363,3 +363,28 @@ body { caret-color: var(--color-accent); }
   .hm-hero__text { gap: var(--space-sm); }
   .hm-offer--hero { gap: var(--space-sm); }
 }
+
+/* ---------- rail controls ---------- */
+.hm-rail__nav { display: flex; justify-content: flex-end; gap: var(--space-xs); margin: calc(var(--space-lg) * -1) auto var(--space-md); }
+.hm-rail__btn { display: grid; place-items: center; width: 48px; height: 48px; border-radius: 50%; border: 1px solid var(--color-ink); background: var(--color-paper); color: var(--color-ink); cursor: pointer; transition: background-color var(--dur-short) var(--ease-out), color var(--dur-short) var(--ease-out), opacity var(--dur-short) var(--ease-out); }
+.hm-rail__btn svg { width: 20px; height: 20px; }
+.hm-rail__btn[data-hm-rail-prev] svg { transform: scaleX(-1); }
+.hm-rail__btn:hover { background: var(--color-ink); color: var(--color-paper); }
+.hm-rail__btn:active { transform: scale(0.96); }
+.hm-rail__btn:focus-visible { outline: 2px solid var(--color-focus); outline-offset: 3px; }
+.hm-rail__btn:disabled { opacity: 0.3; cursor: default; background: var(--color-paper); color: var(--color-ink); }
+.hm .hm-rail { cursor: grab; user-select: none; }
+.hm .hm-rail.is-dragging { cursor: grabbing; scroll-snap-type: none; }
+.hm-rail img { pointer-events: none; }
+
+/* ---------- reviews ---------- */
+.hm-reviews__score { display: grid; gap: var(--space-2xs); }
+.hm-reviews__score strong { font: 400 48px/1 var(--font-display); }
+.hm-reviews__source { font-size: var(--text-sm); color: var(--color-muted); max-width: 44ch; }
+.hm-reviews__list { columns: 3 280px; column-gap: var(--gap-columns); }
+.hm-review { break-inside: avoid; display: grid; gap: var(--space-sm); margin-bottom: var(--gap-columns); padding: var(--space-lg); border: 1px solid var(--color-rule); border-radius: var(--radius-media); background: var(--color-paper); }
+.hm-review__stars { color: var(--color-rule); letter-spacing: 2px; font-size: var(--text-lg); }
+.hm-review__stars .is-on { color: var(--color-accent); }
+.hm-review__photo { border-radius: 10px; aspect-ratio: 4 / 3; object-fit: cover; width: 100%; }
+.hm-review blockquote { margin: 0; font-size: var(--text-md); line-height: 1.55; }
+.hm-review__who { font-size: var(--text-sm); color: var(--color-muted); }

@@ -1,0 +1,52 @@
+{%- liquid
+  assign reviews = section.blocks | where: 'type', 'review'
+  assign title = section.settings.title | strip_html
+  assign total = 0
+  for r in reviews
+    assign total = total | plus: r.settings.rating
+  endfor
+-%}
+{%- if reviews.size > 0 -%}
+{%- liquid
+  assign avg10 = total | times: 10 | divided_by: reviews.size
+  assign avg_int = avg10 | divided_by: 10
+  assign avg_dec = avg10 | modulo: 10
+-%}
+<section class="hm hm-reviews" id="{{ section.settings.anchor | default: 'avis' }}" aria-labelledby="cf-rv-{{ section.id }}">
+  <div class="hm-container">
+    <div class="hm-head hm-head--split">
+      <h2 id="cf-rv-{{ section.id }}">{{ title }}</h2>
+      <div class="hm-reviews__score">
+        <p><strong class="hm-num">{{ avg_int }},{{ avg_dec }}</strong> sur 5, {{ reviews.size }} avis</p>
+        {%- if section.settings.disclosure != blank -%}<p class="hm-reviews__source">{{ section.settings.disclosure }}</p>{%- endif -%}
+      </div>
+    </div>
+    <ul class="hm-reviews__list" role="list">
+      {%- for r in reviews -%}
+        <li class="hm-review" {{ r.shopify_attributes }}>
+          <p class="hm-review__stars" aria-label="{{ r.settings.rating }} étoiles sur 5">{%- for i in (1..5) -%}<span class="{% if i <= r.settings.rating %}is-on{% endif %}" aria-hidden="true">★</span>{%- endfor -%}</p>
+          {%- if r.settings.photo != blank -%}{{ r.settings.photo | image_url: width: 600 | image_tag: loading: 'lazy', class: 'hm-review__photo', alt: r.settings.photo.alt }}{%- endif -%}
+          <blockquote>{{ r.settings.text }}</blockquote>
+          <p class="hm-review__who">{{ r.settings.name }}{% if r.settings.country != blank %}, {{ r.settings.country }}{% endif %}{% if r.settings.date != blank %}, {{ r.settings.date }}{% endif %}</p>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</section>
+{%- endif -%}
+{% schema %}
+{"name":"Cafecito — Avis","tag":"div","settings":[
+ {"type":"text","id":"anchor","label":"Ancre","default":"avis"},
+ {"type":"inline_richtext","id":"title","label":"Titre","default":"Ceux qui l'utilisent en parlent."},
+ {"type":"text","id":"disclosure","label":"Origine des avis (obligatoire)","default":"Avis publiés sur AliExpress par des acheteurs de ce modèle de machine, traduits en français.","info":"La loi impose d'indiquer d'où viennent les avis. Ne présentez pas ces avis comme ceux de vos propres clients."}
+],
+"blocks":[{"type":"review","name":"Avis","settings":[
+ {"type":"range","id":"rating","label":"Note","min":1,"max":5,"step":1,"default":5},
+ {"type":"textarea","id":"text","label":"Avis (texte réel, traduit sans l'embellir)"},
+ {"type":"text","id":"name","label":"Prénom ou pseudo"},
+ {"type":"text","id":"country","label":"Pays"},
+ {"type":"text","id":"date","label":"Date","info":"Ex. : octobre 2026"},
+ {"type":"image_picker","id":"photo","label":"Photo de l'acheteur (facultatif)"}
+]}],
+"presets":[{"name":"Cafecito — Avis"}]}
+{% endschema %}

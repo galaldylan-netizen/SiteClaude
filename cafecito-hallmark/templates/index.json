@@ -2,46 +2,8 @@
   "sections": {
     "hero": {
       "type": "cf-hero",
-      "blocks": {
-        "t1": {
-          "type": "trust",
-          "settings": {
-            "icon": "truck",
-            "title": "Livraison offerte",
-            "text": "La livraison est offerte en Suisse et partout dans l’Union européenne."
-          }
-        },
-        "t2": {
-          "type": "trust",
-          "settings": {
-            "icon": "check",
-            "title": "Zéro surprise",
-            "text": "Aucun frais supplémentaire au moment du paiement."
-          }
-        },
-        "t3": {
-          "type": "trust",
-          "settings": {
-            "icon": "return",
-            "title": "30 jours satisfait ou remboursé",
-            "text": "Elle ne vous plaît pas ? On vous rembourse."
-          }
-        },
-        "t4": {
-          "type": "trust",
-          "settings": {
-            "icon": "chat",
-            "title": "Café en toute liberté",
-            "text": "Votre pause café, où que vous soyez."
-          }
-        }
-      },
-      "block_order": [
-        "t1",
-        "t2",
-        "t3",
-        "t4"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "product": "machine-espresso-portable",
         "eyebrow": "Machine à café portable",
@@ -59,9 +21,9 @@
         "poster": "shopify://shop_images/Machine_a_espresso_portable_elegante.png",
         "canvas_label": "Machine Cafecito en 3D, que l'on peut faire tourner",
         "hint": "Faites-la tourner",
-        "chip_1": "Recharge USB-C",
-        "chip_2": "Un seul bouton",
-        "chip_3": "Tasse intégrée",
+        "chip_1": "",
+        "chip_2": "",
+        "chip_3": "",
         "show_beans": false,
         "show_bean_drawings": false,
         "word": "cafecito",
@@ -78,46 +40,8 @@
     },
     "why": {
       "type": "cf-why",
-      "blocks": {
-        "w1": {
-          "type": "promise",
-          "settings": {
-            "icon": "shield",
-            "title": "Paiement sécurisé",
-            "text": "Carte, Apple Pay, Google Pay, PayPal ou Klarna."
-          }
-        },
-        "w2": {
-          "type": "promise",
-          "settings": {
-            "icon": "truck",
-            "title": "Livraison offerte et suivie",
-            "text": "En Suisse et dans toute l'UE, avec numéro de suivi."
-          }
-        },
-        "w3": {
-          "type": "promise",
-          "settings": {
-            "icon": "return",
-            "title": "30 jours pour l'essayer",
-            "text": "Elle ne vous plaît pas ? On vous rembourse."
-          }
-        },
-        "w4": {
-          "type": "promise",
-          "settings": {
-            "icon": "chat",
-            "title": "Une équipe à Lausanne",
-            "text": "Une question ? On vous répond en français, par e-mail."
-          }
-        }
-      },
-      "block_order": [
-        "w1",
-        "w2",
-        "w3",
-        "w4"
-      ],
+      "blocks": {},
+      "block_order": [],
       "settings": {
         "anchor": "pourquoi",
         "image_1": "shopify://shop_images/cafecito_stone_1.jpg",
@@ -127,7 +51,7 @@
         "title": "Le meilleur café de la journée se boit face à la vue.",
         "text": "Le soleil se lève, le van est encore froid. Vous appuyez sur un bouton et l'odeur du café envahit l'air. Pas de file d'attente, pas de gobelet en carton : juste vous, votre café et l'horizon. Cafecito, c'est ce moment-là, où que vous soyez.",
         "cta": "Je veux la mienne",
-        "cta_link": "#acheter"
+        "cta_link": "#top"
       }
     },
     "moments": {
@@ -242,7 +166,8 @@
         "reassure_1": "Livraison offerte, en 7 à 15 jours ouvrables",
         "reassure_2": "30 jours satisfait ou remboursé",
         "reassure_3": "Garantie 2 ans, service à Lausanne"
-      }
+      },
+      "disabled": true
     },
     "steps": {
       "type": "cf-steps",
@@ -435,23 +360,17 @@
         "eyebrow": "Dans le détail",
         "title": "Pensée pour partir avec vous.",
         "text": "Pas d'écran, pas de réglages compliqués. Juste ce qu'il faut pour un bon café, où que vous soyez."
-      }
+      },
+      "disabled": true
     },
     "faq": {
       "type": "cf-faq",
       "blocks": {
-        "q1": {
-          "type": "qa",
-          "settings": {
-            "question": "Comment fonctionne la machine ?",
-            "answer": "<p>Chargez-la en USB-C, ajoutez votre café moulu ou une capsule, versez l'eau, puis appuyez sur le bouton. Le café coule directement dans la tasse intégrée. La notice fournie détaille chaque étape.</p>"
-          }
-        },
         "q2": {
           "type": "qa",
           "settings": {
-            "question": "Quel café puis-je utiliser ?",
-            "answer": "<p>Du café moulu ou des capsules. Vous voulez vérifier la compatibilité de vos capsules avant de commander ? <a href='/pages/contact'>Écrivez-nous</a>, nous vous répondons avec la référence exacte.</p>"
+            "question": "Mes capsules sont-elles compatibles ?",
+            "answer": "<p>Envoyez-nous la référence de vos capsules par notre <a href='/pages/contact'>formulaire de contact</a> : nous vous confirmons la compatibilité avant votre commande.</p>"
           }
         },
         "q7": {
@@ -480,13 +399,6 @@
           "settings": {
             "question": "Quelle est la garantie ?",
             "answer": "<p>La machine bénéficie de la garantie légale de 2 ans. Voir la page <a href='/pages/garantie'>Garantie</a>.</p>"
-          }
-        },
-        "q3": {
-          "type": "qa",
-          "settings": {
-            "question": "Comment la recharger ?",
-            "answer": "<p>Par son port USB-C, comme un téléphone. Une fois chargée, elle s'utilise sans prise.</p>"
           }
         },
         "q5": {
@@ -519,13 +431,11 @@
         }
       },
       "block_order": [
-        "q1",
         "q2",
         "q7",
         "q11",
         "q8",
         "q9",
-        "q3",
         "q5",
         "q6",
         "q4",
@@ -552,16 +462,17 @@
         "text": "Livraison offerte en Suisse et dans l'UE. 30 jours pour l'essayer, −10 % sur votre 1re commande.",
         "cta": "Je veux la mienne",
         "link": "#acheter"
-      }
+      },
+      "disabled": true
     },
     "bar": {
       "type": "cf-bar",
       "settings": {
         "product": "machine-espresso-portable",
         "label": "Cafecito Nomade",
-        "note": "Livraison offerte, −10 % appliqué",
+        "note": "",
         "cta": "Commander",
-        "link": "#acheter"
+        "link": "#top"
       }
     },
     "explode": {
@@ -571,8 +482,8 @@
           "type": "step",
           "settings": {
             "state": "explode",
-            "title": "Cinq pièces, c'est tout",
-            "text": "Le couvercle, deux adaptateurs, l'unité principale et la tasse. 24,5 cm de haut, environ 600 g."
+            "title": "Elle tient dans la main",
+            "text": "Cinq pièces, 24,5 cm, environ 600 g : elle se glisse dans un sac comme une gourde."
           }
         },
         "e1": {
@@ -580,39 +491,39 @@
           "settings": {
             "state": "water",
             "title": "Versez l'eau",
-            "text": "Dévissez le couvercle et versez l'eau. Il est étanche : rien ne fuit dans le sac."
+            "text": "Le couvercle se revisse, étanche : rien ne coule dans votre sac."
           }
         },
         "e2": {
           "type": "step",
           "settings": {
             "state": "heat",
-            "title": "Appuyez deux fois",
-            "text": "Double pression sur le bouton : l'eau chauffe en 3 à 5 minutes."
+            "title": "Deux pressions, elle chauffe",
+            "text": "L'eau est chaude en 3 à 5 minutes. Une charge USB-C suffit pour 3 à 5 cafés."
           }
         },
         "e3": {
           "type": "step",
           "settings": {
             "state": "flow",
-            "title": "Maintenez, le café coule",
-            "text": "Gardez le bouton enfoncé : environ 15 bars de pression, et le café coule directement dans la tasse."
+            "title": "Maintenez, il coule",
+            "text": "Environ 15 bars de pression : un espresso riche, directement dans la tasse."
           }
         },
         "e4": {
           "type": "step",
           "settings": {
             "state": "open",
-            "title": "Café moulu ou capsule",
-            "text": "Ouvrez la machine : un adaptateur pour le café moulu, un autre pour les capsules au format Nespresso®."
+            "title": "Votre café, votre choix",
+            "text": "Café moulu ou capsules au format Nespresso® : un adaptateur pour chacun."
           }
         },
         "e5": {
           "type": "step",
           "settings": {
             "state": "result",
-            "title": "Votre espresso est prêt",
-            "text": "Dans sa tasse de 120 ml, prêt à boire face à la vue."
+            "title": "Profitez de la vue",
+            "text": "Votre espresso est servi dans sa tasse de 120 ml. Là où vous êtes."
           }
         }
       },
@@ -626,9 +537,19 @@
       ],
       "settings": {
         "anchor": "fonctionnement",
-        "title": "Du couvercle à la tasse.",
-        "text": "Pas de piston à pomper, pas de prise à chercher. Faites défiler, la machine se démonte sous vos yeux.",
+        "title": "Un vrai espresso, sans prise ni effort.",
+        "text": "Faites défiler : la machine se démonte sous vos yeux.",
         "tag_unit": "Unité principale, 15 bars"
+      }
+    },
+    "reviews": {
+      "type": "cf-reviews",
+      "blocks": {},
+      "block_order": [],
+      "settings": {
+        "anchor": "avis",
+        "title": "Ceux qui l'utilisent en parlent.",
+        "disclosure": "Avis publiés sur AliExpress par des acheteurs de ce modèle de machine, traduits en français."
       }
     }
   },
@@ -638,6 +559,7 @@
     "explode",
     "steps",
     "moments",
+    "reviews",
     "details",
     "faq",
     "final",

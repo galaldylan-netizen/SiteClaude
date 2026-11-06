@@ -6,7 +6,11 @@
       {%- if section.settings.text != blank -%}<p class="hm-lead">{{ section.settings.text }}</p>{%- endif -%}
     </div>
   </div>
-  <ul class="hm-rail" role="list" tabindex="0" aria-label="{{ title | escape }}">
+  <div class="hm-container hm-rail__nav">
+    <button type="button" class="hm-rail__btn" data-hm-rail-prev aria-label="Photo précédente">{% render 'cf-icon', name: 'arrow' %}</button>
+    <button type="button" class="hm-rail__btn" data-hm-rail-next aria-label="Photo suivante">{% render 'cf-icon', name: 'arrow' %}</button>
+  </div>
+  <ul class="hm-rail" role="list" tabindex="0" aria-label="{{ title | escape }}" data-hm-rail>
     {%- for block in section.blocks -%}
       <li class="hm-rail__item" {{ block.shopify_attributes }}>
         <figure>
@@ -25,6 +29,30 @@
     {%- endfor -%}
   </ul>
 </section>
+<script>
+  (function () {
+    var root = document.getElementById('shopify-section-{{ section.id }}');
+    if (!root) return;
+    var rail = root.querySelector('[data-hm-rail]');
+    var prev = root.querySelector('[data-hm-rail-prev]'), next = root.querySelector('[data-hm-rail-next]');
+    var step = function () { var it = rail.querySelector('.hm-rail__item'); return it ? it.getBoundingClientRect().width + 32 : 400; };
+    var smooth = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth';
+    var sync = function () {
+      prev.disabled = rail.scrollLeft < 8;
+      next.disabled = rail.scrollLeft + rail.clientWidth > rail.scrollWidth - 8;
+    };
+    prev.addEventListener('click', function () { rail.scrollBy({ left: -step(), behavior: smooth }); });
+    next.addEventListener('click', function () { rail.scrollBy({ left: step(), behavior: smooth }); });
+    rail.addEventListener('scroll', sync, { passive: true }); window.addEventListener('resize', sync); sync();
+    /* glisser à la souris sur ordinateur */
+    var down = false, x0 = 0, s0 = 0, moved = false;
+    rail.addEventListener('pointerdown', function (e) { if (e.pointerType !== 'mouse') return; down = true; moved = false; x0 = e.clientX; s0 = rail.scrollLeft; rail.classList.add('is-dragging'); });
+    window.addEventListener('pointermove', function (e) { if (!down) return; var d = e.clientX - x0; if (Math.abs(d) > 4) moved = true; rail.scrollLeft = s0 - d; });
+    window.addEventListener('pointerup', function () { if (!down) return; down = false; rail.classList.remove('is-dragging'); });
+    rail.addEventListener('click', function (e) { if (moved) { e.preventDefault(); e.stopPropagation(); } }, true);
+    rail.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  })();
+</script>
 {% schema %}
 {"name":"Cafecito — Moments","tag":"div","settings":[
  {"type":"text","id":"anchor","label":"Ancre","default":"moments"},
