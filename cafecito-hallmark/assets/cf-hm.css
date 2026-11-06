@@ -428,3 +428,5 @@ cart-drawer .drawer__inner-empty .cart__empty-text { font-family: var(--font-dis
 .hm-gal__thumb { aspect-ratio: 3 / 2; }
 .hm-gal__thumb img { object-position: 50% 45%; }
 .hm-buy__grid { align-items: center; }
+/* portrait photos (and the packshot) are shown whole on the sand panel, never cropped */
+.hm .hm-gal__main img:not(.is-cover) { object-fit: contain; }
