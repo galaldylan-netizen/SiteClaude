@@ -610,7 +610,8 @@
       "settings": {
         "anchor": "fonctionnement",
         "title": "Du couvercle à la tasse.",
-        "text": "Pas de piston à pomper, pas de prise à chercher. Faites défiler, la machine se démonte sous vos yeux."
+        "text": "Pas de piston à pomper, pas de prise à chercher. Faites défiler, la machine se démonte sous vos yeux.",
+        "tag_unit": "Unité principale, 15 bars"
       }
     }
   },

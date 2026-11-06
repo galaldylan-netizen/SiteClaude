@@ -328,7 +328,9 @@ body { caret-color: var(--color-accent); }
   .hm-x__stage { height: 54svh; min-height: 360px; }
   .hm-x__step { min-height: 56svh; align-content: end; padding-bottom: 14svh; }
   .hm-x__step:first-child { min-height: 40svh; }
-  .hm-x__tag { font-size: var(--text-xs); left: calc(100% + 2cqh); }
+  .hm-x__tag { font-size: var(--text-xs); left: calc(100% + 2cqh); white-space: normal; width: 24cqw; }
+  [data-step="open"] .hm-x__cap { --x: -16cqh; } [data-step="open"] .hm-x__ground { --x: 16cqh; }
+  [data-step="open"] .hm-x__cap .hm-x__tag, [data-step="open"] .hm-x__ground .hm-x__tag { width: 26cqw; text-align: center; }
 }
 @media (scripting: none) { .hm-x__step { opacity: 1; } }
 @media (prefers-reduced-motion: reduce) {
