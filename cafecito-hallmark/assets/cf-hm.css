@@ -24,6 +24,7 @@
   --color-on-dark: #faf8f4; --color-on-dark-muted: #e3d6c6;
   --color-focus: #29241f; --color-focus-on-dark: #faf8f4;
   --color-error: #a8321d;
+  --color-save: #1e6b43;
   --color-cta: #ff4f79; --color-cta-ink: #29241f; --color-cta-soft: #ffe2e9;
   --color-stage: #000000; --color-stage-ink: #f4ede3; --color-stage-muted: #b9ada0; --color-water: #9fd3ff; --color-crema: #c8873f; --color-espresso: #3a1d0e; --color-led: #8fd8ff;
   --font-display: "Fraunces", Georgia, "Times New Roman", serif;
@@ -100,7 +101,7 @@ body { caret-color: var(--color-accent); }
 .hm-offer--hero .hm-packs { grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); }
 .hm-offer--hero .hm-pack { grid-template-columns: minmax(0, 1fr); padding: var(--space-sm); }
 .hm-offer--hero .hm-pack__price { text-align: left; }
-.hm-offer--hero .hm-offer__actions .hm-btn { width: auto; justify-self: start; min-width: 260px; }
+
 .product-form__error-message-wrapper:not([hidden]) { margin-top: var(--space-xs); color: var(--color-error); font-size: var(--text-sm); }
 
 /* ---------- hero: Counter ---------- */
@@ -337,3 +338,18 @@ body { caret-color: var(--color-accent); }
   .hm-x__part, .hm-x__coffee, .hm-x__heat i { transition: none !important; }
   .hm-x__stream, .hm-x__led { animation: none !important; }
 }
+
+/* ---------- offer: auto discount, savings, reassurance ---------- */
+.hm-offer__deal { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2xs) var(--space-sm); font-size: var(--text-sm); color: var(--color-ink); }
+.hm-offer__tag { display: inline-flex; align-items: center; min-height: 26px; padding: 0 var(--space-sm); border-radius: var(--radius-pill); background: var(--color-cta); color: var(--color-cta-ink); font-weight: 700; }
+.hm-pack__save { grid-column: 1 / -1; justify-self: start; font-size: var(--text-xs); font-weight: 700; color: var(--color-save); }
+.hm-pack--best .hm-pack__save { color: var(--color-cta-ink); }
+.hm-pack__low { grid-column: 1 / -1; justify-self: start; margin-top: var(--space-2xs); padding: 2px var(--space-xs); border-radius: var(--radius-pill); border: 1px solid var(--color-ink); font-size: var(--text-xs); font-weight: 700; }
+.hm-btn--big { min-height: 56px; font-size: var(--text-lg); }
+.hm-reassure { display: grid; gap: var(--space-2xs); font-size: var(--text-sm); color: var(--color-ink); }
+.hm-reassure li { display: flex; align-items: center; gap: var(--space-xs); }
+.hm-reassure svg { width: 18px; height: 18px; flex: none; color: var(--color-save); }
+.hm-offer--hero .hm-offer__actions { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: start; }
+.hm-offer--hero .hm-offer__actions .hm-btn { width: 100%; min-width: 0; }
+.hm-offer--hero .shopify-payment-button__more-options { display: none; }
+@media (max-width: 40rem) { .hm-offer--hero .hm-offer__actions { grid-template-columns: minmax(0, 1fr); } }

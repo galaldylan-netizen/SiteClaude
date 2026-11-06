@@ -1,25 +1,34 @@
 {%- comment -%}
-  Hallmark : le bloc d'achat (prix, packs, bouton). Utilisé par le héros et par la section Achat.
-  Paramètres : p (produit), form_id, cta, packs_label, best_label, price_note, show_dynamic (bool), size ('hero' ou 'full')
+  Hallmark : le bloc d'achat (prix, packs, bouton, réassurance). Utilisé par le héros et par la section Achat.
+  Paramètres : p, form_id, cta, packs_label, price_note, show_dynamic, size ('hero' ou 'full'),
+  highlight (numéro du pack mis en avant, 2 par défaut), highlight_label, lowest_label,
+  discount_pct (remise appliquée automatiquement, 0 = aucune), discount_note
 {%- endcomment -%}
 {%- liquid
   assign v = p.selected_or_first_available_variant
   assign base = p.variants.first.price
-  assign best_unit = 999999999
-  assign best_id = ''
+  assign hl = highlight | default: 2
+  assign pct = discount_pct | default: 0
+  assign low_unit = 999999999
+  assign low_id = ''
   for var in p.variants
     assign q = var.title | split: ' ' | first | plus: 0
     if q > 1
       assign u = var.price | divided_by: q
-      if u < best_unit
-        assign best_unit = u
-        assign best_id = var.id
+      if u < low_unit
+        assign low_unit = u
+        assign low_id = var.id
       endif
     endif
   endfor
+  assign keep = 100 | minus: pct
+  assign v_disc = v.price | times: keep | divided_by: 100
 -%}
-<div class="hm-offer hm-offer--{{ size | default: 'full' }}" data-hm-offer>
+<div class="hm-offer hm-offer--{{ size | default: 'full' }}" data-hm-offer data-pct="{{ pct }}">
   <p class="hm-offer__price"><strong class="hm-num" data-cf-price>{{ v.price | money }}</strong>{%- if price_note != blank -%}<span>{{ price_note }}</span>{%- endif -%}</p>
+  {%- if pct > 0 -%}
+    <p class="hm-offer__deal"><span class="hm-offer__tag">−{{ pct }} % déjà appliqué</span> <span>soit <strong class="hm-num" data-hm-disc>{{ v_disc | money }}</strong> {{ discount_note | default: 'sur votre 1re commande' }}</span></p>
+  {%- endif -%}
   <product-form class="product-form" data-section-id="{{ section.id }}" data-hide-errors="false">
     {%- form 'product', p, id: form_id, novalidate: 'novalidate', data-type: 'add-to-cart-form' -%}
       {%- if p.has_only_default_variant -%}
@@ -36,24 +45,27 @@
               assign full = base | times: q
               assign save = full | minus: var.price
               assign unit = var.price | divided_by: q
+              assign disc = var.price | times: keep | divided_by: 100
             -%}
-            <label class="hm-pack{% if var.id == best_id %} hm-pack--best{% endif %}">
-              <input type="radio" name="id" value="{{ var.id }}" data-price="{{ var.price | money | escape }}" {% if var.id == v.id %}checked{% endif %} {% unless var.available %}disabled{% endunless %}>
+            <label class="hm-pack{% if forloop.index == hl %} hm-pack--best{% endif %}">
+              <input type="radio" name="id" value="{{ var.id }}" data-price="{{ var.price | money | escape }}" data-disc="{{ disc | money | escape }}" {% if var.id == v.id %}checked{% endif %} {% unless var.available %}disabled{% endunless %}>
               <span class="hm-pack__name">{{ var.title }}</span>
               <span class="hm-pack__price hm-num">{{ var.price | money }}</span>
               {%- if q > 1 -%}
-                <span class="hm-pack__unit">soit {{ unit | money }} la machine{% if save > 0 %}, −{{ save | money }}{% endif %}</span>
+                <span class="hm-pack__unit">soit {{ unit | money }} la machine</span>
+                {%- if save > 0 -%}<span class="hm-pack__save">Vous économisez {{ save | money }}</span>{%- endif -%}
               {%- else -%}
                 <span class="hm-pack__unit">Pour vous</span>
               {%- endif -%}
-              {%- if var.id == best_id and best_label != blank -%}<span class="hm-pack__best">{{ best_label }}</span>{%- endif -%}
+              {%- if forloop.index == hl and highlight_label != blank -%}<span class="hm-pack__best">{{ highlight_label }}</span>
+              {%- elsif var.id == low_id and lowest_label != blank -%}<span class="hm-pack__low">{{ lowest_label }}</span>{%- endif -%}
             </label>
           {%- endfor -%}
         </fieldset>
       {%- endif -%}
       <input type="hidden" name="quantity" value="1">
       <div class="hm-offer__actions">
-        <button type="submit" name="add" class="hm-btn" {% unless v.available %}disabled{% endunless %}>
+        <button type="submit" name="add" class="hm-btn hm-btn--big" {% unless v.available %}disabled{% endunless %}>
           <span>{%- if v.available -%}{{ cta }}{%- else -%}Bientôt de retour{%- endif -%}</span>
           {%- render 'loading-spinner' -%}
         </button>
@@ -62,14 +74,26 @@
     {%- endform -%}
     <div class="product-form__error-message-wrapper" role="alert" hidden><span class="product-form__error-message"></span></div>
   </product-form>
+  {%- if reassure_1 != blank -%}
+  <ul class="hm-reassure" role="list">
+    <li>{% render 'cf-icon', name: 'truck' %}<span>{{ reassure_1 }}</span></li>
+    {%- if reassure_2 != blank -%}<li>{% render 'cf-icon', name: 'return' %}<span>{{ reassure_2 }}</span></li>{%- endif -%}
+    {%- if reassure_3 != blank -%}<li>{% render 'cf-icon', name: 'shield' %}<span>{{ reassure_3 }}</span></li>{%- endif -%}
+  </ul>
+  {%- endif -%}
 </div>
 <script>
   (function () {
     var form = document.getElementById({{ form_id | json }});
     if (!form) return;
     var box = form.querySelector('[data-cf-packs]');
-    var price = form.closest('[data-hm-offer]').querySelector('[data-cf-price]');
-    if (box && price) box.addEventListener('change', function (e) { if (e.target.dataset.price) price.textContent = e.target.dataset.price; });
+    var wrap = form.closest('[data-hm-offer]');
+    var price = wrap.querySelector('[data-cf-price]');
+    var disc = wrap.querySelector('[data-hm-disc]');
+    if (box && price) box.addEventListener('change', function (e) {
+      if (e.target.dataset.price) price.textContent = e.target.dataset.price;
+      if (disc && e.target.dataset.disc) disc.textContent = e.target.dataset.disc;
+    });
   })();
 </script>
 <script src="{{ 'product-form.js' | asset_url }}" defer></script>

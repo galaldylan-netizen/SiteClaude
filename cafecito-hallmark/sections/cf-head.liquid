@@ -6,7 +6,18 @@
 {{ 'cf-commerce.css' | asset_url | stylesheet_tag }}
 {{ 'cf-packs.css' | asset_url | stylesheet_tag }}
 {{ 'cf-hm.css' | asset_url | stylesheet_tag }}
-<style>:root{--cf-green:#1E7A4A}.tax-note::before{content:"✓  Livraison offerte en Suisse et dans l'UE\A✓  14 jours pour changer d'avis"}</style>
+<style>:root{--cf-green:#1E7A4A}.tax-note::before{content:"✓  Livraison offerte en Suisse et dans l'UE\A✓  30 jours satisfait ou remboursé{% if section.settings.auto_code != blank %}\A✓  −10 % appliqué au paiement (1re commande){% endif %}"}</style>
+{%- if section.settings.auto_code != blank -%}
+<script>
+  {%- comment -%} Active le code de bienvenue sans que le client ait à le taper : Shopify l'applique au paiement. Une fois par session. {%- endcomment -%}
+  (function () {
+    try { if (sessionStorage.getItem('hm-code') === {{ section.settings.auto_code | json }}) return; } catch (e) {}
+    fetch('/discount/' + encodeURIComponent({{ section.settings.auto_code | json }}) + '?redirect=%2Fcart.js', { credentials: 'same-origin' })
+      .then(function () { try { sessionStorage.setItem('hm-code', {{ section.settings.auto_code | json }}); } catch (e) {} })
+      .catch(function () {});
+  })();
+</script>
+{%- endif -%}
 <script type="importmap">{"imports":{"three":"{{ 'three.module.min.js' | asset_url }}"}}</script>
 <script src="{{ 'cf.js' | asset_url }}" defer></script>
 <script>
@@ -19,5 +30,5 @@
   });
 </script>
 {% schema %}
-{"name":"Cafecito — styles globaux","class":"cf-head-section","settings":[{"type":"paragraph","content":"Charge l'identité Cafecito (polices, couleurs, animations). Ne pas supprimer."}]}
+{"name":"Cafecito — styles globaux","class":"cf-head-section","settings":[{"type":"paragraph","content":"Charge l'identité Cafecito (polices, couleurs, animations). Ne pas supprimer."},{"type":"text","id":"auto_code","label":"Code appliqué automatiquement","default":"CAFE","info":"Doit être un code actif dans Shopify > Remises. Vide = désactivé. Pensez à mettre la remise affichée à jour dans les sections Héros et Achat."}]}
 {% endschema %}

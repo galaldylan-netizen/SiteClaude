@@ -37,9 +37,9 @@
       </ul>
       {%- endif -%}
 
-      {%- render 'hm-offer', p: p, section: section, form_id: form_id, cta: section.settings.cta, packs_label: section.settings.packs_label, best_label: section.settings.best_label, price_note: section.settings.price_note, show_dynamic: section.settings.show_dynamic, size: 'full' -%}
+      {%- render 'hm-offer', p: p, section: section, form_id: form_id, cta: section.settings.cta, packs_label: section.settings.packs_label, best_label: section.settings.best_label, price_note: section.settings.price_note, show_dynamic: section.settings.show_dynamic, size: 'full', highlight: section.settings.highlight, highlight_label: section.settings.highlight_label, lowest_label: section.settings.lowest_label, discount_pct: section.settings.discount_pct, discount_note: section.settings.discount_note, reassure_1: section.settings.reassure_1, reassure_2: section.settings.reassure_2, reassure_3: section.settings.reassure_3 -%}
 
-      {%- if section.settings.code != blank -%}
+      {%- if section.settings.code != blank and section.settings.discount_pct == 0 -%}
       <div class="hm-code">
         <p>{{ section.settings.code_text }} <strong>{{ section.settings.code }}</strong></p>
         <button type="button" class="hm-code__copy" data-cf-copy="{{ section.settings.code | escape }}" aria-label="Copier le code {{ section.settings.code | escape }}"><span data-cf-copy-label>Copier</span></button>
@@ -79,6 +79,15 @@
  {"type":"text","id":"best_label","label":"Mention du pack le moins cher par machine","default":"Meilleur prix"},
  {"type":"text","id":"cta","label":"Bouton","default":"Ajouter au panier"},
  {"type":"checkbox","id":"show_dynamic","label":"Boutons de paiement express","default":true},
+ {"type":"header","content":"Offre"},
+ {"type":"range","id":"highlight","label":"Pack mis en avant (couleur vive)","min":1,"max":3,"step":1,"default":2},
+ {"type":"text","id":"highlight_label","label":"Pastille du pack mis en avant","default":"Idéal à deux ou à offrir"},
+ {"type":"text","id":"lowest_label","label":"Pastille du pack le moins cher par machine","default":"Prix le plus bas par machine"},
+ {"type":"range","id":"discount_pct","label":"Remise appliquée automatiquement (%)","info":"Doit correspondre au code actif choisi dans « Cafecito — styles globaux ». 0 = ne rien afficher.","min":0,"max":50,"step":1,"default":10},
+ {"type":"text","id":"discount_note","label":"Précision de la remise","default":"sur votre 1re commande"},
+ {"type":"text","id":"reassure_1","label":"Réassurance 1 (sous le bouton)","default":"Livraison offerte, en 7 à 15 jours ouvrables"},
+ {"type":"text","id":"reassure_2","label":"Réassurance 2","default":"30 jours satisfait ou remboursé"},
+ {"type":"text","id":"reassure_3","label":"Réassurance 3","default":"Garantie 2 ans, service à Lausanne"},
  {"type":"header","content":"Code de bienvenue"},
  {"type":"text","id":"code","label":"Code","default":"CAFE","info":"Doit correspondre exactement à une remise active dans Shopify > Remises."},
  {"type":"text","id":"code_text","label":"Texte","default":"Bienvenue : −10 % sur votre première commande avec le code"},

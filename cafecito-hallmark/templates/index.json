@@ -23,8 +23,8 @@
           "type": "trust",
           "settings": {
             "icon": "return",
-            "title": "Retours sous 14 jours",
-            "text": "Vous avez 14 jours pour changer d’avis."
+            "title": "30 jours satisfait ou remboursé",
+            "text": "Elle ne vous plaît pas ? On vous rembourse."
           }
         },
         "t4": {
@@ -64,7 +64,16 @@
         "chip_3": "Tasse intégrée",
         "show_beans": false,
         "show_bean_drawings": false,
-        "word": "cafecito"
+        "word": "cafecito",
+        "show_dynamic": true,
+        "highlight": 2,
+        "highlight_label": "Idéal à deux ou à offrir",
+        "lowest_label": "Prix le plus bas par machine",
+        "discount_pct": 10,
+        "discount_note": "sur votre 1re commande",
+        "reassure_1": "Livraison offerte, en 7 à 15 jours ouvrables",
+        "reassure_2": "30 jours satisfait ou remboursé",
+        "reassure_3": "Garantie 2 ans, service à Lausanne"
       }
     },
     "why": {
@@ -75,31 +84,31 @@
           "settings": {
             "icon": "shield",
             "title": "Paiement sécurisé",
-            "text": "Commandez en toute sérénité."
+            "text": "Carte, Apple Pay, Google Pay, PayPal ou Klarna."
           }
         },
         "w2": {
           "type": "promise",
           "settings": {
-            "icon": "check",
-            "title": "Une expérience premium",
-            "text": "Le souci du détail, à chaque commande."
+            "icon": "truck",
+            "title": "Livraison offerte et suivie",
+            "text": "En Suisse et dans toute l'UE, avec numéro de suivi."
           }
         },
         "w3": {
           "type": "promise",
           "settings": {
             "icon": "return",
-            "title": "14 jours pour l'essayer",
-            "text": "Pas convaincu ? On vous rembourse."
+            "title": "30 jours pour l'essayer",
+            "text": "Elle ne vous plaît pas ? On vous rembourse."
           }
         },
         "w4": {
           "type": "promise",
           "settings": {
             "icon": "chat",
-            "title": "Qualité avant tout",
-            "text": "Des produits sélectionnés avec soin."
+            "title": "Une équipe à Lausanne",
+            "text": "Une question ? On vous répond en français, par e-mail."
           }
         }
       },
@@ -215,16 +224,24 @@
         "show_dynamic": true,
         "code": "CAFE",
         "code_text": "−10 % sur votre première commande avec le code",
-        "ship_1": "Livraison offerte en Suisse et dans l'UE, avec suivi",
+        "ship_1": "",
         "ship_2": "Rien de plus à payer à la livraison",
         "deadline": "",
         "deadline_label": "L'offre se termine dans",
-        "as_1": "Retours 14 jours",
+        "as_1": "Retours 30 jours",
         "link_ret": "/policies/refund-policy",
         "as_2": "Garantie 2 ans",
         "link_gar": "/pages/garantie",
         "as_3": "Basés à Lausanne",
-        "link_pay": "/pages/a-propos"
+        "link_pay": "/pages/a-propos",
+        "highlight": 2,
+        "highlight_label": "Idéal à deux ou à offrir",
+        "lowest_label": "Prix le plus bas par machine",
+        "discount_pct": 10,
+        "discount_note": "sur votre 1re commande",
+        "reassure_1": "Livraison offerte, en 7 à 15 jours ouvrables",
+        "reassure_2": "30 jours satisfait ou remboursé",
+        "reassure_3": "Garantie 2 ans, service à Lausanne"
       }
     },
     "steps": {
@@ -448,14 +465,14 @@
           "type": "qa",
           "settings": {
             "question": "Aurai-je quelque chose à payer à la livraison ?",
-            "answer": "<p>Non. Le prix affiché est le prix final. Si des droits de douane vous étaient quand même demandés, envoyez-nous le justificatif : nous vous les remboursons intégralement.</p>"
+            "answer": "<p>Non. Le prix affiché est le prix final, et le −10 % de bienvenue s'applique tout seul au paiement sur votre 1re commande. Si des droits de douane vous étaient quand même demandés, envoyez-nous le justificatif : nous vous les remboursons intégralement.</p>"
           }
         },
         "q8": {
           "type": "qa",
           "settings": {
             "question": "Et si elle ne me plaît pas ?",
-            "answer": "<p>Vous avez 14 jours après réception pour nous la retourner, sans justification. Tout est expliqué dans notre <a href='/policies/refund-policy'>politique de retour</a>.</p>"
+            "answer": "<p>Vous avez 30 jours après réception pour nous la retourner et être remboursé, sans justification. Tout est expliqué dans notre <a href='/policies/refund-policy'>politique de retour</a>.</p>"
           }
         },
         "q9": {
@@ -532,7 +549,7 @@
         "show_price": true,
         "image": "shopify://shop_images/Machine_a_espresso_portable_elegante.png",
         "title": "Votre prochain café vous attend ailleurs.",
-        "text": "Livraison offerte en Suisse et dans l'UE. 14 jours pour l'essayer.",
+        "text": "Livraison offerte en Suisse et dans l'UE. 30 jours pour l'essayer, −10 % sur votre 1re commande.",
         "cta": "Je veux la mienne",
         "link": "#acheter"
       }
@@ -542,7 +559,7 @@
       "settings": {
         "product": "machine-espresso-portable",
         "label": "Cafecito Nomade",
-        "note": "Livraison offerte",
+        "note": "Livraison offerte, −10 % appliqué",
         "cta": "Commander",
         "link": "#acheter"
       }
