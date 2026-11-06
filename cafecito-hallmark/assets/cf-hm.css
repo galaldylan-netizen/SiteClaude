@@ -356,7 +356,7 @@ body { caret-color: var(--color-accent); }
 @media (max-width: 40rem) { .hm-offer--hero .hm-offer__actions { grid-template-columns: minmax(0, 1fr); } }
 
 .hm-offer--hero .hm-pack { row-gap: 0; }
-.hm-offer--hero .hm-pack__best, .hm-offer--hero .hm-pack__low { white-space: nowrap; }
+.hm-offer--hero .hm-pack__best, .hm-offer--hero .hm-pack__low { max-width: 100%; line-height: 1.25; }
 .hm-offer--hero .hm-offer__price strong { font-size: 36px; }
 @media (min-width: 990px) and (max-height: 880px) {
   .hm h1.hm-hero__title { font-size: 58px; }
