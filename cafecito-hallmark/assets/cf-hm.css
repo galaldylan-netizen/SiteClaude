@@ -46,9 +46,9 @@ body { caret-color: var(--color-accent); }
 .hm h1, .hm h2, .hm h3 { margin: 0; font-family: var(--font-display); font-weight: 400; font-style: normal; font-synthesis: none; letter-spacing: var(--tracking-display); color: inherit; line-height: 1.04; overflow-wrap: break-word; min-width: 0; text-wrap: balance; }
 .hm h2 { font-size: var(--text-section); max-width: 18ch; }
 .hm h3 { font-size: var(--text-title); line-height: 1.2; letter-spacing: -0.01em; max-width: 30ch; }
-.hm p { margin: 0; text-wrap: pretty; }
+.hm :where(p) { margin: 0; text-wrap: pretty; }
 .hm img { max-width: 100%; height: auto; display: block; }
-.hm ul, .hm ol { margin: 0; padding: 0; list-style: none; }
+.hm :where(ul, ol) { margin: 0; padding: 0; list-style: none; }
 .hm-container { width: 100%; max-width: var(--container); margin-inline: auto; padding-inline: var(--gutter); }
 .hm-num { font-variant-numeric: tabular-nums lining-nums; }
 .hm-lead { font-size: var(--text-lead); line-height: 1.5; color: var(--color-muted); max-width: 46ch; }
