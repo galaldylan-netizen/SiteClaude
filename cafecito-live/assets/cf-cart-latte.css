@@ -16,4 +16,4 @@ cart-drawer #CartDrawer-Checkout:after, cart-drawer #CartDrawer-Checkout:before 
 /* Section « Pourquoi nous » : une seule grande photo quand une seule image est choisie */
 .cf-dream__bg:has(> .cf-dream__pane:only-child) { display: block; }
 .cf-dream__bg > .cf-dream__pane:only-child { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
-.cf-dream__bg > .cf-dream__pane:only-child img { width: 100%; height: 100%; object-fit: cover; object-position: center 60%; }
+.cf-dream__bg > .cf-dream__pane:only-child img { width: 100%; height: 100%; object-fit: cover; object-position: 72% 55%; }
