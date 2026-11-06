@@ -169,11 +169,11 @@
         "reassure_1": "Livraison offerte, en 7 à 15 jours ouvrables",
         "reassure_2": "30 jours satisfait ou remboursé",
         "reassure_3": "Garantie 2 ans, service à Lausanne",
-        "gallery_1": "shopify://shop_images/cafecito-camping.jpg",
-        "gallery_2": "shopify://shop_images/cafecito-voiture.jpg",
-        "gallery_3": "shopify://shop_images/cafecito-bureau.jpg",
-        "gallery_4": "shopify://shop_images/cafecito-avion.jpg",
-        "gallery_5": "shopify://shop_images/cafecito-neige.jpg"
+        "gallery_1": "shopify://shop_images/cafecito-camping-carre.jpg",
+        "gallery_2": "shopify://shop_images/cafecito-voiture-carre.jpg",
+        "gallery_3": "shopify://shop_images/cafecito-bureau-carre.jpg",
+        "gallery_4": "shopify://shop_images/cafecito-avion-carre.jpg",
+        "gallery_5": "shopify://shop_images/cafecito-neige-carre.jpg"
       }
     },
     "steps": {

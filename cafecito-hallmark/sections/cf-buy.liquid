@@ -33,7 +33,7 @@
             {%- assign g = section.settings[k] -%}
             {%- if g != blank -%}
               {%- assign n = n | plus: 1 -%}
-              <button type="button" class="hm-gal__thumb" data-cf-thumb aria-current="false" aria-label="Voir la photo {{ n }}" data-src="{{ g | image_url: width: 1200 }}" data-srcset="{{ g | image_url: width: 600 }} 600w, {{ g | image_url: width: 1200 }} 1200w" data-alt="{{ g.alt | escape }}" data-cover="{% if g.aspect_ratio >= 1.2 %}true{% else %}false{% endif %}">{{ g | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
+              <button type="button" class="hm-gal__thumb" data-cf-thumb aria-current="false" aria-label="Voir la photo {{ n }}" data-src="{{ g | image_url: width: 1200 }}" data-srcset="{{ g | image_url: width: 600 }} 600w, {{ g | image_url: width: 1200 }} 1200w" data-alt="{{ g.alt | escape }}" data-cover="{% if g.aspect_ratio >= 0.95 %}true{% else %}false{% endif %}">{{ g | image_url: width: 160 | image_tag: loading: 'lazy', alt: '' }}</button>
             {%- endif -%}
           {%- endfor -%}
         </div>
